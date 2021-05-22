@@ -90,7 +90,6 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/en/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
         <li class="menu-item menu-item-categories"><a href="/en/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
-        <li class="menu-item menu-item-language"><a href="/en/../" rel="section"><i class="fa fa-language fa-fw"></i>简体中文</a></li>
   </ul>
 </nav>
 
@@ -230,14 +229,14 @@
   <span class="author" itemprop="copyrightHolder">xqy</span>
 </div>
 
+<script>
+  function toChinese(){
+    window.location.pathname = window.location.pathname.slice(3);
+  }
+</script>
+
 <div class="copyright">
-  <script language="javascript">
-  <!--
-    url=window.location.host;
-	str="<a href='"+url+"'>";
-	document.write(str+"简体中文</a>");
-  -->
-  </script>
+  <a href="javascript:toChinese()">简体中文</a>
 </div>
 
     </div>

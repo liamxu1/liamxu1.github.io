@@ -93,7 +93,6 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
-        <li class="menu-item menu-item-language"><a href="/en/" rel="section"><i class="fa fa-language fa-fw"></i>English</a></li>
   </ul>
 </nav>
 
@@ -279,14 +278,14 @@
   <span class="author" itemprop="copyrightHolder">xqy</span>
 </div>
 
+<script>
+  function toEnglish(){
+    window.location.pathname = '/en'+window.location.pathname;
+  }
+</script>
+
 <div class="copyright">
-  <script language="javascript">
-  <!--
-    url=window.location.host+'/en/';
-	str="<a href='"+url+"'>";
-	document.write(str+"English</a>");
-  -->
-  </script>
+  <a href="javascript:toEnglish()">English</a>
 </div>
 
     </div>
