@@ -314,16 +314,20 @@
 <p>假定<span class="math inline">\(f\)</span>是以<span class="math inline">\(2\pi\)</span>为周期的函数，如果三角级数 <span class="math display">\[
 a_0+\sum_{k=1}^{\infty}a_k\cos(kx)+b_k\sin(kx)
 \]</span> 的系数由下式给出 <span class="math display">\[
-a_0=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)dx\\
-a_k=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\cos(kx)dx\\
-b_k=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\sin(kx)dx\\
+\begin{aligned}
+a_0&amp;=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)dx\\
+a_k&amp;=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\cos(kx)dx\\
+b_k&amp;=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\sin(kx)dx\\
+\end{aligned}
 \]</span> 则称该三角级数为<span class="math inline">\(f\)</span>的Fourier级数。</p>
 <p>事实上，容易验证<span class="math inline">\(\{\frac{1}{\sqrt{2\pi}},\frac{\cos(nx)}{\sqrt{\pi}},\frac{\sin(nx)}{\sqrt{\pi}},n=1,2,\cdots\}\)</span>是<span class="math inline">\(L^2([-\pi,\pi])\)</span>中的标准正交基，上式不严格地说是这一观察的显然推论。</p>
 <p>类似地，函数系 <span class="math display">\[
 \{\frac{e^{int}}{\sqrt{2\pi}},n=\cdots,-2,-1,0,1,2,\cdots\}
 \]</span> 在<span class="math inline">\(L^2([-\pi,\pi])\)</span>中标准正交，故 <span class="math display">\[
-f(t)=\sum_{-\infty}^{\infty}\alpha_ne^{int}\\
-\alpha_n=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(t)e^{-int}dt
+\begin{aligned}
+f(t)=&amp;\sum_{-\infty}^{\infty}\alpha_ne^{int}\\
+\alpha_n=\frac{1}{2\pi}&amp;\int_{-\pi}^{\pi}f(t)e^{-int}dt
+\end{aligned}
 \]</span> 为<span class="math inline">\(f\)</span>的复型Fourier级数</p>
 <h2 id="傅里叶级数的收敛性">傅里叶级数的收敛性</h2>
 <ul>
@@ -427,7 +431,7 @@ S_N(x)=\int_{-\pi}^{\pi}f(u+x)P_N(u)du
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">2k</span>
+    <span title="站点总字数">3k</span>
   </span>
 </div>
 <div class="busuanzi-count">
