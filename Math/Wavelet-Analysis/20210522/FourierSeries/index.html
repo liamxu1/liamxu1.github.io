@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;liamxu1.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="傅里叶级数 假定\(f\)是以\(2\pi\)为周期的函数，如果三角级数 \[ a_0+\sum_{k&#x3D;1}^{\infty}a_k\cos(kx)+b_k\sin(kx) \] 的系数由下式给出 \[ a_0&#x3D;\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)dx\\ a_k&#x3D;\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\cos(kx)dx\">
+<meta property="og:type" content="article">
+<meta property="og:title" content="傅里叶级数">
+<meta property="og:url" content="http://liamxu1.github.io/Math/Wavelet-Analysis/20210522/FourierSeries/index.html">
+<meta property="og:site_name" content="Xqy的秘密小空间">
+<meta property="og:description" content="傅里叶级数 假定\(f\)是以\(2\pi\)为周期的函数，如果三角级数 \[ a_0+\sum_{k&#x3D;1}^{\infty}a_k\cos(kx)+b_k\sin(kx) \] 的系数由下式给出 \[ a_0&#x3D;\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)dx\\ a_k&#x3D;\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\cos(kx)dx\">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-22T10:55:11.000Z">
+<meta property="article:modified_time" content="2021-05-23T05:52:05.527Z">
+<meta property="article:author" content="xqy">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://liamxu1.github.io/Math/Wavelet-Analysis/20210522/FourierSeries/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;liamxu1.github.io&#x2F;Math&#x2F;Wavelet-Analysis&#x2F;20210522&#x2F;FourierSeries&#x2F;&quot;,&quot;path&quot;:&quot;Math&#x2F;Wavelet-Analysis&#x2F;20210522&#x2F;FourierSeries&#x2F;&quot;,&quot;title&quot;:&quot;傅里叶级数&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>傅里叶级数 | Xqy的秘密小空间</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Xqy的秘密小空间</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎来到我的Blog！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">傅里叶级数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E7%9A%84%E6%94%B6%E6%95%9B%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">傅里叶级数的收敛性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#parseval%E7%AD%89%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">Parseval等式</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xqy"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">xqy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liamxu1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liamxu1" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/Math/Wavelet-Analysis/20210522/FourierSeries/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          傅里叶级数
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-22 18:55:11" itemprop="dateCreated datePublished" datetime="2021-05-22T18:55:11+08:00">2021-05-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/" itemprop="url" rel="index"><span itemprop="name">Math</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/Wavelet-Analysis/" itemprop="url" rel="index"><span itemprop="name">Wavelet Analysis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="傅里叶级数">傅里叶级数</h1>
+<p>假定<span class="math inline">\(f\)</span>是以<span class="math inline">\(2\pi\)</span>为周期的函数，如果三角级数 <span class="math display">\[
+a_0+\sum_{k=1}^{\infty}a_k\cos(kx)+b_k\sin(kx)
+\]</span> 的系数由下式给出 <span class="math display">\[
+a_0=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)dx\\
+a_k=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\cos(kx)dx\\
+b_k=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\sin(kx)dx\\
+\]</span> 则称该三角级数为<span class="math inline">\(f\)</span>的Fourier级数。</p>
+<p>事实上，容易验证<span class="math inline">\(\{\frac{1}{\sqrt{2\pi}},\frac{\cos(nx)}{\sqrt{\pi}},\frac{\sin(nx)}{\sqrt{\pi}},n=1,2,\cdots\}\)</span>是<span class="math inline">\(L^2([-\pi,\pi])\)</span>中的标准正交基，上式不严格地说是这一观察的显然推论。</p>
+<p>类似地，函数系 <span class="math display">\[
+\{\frac{e^{int}}{\sqrt{2\pi}},n=\cdots,-2,-1,0,1,2,\cdots\}
+\]</span> 在<span class="math inline">\(L^2([-\pi,\pi])\)</span>中标准正交，故 <span class="math display">\[
+f(t)=\sum_{-\infty}^{\infty}\alpha_ne^{int}\\
+\alpha_n=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(t)e^{-int}dt
+\]</span> 为<span class="math inline">\(f\)</span>的复型Fourier级数</p>
+<h2 id="傅里叶级数的收敛性">傅里叶级数的收敛性</h2>
+<ul>
+<li><p>Riemann-Lebesgue引理</p>
+<p>假设<span class="math inline">\(f\)</span>是区间<span class="math inline">\([a,b]\)</span>上的分段连续函数，则有 <span class="math display">\[
+\lim_{k\rightarrow\infty}\int_a^bf(x)\cos(kx)dx=\lim_{k\rightarrow\infty}\int_a^bf(x)\sin(kx)dx=0
+\]</span> (证明思路：和实分析中很多过程十分相似，阶梯函数-&gt;有界可积函数-&gt;绝对可积函数)</p></li>
+</ul>
+<p>下面令 <span class="math display">\[
+S_N(x)=a_0+\sum_{k=1}^{N}a_k\cos(kx)+b_k\sin(kx)
+\]</span> 收敛性均是讨论<span class="math inline">\(S_N(x)\rightarrow f(x)\)</span>。</p>
+<ul>
+<li><p><span class="math inline">\(Thm1\)</span> 假设<span class="math inline">\(f\)</span>是以<span class="math inline">\(2\pi\)</span>为周期的连续函数，如果<span class="math inline">\(f\)</span>在<span class="math inline">\(x\)</span>点可导，则f的Fourier级数在<span class="math inline">\(x\)</span>点处收敛到<span class="math inline">\(f\)</span>。事实上对于连续函数，其Fourier级数是几乎处处收敛到其自身的。</p>
+<p><span class="math inline">\(proof\)</span></p>
+<p>引入Dirichlet核 <span class="math display">\[
+\begin{aligned}
+P_N(u)&amp;=\frac{1}{\pi}\left(\frac{1}{2}+\sum_{k=1}^N\cos(ku)\right)\\
+&amp;=\begin{cases}
+\frac{1}{2\pi}\frac{\sin((N+1/2)u)}{\sin(u/2)},&amp;u\ne 2j\pi\\
+\frac{1}{2\pi}(2N+1),&amp;u=2j\pi
+\end{cases}
+\end{aligned}
+\]</span> 则 <span class="math display">\[
+\begin{aligned}
+S_N(x)&amp;=\int_{-\pi}^{\pi}f(t)P_N(t-x)dt\\
+&amp;=\int_{-\pi}^{\pi}f(u+x)P_N(u)du
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+S_N(x)-f(x)&amp;=\int_{-\pi}^\pi(f(u+x)-f(x))P_N(u)du\\
+&amp;=\frac{1}{2\pi}\int_{-\pi}^\pi\left(\frac{f(u+x)-f(x)}{\sin(u/2)}\right)\sin((N+1/2)u)du
+\end{aligned}
+\]</span></p>
+<p>由<span class="math inline">\(f\)</span>在<span class="math inline">\(x\)</span>处可导性与Riemann-Lebesgue引理，有<span class="math inline">\(S_N(x)\rightarrow f(x)\)</span>。</p></li>
+<li><p><span class="math inline">\(Thm2\)</span> 假设<span class="math inline">\(f(x)\)</span>是以<span class="math inline">\(2\pi\)</span>为周期的分段连续函数，如果<span class="math inline">\(f\)</span>在<span class="math inline">\(x\)</span>处左右可导则<span class="math inline">\(f\)</span>的Fourier级数在<span class="math inline">\(x\)</span>点收敛到<span class="math inline">\(\frac{f(x+0)+f(x-0)}{2}\)</span>。</p>
+<p><span class="math inline">\(proof\)</span></p>
+<p>由前面讨论知 <span class="math display">\[
+S_N(x)=\int_{-\pi}^{\pi}f(u+x)P_N(u)du
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;S_N(x)-\frac{f(x+0)+f(x-0)}{2}\\
+=&amp;\int_{-\pi}^{0}(f(u+x)-f(x+0))P_N(u)dt+\int_{0}^{\pi}(f(u+x)-f(x-0))P_N(u)du
+\end{aligned}
+\]</span> 由<span class="math inline">\(f\)</span>左右可导，两项分别类似讨论即可。</p></li>
+<li><p><span class="math inline">\(Thm3\)</span> 假设<span class="math inline">\(f\)</span>是以<span class="math inline">\(2\pi\)</span>为周期的分段光滑函数，则其Fourier级数在<span class="math inline">\([-\pi,\pi]\)</span>上一致收敛于<span class="math inline">\(f\)</span>。</p></li>
+<li><p><span class="math inline">\(Thm4\)</span> 若<span class="math inline">\(f\in L^2([-\pi,\pi])\)</span>，则<span class="math inline">\(\Vert f-S_N\Vert_{L^2}\rightarrow0\)</span> （依范数收敛）（事实上，<span class="math inline">\(S_N\)</span>是<span class="math inline">\(f\)</span>到<span class="math inline">\(V_N\)</span>的正交投影）</p></li>
+</ul>
+<h2 id="parseval等式">Parseval等式</h2>
+<p>设<span class="math inline">\(f,g\in L^2([-\pi,\pi]),~\alpha_k,\beta_k\)</span>为其复型Fourier系数，则有 <span class="math display">\[
+\frac{1}{2\pi}\langle f,g\rangle=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(t)\overline{g(t)}dt=\sum_{k=-\infty}^{\infty}\alpha_k\overline{\beta_k}
+\]</span> <span class="math inline">\(proof\)</span> 易得<span class="math inline">\(\langle f_N,g_N\rangle\rightarrow\langle f,g\rangle\)</span></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/basic/20210520/Introduction/" rel="prev" title="介绍">
+                  <i class="fa fa-chevron-left"></i> 介绍
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xqy</span>
+</div>
+
+<script>
+  function toEnglish(){
+    window.location.pathname = '/en'+window.location.pathname;
+  }
+</script>
+
+<div class="copyright">
+  <a href="javascript:toEnglish()">English</a>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">2k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;cdn&quot;:&quot;&#x2F;&#x2F;cdn.bootcss.com&#x2F;mathjax&#x2F;2.7.1&#x2F;latest.js?config&#x3D;TeX-AMS-MML_HTMLorMML&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
