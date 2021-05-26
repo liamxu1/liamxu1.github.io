@@ -19,12 +19,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;liamxu1.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
-<meta name="description" content="傅里叶级数 假定\(f\)是以\(2\pi\)为周期的函数，如果三角级数 \[ a_0+\sum_{k&#x3D;1}^{\infty}a_k\cos(kx)+b_k\sin(kx) \] 的系数由下式给出 \[ \begin{aligned} a_0&amp;&#x3D;\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)dx\\ a_k&amp;&#x3D;\frac{1}{\pi}\int_">
+<meta name="description" content="傅里叶级数假定$f$是以$2\pi$为周期的函数，如果三角级数  a_0+\sum_{k&#x3D;1}^{\infty}a_k\cos(kx)+b_k\sin(kx)的系数由下式给出  \begin{aligned} a_0&amp;&#x3D;\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)dx\\ a_k&amp;&#x3D;\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\cos(kx)dx\">
 <meta property="og:type" content="article">
 <meta property="og:title" content="傅里叶级数">
 <meta property="og:url" content="http://liamxu1.github.io/Math/Wavelet-Analysis/20210522/FourierSeries/index.html">
 <meta property="og:site_name" content="Xqy的秘密小空间">
-<meta property="og:description" content="傅里叶级数 假定\(f\)是以\(2\pi\)为周期的函数，如果三角级数 \[ a_0+\sum_{k&#x3D;1}^{\infty}a_k\cos(kx)+b_k\sin(kx) \] 的系数由下式给出 \[ \begin{aligned} a_0&amp;&#x3D;\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)dx\\ a_k&amp;&#x3D;\frac{1}{\pi}\int_">
+<meta property="og:description" content="傅里叶级数假定$f$是以$2\pi$为周期的函数，如果三角级数  a_0+\sum_{k&#x3D;1}^{\infty}a_k\cos(kx)+b_k\sin(kx)的系数由下式给出  \begin{aligned} a_0&amp;&#x3D;\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)dx\\ a_k&amp;&#x3D;\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\cos(kx)dx\">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-22T10:55:11.000Z">
 <meta property="article:modified_time" content="2021-05-23T06:05:16.857Z">
@@ -121,7 +121,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">傅里叶级数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E7%9A%84%E6%94%B6%E6%95%9B%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">傅里叶级数的收敛性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#parseval%E7%AD%89%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">Parseval等式</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">傅里叶级数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E7%9A%84%E6%94%B6%E6%95%9B%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">傅里叶级数的收敛性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parseval%E7%AD%89%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">Parseval等式</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -137,7 +137,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -240,77 +240,75 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="傅里叶级数">傅里叶级数</h1>
-<p>假定<span class="math inline">\(f\)</span>是以<span class="math inline">\(2\pi\)</span>为周期的函数，如果三角级数 <span class="math display">\[
-a_0+\sum_{k=1}^{\infty}a_k\cos(kx)+b_k\sin(kx)
-\]</span> 的系数由下式给出 <span class="math display">\[
+        <h1 id="傅里叶级数"><a href="#傅里叶级数" class="headerlink" title="傅里叶级数"></a>傅里叶级数</h1><p>假定$f$是以$2\pi$为周期的函数，如果三角级数</p>
+<script type="math/tex; mode=display">
+a_0+\sum_{k=1}^{\infty}a_k\cos(kx)+b_k\sin(kx)</script><p>的系数由下式给出</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-a_0&amp;=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)dx\\
-a_k&amp;=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\cos(kx)dx\\
-b_k&amp;=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\sin(kx)dx\\
-\end{aligned}
-\]</span> 则称该三角级数为<span class="math inline">\(f\)</span>的Fourier级数。</p>
-<p>事实上，容易验证<span class="math inline">\(\{\frac{1}{\sqrt{2\pi}},\frac{\cos(nx)}{\sqrt{\pi}},\frac{\sin(nx)}{\sqrt{\pi}},n=1,2,\cdots\}\)</span>是<span class="math inline">\(L^2([-\pi,\pi])\)</span>中的标准正交基，上式不严格地说是这一观察的显然推论。</p>
-<p>类似地，函数系 <span class="math display">\[
-\{\frac{e^{int}}{\sqrt{2\pi}},n=\cdots,-2,-1,0,1,2,\cdots\}
-\]</span> 在<span class="math inline">\(L^2([-\pi,\pi])\)</span>中标准正交，故 <span class="math display">\[
+a_0&=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(x)dx\\
+a_k&=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\cos(kx)dx\\
+b_k&=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)\sin(kx)dx\\
+\end{aligned}</script><p>则称该三角级数为$f$的Fourier级数。</p>
+<p>事实上，容易验证$\{\frac{1}{\sqrt{2\pi}},\frac{\cos(nx)}{\sqrt{\pi}},\frac{\sin(nx)}{\sqrt{\pi}},n=1,2,\cdots\}$是$L^2([-\pi,\pi])$中的标准正交基，上式不严格地说是这一观察的显然推论。</p>
+<p>类似地，函数系</p>
+<script type="math/tex; mode=display">
+\{\frac{e^{int}}{\sqrt{2\pi}},n=\cdots,-2,-1,0,1,2,\cdots\}</script><p>在$L^2([-\pi,\pi])$中标准正交，故</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-f(t)=&amp;\sum_{-\infty}^{\infty}\alpha_ne^{int}\\
-\alpha_n=\frac{1}{2\pi}&amp;\int_{-\pi}^{\pi}f(t)e^{-int}dt
-\end{aligned}
-\]</span> 为<span class="math inline">\(f\)</span>的复型Fourier级数</p>
-<h2 id="傅里叶级数的收敛性">傅里叶级数的收敛性</h2>
-<ul>
+f(t)=&\sum_{-\infty}^{\infty}\alpha_ne^{int}\\
+\alpha_n=\frac{1}{2\pi}&\int_{-\pi}^{\pi}f(t)e^{-int}dt
+\end{aligned}</script><p>为$f$的复型Fourier级数</p>
+<h2 id="傅里叶级数的收敛性"><a href="#傅里叶级数的收敛性" class="headerlink" title="傅里叶级数的收敛性"></a>傅里叶级数的收敛性</h2><ul>
 <li><p>Riemann-Lebesgue引理</p>
-<p>假设<span class="math inline">\(f\)</span>是区间<span class="math inline">\([a,b]\)</span>上的分段连续函数，则有 <span class="math display">\[
-\lim_{k\rightarrow\infty}\int_a^bf(x)\cos(kx)dx=\lim_{k\rightarrow\infty}\int_a^bf(x)\sin(kx)dx=0
-\]</span> (证明思路：和实分析中很多过程十分相似，阶梯函数-&gt;有界可积函数-&gt;绝对可积函数)</p></li>
+<p>假设$f$是区间$[a,b]$上的分段连续函数，则有</p>
+<script type="math/tex; mode=display">
+\lim_{k\rightarrow\infty}\int_a^bf(x)\cos(kx)dx=\lim_{k\rightarrow\infty}\int_a^bf(x)\sin(kx)dx=0</script><p>(证明思路：和实分析中很多过程十分相似，阶梯函数-&gt;有界可积函数-&gt;绝对可积函数)</p>
+</li>
 </ul>
-<p>下面令 <span class="math display">\[
-S_N(x)=a_0+\sum_{k=1}^{N}a_k\cos(kx)+b_k\sin(kx)
-\]</span> 收敛性均是讨论<span class="math inline">\(S_N(x)\rightarrow f(x)\)</span>。</p>
+<p>下面令</p>
+<script type="math/tex; mode=display">
+S_N(x)=a_0+\sum_{k=1}^{N}a_k\cos(kx)+b_k\sin(kx)</script><p>收敛性均是讨论$S_N(x)\rightarrow f(x)$。</p>
 <ul>
-<li><p><span class="math inline">\(Thm1\)</span> 假设<span class="math inline">\(f\)</span>是以<span class="math inline">\(2\pi\)</span>为周期的连续函数，如果<span class="math inline">\(f\)</span>在<span class="math inline">\(x\)</span>点可导，则f的Fourier级数在<span class="math inline">\(x\)</span>点处收敛到<span class="math inline">\(f\)</span>。事实上对于连续函数，其Fourier级数是几乎处处收敛到其自身的。</p>
-<p><span class="math inline">\(proof\)</span></p>
-<p>引入Dirichlet核 <span class="math display">\[
+<li><p>$Thm1$ 假设$f$是以$2\pi$为周期的连续函数，如果$f$在$x$点可导，则f的Fourier级数在$x$点处收敛到$f$。事实上对于连续函数，其Fourier级数是几乎处处收敛到其自身的。</p>
+<p>$proof$</p>
+<p>引入Dirichlet核</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-P_N(u)&amp;=\frac{1}{\pi}\left(\frac{1}{2}+\sum_{k=1}^N\cos(ku)\right)\\
-&amp;=\begin{cases}
-\frac{1}{2\pi}\frac{\sin((N+1/2)u)}{\sin(u/2)},&amp;u\ne 2j\pi\\
-\frac{1}{2\pi}(2N+1),&amp;u=2j\pi
+P_N(u)&=\frac{1}{\pi}\left(\frac{1}{2}+\sum_{k=1}^N\cos(ku)\right)\\
+&=\begin{cases}
+\frac{1}{2\pi}\frac{\sin((N+1/2)u)}{\sin(u/2)},&u\ne 2j\pi\\
+\frac{1}{2\pi}(2N+1),&u=2j\pi
 \end{cases}
-\end{aligned}
-\]</span> 则 <span class="math display">\[
+\end{aligned}</script><p>则</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-S_N(x)&amp;=\int_{-\pi}^{\pi}f(t)P_N(t-x)dt\\
-&amp;=\int_{-\pi}^{\pi}f(u+x)P_N(u)du
-\end{aligned}
-\]</span></p>
-<p><span class="math display">\[
+S_N(x)&=\int_{-\pi}^{\pi}f(t)P_N(t-x)dt\\
+&=\int_{-\pi}^{\pi}f(u+x)P_N(u)du
+\end{aligned}</script><script type="math/tex; mode=display">
 \begin{aligned}
-S_N(x)-f(x)&amp;=\int_{-\pi}^\pi(f(u+x)-f(x))P_N(u)du\\
-&amp;=\frac{1}{2\pi}\int_{-\pi}^\pi\left(\frac{f(u+x)-f(x)}{\sin(u/2)}\right)\sin((N+1/2)u)du
-\end{aligned}
-\]</span></p>
-<p>由<span class="math inline">\(f\)</span>在<span class="math inline">\(x\)</span>处可导性与Riemann-Lebesgue引理，有<span class="math inline">\(S_N(x)\rightarrow f(x)\)</span>。</p></li>
-<li><p><span class="math inline">\(Thm2\)</span> 假设<span class="math inline">\(f(x)\)</span>是以<span class="math inline">\(2\pi\)</span>为周期的分段连续函数，如果<span class="math inline">\(f\)</span>在<span class="math inline">\(x\)</span>处左右可导则<span class="math inline">\(f\)</span>的Fourier级数在<span class="math inline">\(x\)</span>点收敛到<span class="math inline">\(\frac{f(x+0)+f(x-0)}{2}\)</span>。</p>
-<p><span class="math inline">\(proof\)</span></p>
-<p>由前面讨论知 <span class="math display">\[
-S_N(x)=\int_{-\pi}^{\pi}f(u+x)P_N(u)du
-\]</span></p>
-<p><span class="math display">\[
-\begin{aligned}
-&amp;S_N(x)-\frac{f(x+0)+f(x-0)}{2}\\
-=&amp;\int_{-\pi}^{0}(f(u+x)-f(x+0))P_N(u)dt+\int_{0}^{\pi}(f(u+x)-f(x-0))P_N(u)du
-\end{aligned}
-\]</span> 由<span class="math inline">\(f\)</span>左右可导，两项分别类似讨论即可。</p></li>
-<li><p><span class="math inline">\(Thm3\)</span> 假设<span class="math inline">\(f\)</span>是以<span class="math inline">\(2\pi\)</span>为周期的分段光滑函数，则其Fourier级数在<span class="math inline">\([-\pi,\pi]\)</span>上一致收敛于<span class="math inline">\(f\)</span>。</p></li>
-<li><p><span class="math inline">\(Thm4\)</span> 若<span class="math inline">\(f\in L^2([-\pi,\pi])\)</span>，则<span class="math inline">\(\Vert f-S_N\Vert_{L^2}\rightarrow0\)</span> （依范数收敛）（事实上，<span class="math inline">\(S_N\)</span>是<span class="math inline">\(f\)</span>到<span class="math inline">\(V_N\)</span>的正交投影）</p></li>
+S_N(x)-f(x)&=\int_{-\pi}^\pi(f(u+x)-f(x))P_N(u)du\\
+&=\frac{1}{2\pi}\int_{-\pi}^\pi\left(\frac{f(u+x)-f(x)}{\sin(u/2)}\right)\sin((N+1/2)u)du
+\end{aligned}</script></li>
 </ul>
-<h2 id="parseval等式">Parseval等式</h2>
-<p>设<span class="math inline">\(f,g\in L^2([-\pi,\pi]),~\alpha_k,\beta_k\)</span>为其复型Fourier系数，则有 <span class="math display">\[
-\frac{1}{2\pi}\langle f,g\rangle=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(t)\overline{g(t)}dt=\sum_{k=-\infty}^{\infty}\alpha_k\overline{\beta_k}
-\]</span> <span class="math inline">\(proof\)</span> 易得<span class="math inline">\(\langle f_N,g_N\rangle\rightarrow\langle f,g\rangle\)</span></p>
+<p>  由$f$在$x$处可导性与Riemann-Lebesgue引理，有$S_N(x)\rightarrow f(x)$。</p>
+<ul>
+<li><p>$Thm2$ 假设$f(x)$是以$2\pi$为周期的分段连续函数，如果$f$在$x$处左右可导则$f$的Fourier级数在$x$点收敛到$\frac{f(x+0)+f(x-0)}{2}$。</p>
+<p>$proof$</p>
+<p>由前面讨论知</p>
+<script type="math/tex; mode=display">
+S_N(x)=\int_{-\pi}^{\pi}f(u+x)P_N(u)du</script><script type="math/tex; mode=display">
+\begin{aligned}
+&S_N(x)-\frac{f(x+0)+f(x-0)}{2}\\
+=&\int_{-\pi}^{0}(f(u+x)-f(x+0))P_N(u)dt+\int_{0}^{\pi}(f(u+x)-f(x-0))P_N(u)du
+\end{aligned}</script><p>由$f$左右可导，两项分别类似讨论即可。</p>
+</li>
+<li><p>$Thm3$ 假设$f$是以$2\pi$为周期的分段光滑函数，则其Fourier级数在$[-\pi,\pi]$上一致收敛于$f$。</p>
+</li>
+<li>$Thm4$ 若$f\in L^2([-\pi,\pi])$，则$\Vert f-S_N\Vert_{L^2}\rightarrow0$ （依范数收敛）（事实上，$S_N$是$f$到$V_N$的正交投影）</li>
+</ul>
+<h2 id="Parseval等式"><a href="#Parseval等式" class="headerlink" title="Parseval等式"></a>Parseval等式</h2><p>设$f,g\in L^2([-\pi,\pi]),~\alpha_k,\beta_k$为其复型Fourier系数，则有</p>
+<script type="math/tex; mode=display">
+\frac{1}{2\pi}\langle f,g\rangle=\frac{1}{2\pi}\int_{-\pi}^{\pi}f(t)\overline{g(t)}dt=\sum_{k=-\infty}^{\infty}\alpha_k\overline{\beta_k}</script><p>$proof$ 易得$\langle f_N,g_N\rangle\rightarrow\langle f,g\rangle$</p>
 
     </div>
 
@@ -374,7 +372,7 @@ S_N(x)=\int_{-\pi}^{\pi}f(u+x)P_N(u)du
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">16k</span>
+    <span title="站点总字数">17k</span>
   </span>
 </div>
 <div class="busuanzi-count">

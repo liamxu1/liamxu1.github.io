@@ -19,12 +19,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;liamxu1.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
-<meta name="description" content="\(L^1\)上的傅里叶变换 定义 在傅里叶级数中，我们有 \[ f_T(x)&#x3D;\sum_{k&#x3D;-\infty}^{\infty}\alpha_k e^{i\frac{k\pi x}{T}} \] 其中 \[ \alpha_k&#x3D;\frac{1}{2T}\int_{-T}^Tf(t)e^{-i\frac{k\pi t}{T}}dt \] 这实际上就是使用了一个可数的序列\({\alpha">
+<meta name="description" content="$L^1$上的傅里叶变换定义在傅里叶级数中，我们有  f_T(x)&#x3D;\sum_{k&#x3D;-\infty}^{\infty}\alpha_k e^{i\frac{k\pi x}{T}}其中  \alpha_k&#x3D;\frac{1}{2T}\int_{-T}^Tf(t)e^{-i\frac{k\pi t}{T}}dt这实际上就是使用了一个可数的序列${\alpha_k}$来表征了一个周期为$2T$的函数的全部">
 <meta property="og:type" content="article">
 <meta property="og:title" content="傅里叶变换">
 <meta property="og:url" content="http://liamxu1.github.io/Math/Wavelet-Analysis/20210524/FourierTransform/index.html">
 <meta property="og:site_name" content="Xqy的秘密小空间">
-<meta property="og:description" content="\(L^1\)上的傅里叶变换 定义 在傅里叶级数中，我们有 \[ f_T(x)&#x3D;\sum_{k&#x3D;-\infty}^{\infty}\alpha_k e^{i\frac{k\pi x}{T}} \] 其中 \[ \alpha_k&#x3D;\frac{1}{2T}\int_{-T}^Tf(t)e^{-i\frac{k\pi t}{T}}dt \] 这实际上就是使用了一个可数的序列\({\alpha">
+<meta property="og:description" content="$L^1$上的傅里叶变换定义在傅里叶级数中，我们有  f_T(x)&#x3D;\sum_{k&#x3D;-\infty}^{\infty}\alpha_k e^{i\frac{k\pi x}{T}}其中  \alpha_k&#x3D;\frac{1}{2T}\int_{-T}^Tf(t)e^{-i\frac{k\pi t}{T}}dt这实际上就是使用了一个可数的序列${\alpha_k}$来表征了一个周期为$2T$的函数的全部">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-24T11:19:22.000Z">
 <meta property="article:modified_time" content="2021-05-26T01:24:56.515Z">
@@ -121,7 +121,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#l1%E4%B8%8A%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2"><span class="nav-number">1.</span> <span class="nav-text">\(L^1\)上的傅里叶变换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90%E5%88%97%E4%B8%BE"><span class="nav-number">1.2.</span> <span class="nav-text">简单例子列举</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%86%E5%8F%98%E6%8D%A2"><span class="nav-number">1.3.</span> <span class="nav-text">逆变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8"><span class="nav-number">1.4.</span> <span class="nav-text">性质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF"><span class="nav-number">1.4.1.</span> <span class="nav-text">卷积</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#l2%E4%B8%8A%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2"><span class="nav-number">2.</span> <span class="nav-text">\(L^2\)上的傅里叶变换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%94%A8%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">实用性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%AE%97%E5%AD%90"><span class="nav-number">3.1.</span> <span class="nav-text">线性时不变算子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%87%E6%A0%B7%E5%AE%9A%E7%90%86"><span class="nav-number">3.2.</span> <span class="nav-text">采样定理</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#L-1-%E4%B8%8A%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2"><span class="nav-number">1.</span> <span class="nav-text">$L^1$上的傅里叶变换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90%E5%88%97%E4%B8%BE"><span class="nav-number">1.2.</span> <span class="nav-text">简单例子列举</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%86%E5%8F%98%E6%8D%A2"><span class="nav-number">1.3.</span> <span class="nav-text">逆变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8"><span class="nav-number">1.4.</span> <span class="nav-text">性质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%B7%E7%A7%AF"><span class="nav-number">1.4.1.</span> <span class="nav-text">卷积</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#L-2-%E4%B8%8A%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2"><span class="nav-number">2.</span> <span class="nav-text">$L^2$上的傅里叶变换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%94%A8%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">实用性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%AE%97%E5%AD%90"><span class="nav-number">3.1.</span> <span class="nav-text">线性时不变算子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%87%E6%A0%B7%E5%AE%9A%E7%90%86"><span class="nav-number">3.2.</span> <span class="nav-text">采样定理</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -137,7 +137,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -240,179 +240,168 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="l1上的傅里叶变换"><span class="math inline">\(L^1\)</span>上的傅里叶变换</h1>
-<h2 id="定义">定义</h2>
-<p>在傅里叶级数中，我们有 <span class="math display">\[
-f_T(x)=\sum_{k=-\infty}^{\infty}\alpha_k e^{i\frac{k\pi x}{T}}
-\]</span> 其中 <span class="math display">\[
-\alpha_k=\frac{1}{2T}\int_{-T}^Tf(t)e^{-i\frac{k\pi t}{T}}dt
-\]</span> 这实际上就是使用了一个可数的序列<span class="math inline">\({\alpha_k}\)</span>来表征了一个周期为<span class="math inline">\(2T\)</span>的函数的全部特征。对于一个一般的非周期的函数，一个自然的想法就是令<span class="math inline">\(T\rightarrow\infty\)</span>，这就可以推导出傅里叶变换的形式。 <span class="math display">\[
+        <h1 id="L-1-上的傅里叶变换"><a href="#L-1-上的傅里叶变换" class="headerlink" title="$L^1$上的傅里叶变换"></a>$L^1$上的傅里叶变换</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>在傅里叶级数中，我们有</p>
+<script type="math/tex; mode=display">
+f_T(x)=\sum_{k=-\infty}^{\infty}\alpha_k e^{i\frac{k\pi x}{T}}</script><p>其中</p>
+<script type="math/tex; mode=display">
+\alpha_k=\frac{1}{2T}\int_{-T}^Tf(t)e^{-i\frac{k\pi t}{T}}dt</script><p>这实际上就是使用了一个可数的序列${\alpha_k}$来表征了一个周期为$2T$的函数的全部特征。对于一个一般的非周期的函数，一个自然的想法就是令$T\rightarrow\infty$，这就可以推导出傅里叶变换的形式。</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-f(x)&amp;=\lim_{T\rightarrow\infty}[\sum_{k=-\infty}^{\infty}\frac{1}{2T}\int_{-T}^T\left(f(t)e^{-i\frac{k\pi t}{T}}dt\right) e^{i\frac{k\pi x}{T}}]\\
-&amp;=\lim_{T\rightarrow\infty}[\sum_{k=-\infty}^{\infty}\frac{1}{2T}\int_{-T}^Tf(t)e^{i\frac{k\pi (x-t)}{T}}dt]\\
-&amp;=\lim_{T\rightarrow\infty}[\sum_{k=-\infty}^{\infty}\frac{1}{2\pi}\int_{-T}^Tf(t)e^{i\frac{k\pi (x-t)}{T}}dt]\Delta\lambda\\
-\end{aligned}
-\]</span> 其中<span class="math inline">\(\lambda_k=\frac{k\pi}{T},\Delta\lambda=\lambda_{k+1}-\lambda_k=\frac{\pi}{T}\)</span></p>
-<p>记 <span class="math display">\[
-F_T(\lambda_k)=\frac{1}{2\pi}\int_{-T}^Tf(t)e^{i\frac{k\pi (x-t)}{T}}dt
-\]</span> 则 <span class="math display">\[
+f(x)&=\lim_{T\rightarrow\infty}[\sum_{k=-\infty}^{\infty}\frac{1}{2T}\int_{-T}^T\left(f(t)e^{-i\frac{k\pi t}{T}}dt\right) e^{i\frac{k\pi x}{T}}]\\
+&=\lim_{T\rightarrow\infty}[\sum_{k=-\infty}^{\infty}\frac{1}{2T}\int_{-T}^Tf(t)e^{i\frac{k\pi (x-t)}{T}}dt]\\
+&=\lim_{T\rightarrow\infty}[\sum_{k=-\infty}^{\infty}\frac{1}{2\pi}\int_{-T}^Tf(t)e^{i\frac{k\pi (x-t)}{T}}dt]\Delta\lambda\\
+\end{aligned}</script><p>其中$\lambda_k=\frac{k\pi}{T},\Delta\lambda=\lambda_{k+1}-\lambda_k=\frac{\pi}{T}$</p>
+<p>记</p>
+<script type="math/tex; mode=display">
+F_T(\lambda_k)=\frac{1}{2\pi}\int_{-T}^Tf(t)e^{i\frac{k\pi (x-t)}{T}}dt</script><p>则</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-f(x)&amp;=\lim_{T\rightarrow\infty}\sum_{k=-\infty}^{\infty}F_T(\lambda_k)\Delta\lambda\\
-&amp;=\lim_{T\rightarrow\infty}\int_{-\infty}^{\infty}F_T(\lambda)d\lambda
-\end{aligned}
-\]</span> 故 <span class="math display">\[
+f(x)&=\lim_{T\rightarrow\infty}\sum_{k=-\infty}^{\infty}F_T(\lambda_k)\Delta\lambda\\
+&=\lim_{T\rightarrow\infty}\int_{-\infty}^{\infty}F_T(\lambda)d\lambda
+\end{aligned}</script><p>故</p>
+<script type="math/tex; mode=display">
 f(x)=\frac{1}{2\pi}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(t)e^{i\lambda(x-t)}dtd\lambda
-\tag{1}
-\]</span> 记 <span class="math display">\[
+\tag{1}</script><p>记</p>
+<script type="math/tex; mode=display">
 \hat{f}(\lambda)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f(t)e^{-i\lambda t}dt
-\tag{2}
-\]</span> 称为<span class="math inline">\(f\)</span>的傅里叶变换，也可用记号<span class="math inline">\(\mathfrak{F}[f](\lambda)=\hat{f}(\lambda)\)</span>。</p>
-<h2 id="简单例子列举">简单例子列举</h2>
-<p>代入公式简单计算有</p>
+\tag{2}</script><p>称为$f$的傅里叶变换，也可用记号$\mathfrak{F}<a href="\lambda">f</a>=\hat{f}(\lambda)$。</p>
+<h2 id="简单例子列举"><a href="#简单例子列举" class="headerlink" title="简单例子列举"></a>简单例子列举</h2><p>代入公式简单计算有</p>
+<div class="table-container">
 <table>
-<colgroup>
-<col style="width: 40%" />
-<col style="width: 60%" />
-</colgroup>
 <thead>
-<tr class="header">
-<th style="text-align: center;"><span class="math inline">\(f(x)\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(\hat{f}(\lambda)\)</span></th>
+<tr>
+<th style="text-align:center">$f(x)$</th>
+<th style="text-align:center">$\hat{f}(\lambda)$</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(I_{[-\pi,\pi]}(x)\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\frac{\sqrt{2}\sin\lambda\pi}{\sqrt{\pi}\lambda}\)</span></td>
+<tr>
+<td style="text-align:center">$I_{[-\pi,\pi]}(x)$</td>
+<td style="text-align:center">$\frac{\sqrt{2}\sin\lambda\pi}{\sqrt{\pi}\lambda}$</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(\cos{2x}\cdot I_{[-\pi,\pi]}(x)\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\frac{\sqrt{2}\sin\lambda\pi}{\sqrt{\pi}(4-\lambda^2)}\)</span></td>
+<tr>
+<td style="text-align:center">$\cos{2x}\cdot I_{[-\pi,\pi]}(x)$</td>
+<td style="text-align:center">$\frac{\sqrt{2}\sin\lambda\pi}{\sqrt{\pi}(4-\lambda^2)}$</td>
 </tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(\sin{2x}\cdot I_{[-\pi,\pi]}(x)\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\frac{-2\sqrt{2}i\sin\lambda\pi}{\sqrt{\pi}(4-\lambda^2)}\)</span></td>
+<tr>
+<td style="text-align:center">$\sin{2x}\cdot I_{[-\pi,\pi]}(x)$</td>
+<td style="text-align:center">$\frac{-2\sqrt{2}i\sin\lambda\pi}{\sqrt{\pi}(4-\lambda^2)}$</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\((x+\pi)I_{[-\pi,0]}+(\pi-x)I_{[0,\pi]}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\frac{2}{\sqrt{2\pi}} \frac{1-\cos(\lambda \pi)}{\lambda^2}\)</span></td>
+<tr>
+<td style="text-align:center">$(x+\pi)I_{[-\pi,0]}+(\pi-x)I_{[0,\pi]}$</td>
+<td style="text-align:center">$\frac{2}{\sqrt{2\pi}} \frac{1-\cos(\lambda \pi)}{\lambda^2}$</td>
 </tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(e^{-ax^2}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\frac{1}{\sqrt{2a}}e^{-\frac{\lambda^2}{4a}}\)</span></td>
+<tr>
+<td style="text-align:center">$e^{-ax^2}$</td>
+<td style="text-align:center">$\frac{1}{\sqrt{2a}}e^{-\frac{\lambda^2}{4a}}$</td>
 </tr>
 </tbody>
 </table>
-<p>事实上可以观察到<span class="math inline">\(f\)</span>的光滑性越好似乎其傅里叶变换就更容易趋于零。</p>
-<h2 id="逆变换">逆变换</h2>
-<p>由推导过程中<span class="math inline">\((1)\)</span>有 <span class="math display">\[
+</div>
+<p>事实上可以观察到$f$的光滑性越好似乎其傅里叶变换就更容易趋于零。</p>
+<h2 id="逆变换"><a href="#逆变换" class="headerlink" title="逆变换"></a>逆变换</h2><p>由推导过程中$(1)$有</p>
+<script type="math/tex; mode=display">
 f(t)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\hat{f}(\lambda)e^{i\lambda t}d\lambda
-\tag{3}
-\]</span> 即为傅里叶变换逆变换。</p>
-<p>严格来说有定理若<span class="math inline">\(f(t)\in L^1(\mathbb{R}),\hat{f}(\lambda)\in L^1(\mathbb{R})\)</span>则有上述<span class="math inline">\((3)\)</span>式成立。（证明略去）</p>
-<h2 id="性质">性质</h2>
-<p>假设<span class="math inline">\(f\in L^1(\mathbb{R})\)</span>，则其Fourier变换满足</p>
-<p><span class="math inline">\((1) \lim_{|\lambda|\rightarrow\infty}\mathfrak{F}[f](\lambda)=0\)</span>（Riemann-Lebesgue引理）</p>
-<p><span class="math inline">\((2)\mathfrak{F}[f](\lambda)\)</span>在<span class="math inline">\(\mathbb{R}\)</span>上连续</p>
-<p><span class="math inline">\((3)|\mathfrak{F}[f](\lambda)|\le\frac{1}{\sqrt{2\pi}}\Vert f\Vert_1\)</span>，进一步<span class="math inline">\(\mathfrak{F}\)</span>是<span class="math inline">\(L^1(\mathbb{R})\)</span>到<span class="math inline">\(L^\infty(\mathbb{R})\)</span>上的有界线性算子</p>
-<h3 id="卷积">卷积</h3>
-<p><span class="math display">\[
-(f*g)(x):=\int_{-\infty}^{\infty}f(x-t)g(t)dt=\int_{-\infty}^{\infty}f(t)g(x-t)dt
-\]</span></p>
-<p>将卷积函数<span class="math inline">\(g\)</span>看成一种作用，实质上就是以某种加权方式将<span class="math inline">\(f\)</span>某点周围的信息组合起来。当想要局部编辑一个函数<span class="math inline">\(f\)</span>时，就可以考虑使用一个局部的函数<span class="math inline">\(g\)</span>通过卷积作用在<span class="math inline">\(f\)</span>上，实质上许多去噪之类的操作都可以通过这种方式实现。而傅里叶变换很重要的一个特性就是它可以使卷积的操作变得简单。</p>
-<p><span class="math inline">\((4)\mathfrak{F}[f*g](\lambda)=\sqrt{2\pi}\hat{f}(\lambda)\hat{g}(\lambda)\)</span></p>
+\tag{3}</script><p>即为傅里叶变换逆变换。</p>
+<p>严格来说有定理若$f(t)\in L^1(\mathbb{R}),\hat{f}(\lambda)\in L^1(\mathbb{R})$则有上述$(3)$式成立。（证明略去）</p>
+<h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><p>假设$f\in L^1(\mathbb{R})$，则其Fourier变换满足</p>
+<p>$(1) \lim_{|\lambda|\rightarrow\infty}\mathfrak{F}<a href="\lambda">f</a>=0$（Riemann-Lebesgue引理）</p>
+<p>$(2)\mathfrak{F}<a href="\lambda">f</a>$在$\mathbb{R}$上连续</p>
+<p>$(3)|\mathfrak{F}<a href="\lambda">f</a>|\le\frac{1}{\sqrt{2\pi}}\Vert f\Vert_1$，进一步$\mathfrak{F}$是$L^1(\mathbb{R})$到$L^\infty(\mathbb{R})$上的有界线性算子</p>
+<h3 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h3><script type="math/tex; mode=display">
+(f*g)(x):=\int_{-\infty}^{\infty}f(x-t)g(t)dt=\int_{-\infty}^{\infty}f(t)g(x-t)dt</script><p>将卷积函数$g$看成一种作用，实质上就是以某种加权方式将$f$某点周围的信息组合起来。当想要局部编辑一个函数$f$时，就可以考虑使用一个局部的函数$g$通过卷积作用在$f$上，实质上许多去噪之类的操作都可以通过这种方式实现。而傅里叶变换很重要的一个特性就是它可以使卷积的操作变得简单。</p>
+<p>$(4)\mathfrak{F}<a href="\lambda">f*g</a>=\sqrt{2\pi}\hat{f}(\lambda)\hat{g}(\lambda)$</p>
 <p>由这个特性可以将时域上的卷积操作变成频域上的乘积操作。要算卷积可以先做傅里叶变换，乘积之后再做逆傅里叶变换，结合快速傅里叶变换算法可以大大提高效率。</p>
 <p>以下列出更多性质，性质的验证都是容易的。</p>
+<div class="table-container">
 <table>
 <thead>
-<tr class="header">
-<th style="text-align: center;">函数<span class="math inline">\(f(t)\)</span></th>
-<th style="text-align: center;">变换<span class="math inline">\(\hat{f}(\lambda)\)</span></th>
+<tr>
+<th style="text-align:center">函数$f(t)$</th>
+<th style="text-align:center">变换$\hat{f}(\lambda)$</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(\hat{f}(t)\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(f(-\lambda)\)</span></td>
+<tr>
+<td style="text-align:center">$\hat{f}(t)$</td>
+<td style="text-align:center">$f(-\lambda)$</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(f_1*f_2(t)\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\sqrt{2\pi}\hat{f_1}(\lambda)\hat{f_2}(\lambda)\)</span></td>
+<tr>
+<td style="text-align:center">$f_1*f_2(t)$</td>
+<td style="text-align:center">$\sqrt{2\pi}\hat{f_1}(\lambda)\hat{f_2}(\lambda)$</td>
 </tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(f_1f_2(t)\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\frac{1}{\sqrt{2\pi}}\hat{f_1}*\hat{f_2}(\lambda)\)</span></td>
+<tr>
+<td style="text-align:center">$f_1f_2(t)$</td>
+<td style="text-align:center">$\frac{1}{\sqrt{2\pi}}\hat{f_1}*\hat{f_2}(\lambda)$</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(f(x-a)\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(e^{-ia\lambda}\hat{f}(\lambda)\)</span></td>
+<tr>
+<td style="text-align:center">$f(x-a)$</td>
+<td style="text-align:center">$e^{-ia\lambda}\hat{f}(\lambda)$</td>
 </tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(e^{i\lambda_0t}f(t)\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\hat{f}(\lambda-\lambda_0)\)</span></td>
+<tr>
+<td style="text-align:center">$e^{i\lambda_0t}f(t)$</td>
+<td style="text-align:center">$\hat{f}(\lambda-\lambda_0)$</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(f(bt)\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\frac{1}{|b|}\mathfrak{F}[f](\frac{\lambda}{b})\)</span></td>
+<tr>
+<td style="text-align:center">$f(bt)$</td>
+<td style="text-align:center">$\frac{1}{</td>
+<td>b</td>
+<td>}\mathfrak{F}<a href="\frac{\lambda}{b}">f</a>$</td>
 </tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(f^{(k)}(t)\)</span></td>
-<td style="text-align: center;"><span class="math inline">\((i\lambda)^k\hat{f}(\lambda)\)</span></td>
+<tr>
+<td style="text-align:center">$f^{(k)}(t)$</td>
+<td style="text-align:center">$(i\lambda)^k\hat{f}(\lambda)$</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\((-it)^kf(t)\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\hat{f}^{(k)}(\lambda)\)</span></td>
+<tr>
+<td style="text-align:center">$(-it)^kf(t)$</td>
+<td style="text-align:center">$\hat{f}^{(k)}(\lambda)$</td>
 </tr>
 </tbody>
 </table>
-<h1 id="l2上的傅里叶变换"><span class="math inline">\(L^2\)</span>上的傅里叶变换</h1>
-<p>由于连续函数空间在<span class="math inline">\(L^1(\mathbb{R})\)</span>和<span class="math inline">\(L^2(\mathbb{R})\)</span>中都稠密，故对于任意<span class="math inline">\(L^2(\mathbb{R})\)</span>中的函数<span class="math inline">\(f\)</span>，存在收敛到<span class="math inline">\(f\)</span>的函数类 <span class="math display">\[
-\Vert f_n-f\Vert_{L^2}\rightarrow0,f_n\in L^1(\mathbb{R})\bigcap L^2(\mathbb{R})
-\]</span> <span class="math inline">\(f_n\)</span>有傅里叶变换又由Plancherel等式 <span class="math display">\[
-\Vert\hat{f_n}(\lambda)-\hat{f_m}(\lambda)\Vert=\Vert f_n-f_m\Vert\rightarrow0
-\]</span> 以及Hilbert空间的完备性，有<span class="math inline">\(\hat{f}\in L^2(\mathbb{R})\)</span>为其极限，定义为<span class="math inline">\(f\)</span>的傅里叶变换。依然可以验证之间的性质，这是我们主要运用到的函数空间。</p>
-<h1 id="实用性">实用性</h1>
-<h2 id="线性时不变算子">线性时不变算子</h2>
-<p>称 <span class="math display">\[
-L:X\rightarrow Y
-\]</span> 是线性时不变的是指 <span class="math display">\[
+</div>
+<h1 id="L-2-上的傅里叶变换"><a href="#L-2-上的傅里叶变换" class="headerlink" title="$L^2$上的傅里叶变换"></a>$L^2$上的傅里叶变换</h1><p>由于连续函数空间在$L^1(\mathbb{R})$和$L^2(\mathbb{R})$中都稠密，故对于任意$L^2(\mathbb{R})$中的函数$f$，存在收敛到$f$的函数类</p>
+<script type="math/tex; mode=display">
+\Vert f_n-f\Vert_{L^2}\rightarrow0,f_n\in L^1(\mathbb{R})\bigcap L^2(\mathbb{R})</script><p>$f_n$有傅里叶变换又由Plancherel等式</p>
+<script type="math/tex; mode=display">
+\Vert\hat{f_n}(\lambda)-\hat{f_m}(\lambda)\Vert=\Vert f_n-f_m\Vert\rightarrow0</script><p>以及Hilbert空间的完备性，有$\hat{f}\in L^2(\mathbb{R})$为其极限，定义为$f$的傅里叶变换。依然可以验证之间的性质，这是我们主要运用到的函数空间。</p>
+<h1 id="实用性"><a href="#实用性" class="headerlink" title="实用性"></a>实用性</h1><h2 id="线性时不变算子"><a href="#线性时不变算子" class="headerlink" title="线性时不变算子"></a>线性时不变算子</h2><p>称</p>
+<script type="math/tex; mode=display">
+L:X\rightarrow Y</script><p>是线性时不变的是指</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-(1)&amp;~L[\alpha f+\beta g]=\alpha L[f]+\beta L[g]\\
-(2)&amp;~L[f(t-a)]=L[f](t-a)
-\end{aligned}
-\]</span></p>
-<blockquote>
+(1)&~L[\alpha f+\beta g]=\alpha L[f]+\beta L[g]\\
+(2)&~L[f(t-a)]=L[f](t-a)
+\end{aligned}</script><blockquote>
 <p>事实上在现实操作中这两者对于信号处理是非常平凡的性质。前者即是信号处理的可叠加性，后者则保证了不同时间处理信号会得到相同的结果。后面我们可以看到，这样平凡的算子总是可以用一个卷积算子来表征，这就体现了卷积在实际操作中的实用性。</p>
 </blockquote>
-<p><span class="math inline">\(Thm\)</span> 设<span class="math inline">\(L\)</span>是分片连续函数信号空间的线性时不变算子，则存在可积函数<span class="math inline">\(h\)</span>使得对任意的信号<span class="math inline">\(f\)</span>有 <span class="math display">\[
-L[f]=f*h
-\]</span> <span class="math inline">\(proof\)</span></p>
-<p>Step1: 找<span class="math inline">\(h\)</span>满足 <span class="math display">\[
-L[e^{i\lambda x}](t)=\sqrt{2\pi}\hat{h}(\lambda)e^{i\lambda t}
-\]</span> 定义<span class="math inline">\(h^\lambda(t)=L[e^{i\lambda x}](t)\)</span></p>
-<p>由时不变性有 <span class="math display">\[
-L[e^{i\lambda (x-a)}](t)=h^\lambda(t-a)
-\]</span> 又由线性性 <span class="math display">\[
-L[e^{i\lambda (x-a)}](t)=e^{-i\lambda a}h^\lambda(t)
-\]</span> 对任意实数<span class="math inline">\(a\)</span>成立</p>
-<p>从而 <span class="math display">\[
-L[e^{i\lambda x}](t)=h^\lambda(t)=h^\lambda(0)e^{i\lambda t}
-\]</span> 令<span class="math inline">\(\hat{h}(\lambda)=h^\lambda(0)/\sqrt{2\pi}\)</span> 即得</p>
-<p>Step2: 函数<span class="math inline">\(\hat{h}(\lambda)\)</span>确定算子<span class="math inline">\(L\)</span></p>
-<p>将<span class="math inline">\(L\)</span>作用于Fourier逆变换公式 <span class="math display">\[
+<p>$Thm$ 设$L$是分片连续函数信号空间的线性时不变算子，则存在可积函数$h$使得对任意的信号$f$有</p>
+<script type="math/tex; mode=display">
+L[f]=f*h</script><p>$proof$</p>
+<p>Step1: 找$h$满足</p>
+<script type="math/tex; mode=display">
+L[e^{i\lambda x}](t)=\sqrt{2\pi}\hat{h}(\lambda)e^{i\lambda t}</script><p>定义$h^\lambda(t)=L<a href="t">e^{i\lambda x}</a>$</p>
+<p>由时不变性有</p>
+<script type="math/tex; mode=display">
+L[e^{i\lambda (x-a)}](t)=h^\lambda(t-a)</script><p>又由线性性</p>
+<script type="math/tex; mode=display">
+L[e^{i\lambda (x-a)}](t)=e^{-i\lambda a}h^\lambda(t)</script><p>对任意实数$a$成立</p>
+<p>从而</p>
+<script type="math/tex; mode=display">
+L[e^{i\lambda x}](t)=h^\lambda(t)=h^\lambda(0)e^{i\lambda t}</script><p>令$\hat{h}(\lambda)=h^\lambda(0)/\sqrt{2\pi}$ 即得</p>
+<p>Step2: 函数$\hat{h}(\lambda)$确定算子$L$</p>
+<p>将$L$作用于Fourier逆变换公式</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-L[f](t)&amp;=L[\frac{1}{\sqrt{2\pi}}\int_{\mathbb{R}}\hat{f}(\lambda)e^{i\lambda x}d\lambda](t)\\
-&amp;=\frac{1}{\sqrt{2\pi}}\int_{\mathbb{R}}\hat{f}(\lambda)L[e^{i\lambda x}](t)d\lambda\\
-&amp;=\frac{1}{\sqrt{2\pi}}\int_{\mathbb{R}}\hat{f}(\lambda)(\sqrt{2\pi}\hat{h}(\lambda)e^{i\lambda t})(t)d\lambda\\
-&amp;=(f*g)(t)
-\end{aligned}
-\]</span> 得证</p>
-<h2 id="采样定理">采样定理</h2>
-<p>傅里叶变换从某种程度上来说就是更加“密集”的傅里叶级数。在实际应用中，采样点总是有限的，我们希望可以用至多可数点的信息包含整段信号的信息。</p>
-<p><span class="math inline">\(Thm\)</span> (Shannon-Whittaker采样定理)</p>
-<p>假设<span class="math inline">\(\hat{f}(\lambda)\)</span>分段光滑且频率带限，即存在常数<span class="math inline">\(\Omega&gt;0\)</span>，使得<span class="math inline">\(supp \hat{f}\subset [-\Omega,\Omega]\)</span>。则<span class="math inline">\(f\)</span>可由其在<span class="math inline">\(t_j=\frac{j\pi}{\Omega},j=0,\pm1\pm2\cdots\)</span>上的采样值完全决定，并可通过下列级数展开得到 <span class="math display">\[
-f(t)=\sum_{-\infty}^{\infty}f(j\pi/\Omega)\frac{\sin(\Omega t-j\pi)}{\Omega t-j\pi}
-\]</span> 思路：在<span class="math inline">\([-\Omega,\Omega]\)</span>上找<span class="math inline">\(\hat{f}\)</span>的Fourier级数，比较与Fourier变换的形式，再做逆Fourier变换即可。</p>
+L[f](t)&=L[\frac{1}{\sqrt{2\pi}}\int_{\mathbb{R}}\hat{f}(\lambda)e^{i\lambda x}d\lambda](t)\\
+&=\frac{1}{\sqrt{2\pi}}\int_{\mathbb{R}}\hat{f}(\lambda)L[e^{i\lambda x}](t)d\lambda\\
+&=\frac{1}{\sqrt{2\pi}}\int_{\mathbb{R}}\hat{f}(\lambda)(\sqrt{2\pi}\hat{h}(\lambda)e^{i\lambda t})(t)d\lambda\\
+&=(f*g)(t)
+\end{aligned}</script><p>得证</p>
+<h2 id="采样定理"><a href="#采样定理" class="headerlink" title="采样定理"></a>采样定理</h2><p>傅里叶变换从某种程度上来说就是更加“密集”的傅里叶级数。在实际应用中，采样点总是有限的，我们希望可以用至多可数点的信息包含整段信号的信息。</p>
+<p>$Thm$ (Shannon-Whittaker采样定理)</p>
+<p>假设$\hat{f}(\lambda)$分段光滑且频率带限，即存在常数$\Omega&gt;0$，使得$supp \hat{f}\subset [-\Omega,\Omega]$。则$f$可由其在$t_j=\frac{j\pi}{\Omega},j=0,\pm1\pm2\cdots$上的采样值完全决定，并可通过下列级数展开得到</p>
+<script type="math/tex; mode=display">
+f(t)=\sum_{-\infty}^{\infty}f(j\pi/\Omega)\frac{\sin(\Omega t-j\pi)}{\Omega t-j\pi}</script><p>思路：在$[-\Omega,\Omega]$上找$\hat{f}$的Fourier级数，比较与Fourier变换的形式，再做逆Fourier变换即可。</p>
 
     </div>
 
@@ -431,6 +420,9 @@ f(t)=\sum_{-\infty}^{\infty}f(j\pi/\Omega)\frac{\sin(\Omega t-j\pi)}{\Omega t-j\
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/Math/Wavelet-Analysis/20210526/DiscreteFourierTransform/" rel="next" title="离散傅里叶变换">
+                  离散傅里叶变换 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -473,7 +465,7 @@ f(t)=\sum_{-\infty}^{\infty}f(j\pi/\Omega)\frac{\sin(\Omega t-j\pi)}{\Omega t-j\
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">16k</span>
+    <span title="站点总字数">17k</span>
   </span>
 </div>
 <div class="busuanzi-count">
