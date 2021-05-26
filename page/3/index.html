@@ -400,7 +400,7 @@ u=0,&amp;on~\partial U
 \]</span> 在<span class="math inline">\(u\)</span>充分光滑且在边界为零时有 <span class="math display">\[
 \int f^2dx=\int(\Delta u)^2dx=\int u_{ii}u_{jj}dx=\int u_{ij}^2dx=\int|D^2u|^2dx
 \]</span> 即<span class="math inline">\(u\)</span>二阶导的<span class="math inline">\(L^2\)</span>范数可以被<span class="math inline">\(f\)</span>的<span class="math inline">\(L^2\)</span>范数控制。类似地，我们似乎希望有<span class="math inline">\(f\in H^m\)</span>时<span class="math inline">\(u\in H^{m+2}\)</span>，现在已有的<span class="math inline">\(u\in H_0^1\)</span>不能令我们满足，于是有了进一步的正则性估计。</p>
-<h3 id="内估计">内估计</h3>
+<h2 id="内估计">内估计</h2>
 <p><span class="math inline">\(Thm\)</span> （<span class="math inline">\(u\)</span>在区域内部有<span class="math inline">\(H^2\)</span>正则性）</p>
 <p>设<span class="math inline">\(a^{ij}\in C^1(U),b^i,c\in L^\infty(U),f\in L^2(U)\)</span>，若<span class="math inline">\(u\in H^1(U)\)</span>是弱解，则<span class="math inline">\(u\in H_{loc}^2(U)\)</span>，具体地<span class="math inline">\(\forall V\subset\subset U\)</span>有估计 <span class="math display">\[
 \Vert u\Vert_{H^2(V)}\le C(\Vert f\Vert_{L^2(U)}+\Vert u\Vert_{L^2(U)}),~~C\sim V,U,a^{ij},b^{i},c
@@ -414,7 +414,7 @@ u=0,&amp;on~\partial U
 <p>设<span class="math inline">\(a^{ij},b^i,c\in C^{m+1}(U),f\in H^m(U)\)</span>，若<span class="math inline">\(u\in H^1(U)\)</span>是弱解，则<span class="math inline">\(u\in H_{loc}^{m+2}(U)\)</span>，具体地<span class="math inline">\(\forall V\subset\subset U\)</span>有估计 <span class="math display">\[
 \Vert u\Vert_{H^{m+2}(V)}\le C(\Vert f\Vert_{H^m(U)}+\Vert u\Vert_{L^2(U)}),~~C\sim V,U,a^{ij},b^{i},c
 \]</span> 设<span class="math inline">\(a^{ij},b^i,c\in C^{\infty}(U),f\in C^{\infty}(U)\)</span>，若<span class="math inline">\(u\in H^1(U)\)</span>是弱解，则<span class="math inline">\(u\in C^{\infty}(U)\)</span></p>
-<h3 id="近边估计">近边估计</h3>
+<h2 id="近边估计">近边估计</h2>
 <p><span class="math inline">\(Thm\)</span> （边界正则性）</p>
 <p>设<span class="math inline">\(a^{ij}\in C^1(\bar{U}),b^i,c\in L^\infty(U),f\in L^2(U)\)</span>，若<span class="math inline">\(u\in H_0^1(U)\)</span>是弱解，<span class="math inline">\(\partial U\in C^2\)</span>，则<span class="math inline">\(u\in H^2(U)\)</span> <span class="math display">\[
 \Vert u\Vert_{H^2(U)}\le C(\Vert f\Vert_{L^2(U)}+\Vert u\Vert_{L^2(U)}),~~C\sim V,U,a^{ij},b^{i},c
