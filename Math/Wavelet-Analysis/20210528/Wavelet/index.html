@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;liamxu1.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="前言 指出了傅里叶变换和窗口傅里叶变换的问题，我们还是希望找到一种方式能解决上述问题，由此便引出了小波的概念。傅里叶变换之所以失败的原因是因为其基函数\(\{e^{i\omega t}\}\)铺满了整个时域，而使用小波函数最基本的想法就是采用另外的一组基函数\(\{\psi(\frac{t-\tau}{a})\}\)，其本身就具有可伸缩平移及局部的特性。小波变换也有和窗口傅里叶变换类似的时间-频">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小波">
+<meta property="og:url" content="http://liamxu1.github.io/Math/Wavelet-Analysis/20210528/Wavelet/index.html">
+<meta property="og:site_name" content="Xqy的秘密小空间">
+<meta property="og:description" content="前言 指出了傅里叶变换和窗口傅里叶变换的问题，我们还是希望找到一种方式能解决上述问题，由此便引出了小波的概念。傅里叶变换之所以失败的原因是因为其基函数\(\{e^{i\omega t}\}\)铺满了整个时域，而使用小波函数最基本的想法就是采用另外的一组基函数\(\{\psi(\frac{t-\tau}{a})\}\)，其本身就具有可伸缩平移及局部的特性。小波变换也有和窗口傅里叶变换类似的时间-频">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-28T08:39:27.000Z">
+<meta property="article:modified_time" content="2021-05-28T15:44:27.109Z">
+<meta property="article:author" content="xqy">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://liamxu1.github.io/Math/Wavelet-Analysis/20210528/Wavelet/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;liamxu1.github.io&#x2F;Math&#x2F;Wavelet-Analysis&#x2F;20210528&#x2F;Wavelet&#x2F;&quot;,&quot;path&quot;:&quot;Math&#x2F;Wavelet-Analysis&#x2F;20210528&#x2F;Wavelet&#x2F;&quot;,&quot;title&quot;:&quot;小波&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>小波 | Xqy的秘密小空间</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Xqy的秘密小空间</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎来到我的Blog！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">2.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E5%B0%8F%E6%B3%A2"><span class="nav-number">2.1.</span> <span class="nav-text">基小波</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#haar%E5%B0%8F%E6%B3%A2"><span class="nav-number">2.1.1.</span> <span class="nav-text">Haar小波</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2"><span class="nav-number">2.2.</span> <span class="nav-text">连续小波变换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%BD%E9%87%8F%E5%AE%88%E6%81%92"><span class="nav-number">2.2.1.</span> <span class="nav-text">能量守恒</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E6%BC%94%E5%AE%9A%E7%90%86"><span class="nav-number">2.2.2.</span> <span class="nav-text">反演定理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%B0%8F%E6%B3%A2%E5%8F%98%E6%8D%A2"><span class="nav-number">3.</span> <span class="nav-text">二进小波变换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89-1"><span class="nav-number">3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%AF%B9%E5%81%B6"><span class="nav-number">3.2.</span> <span class="nav-text">二进对偶</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E6%B3%A2%E6%A1%86%E6%9E%B6%E5%92%8C%E6%AD%A3%E4%BA%A4%E5%B0%8F%E6%B3%A2"><span class="nav-number">4.</span> <span class="nav-text">小波框架和正交小波</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6%E7%90%86%E8%AE%BA"><span class="nav-number">4.1.</span> <span class="nav-text">框架理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%85%B3%E4%BA%8E%E6%A1%86%E6%9E%B6%E7%9A%84%E7%AE%97%E5%AD%90"><span class="nav-number">4.1.1.</span> <span class="nav-text">一些关于框架的算子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E5%81%B6%E6%A1%86%E6%9E%B6"><span class="nav-number">4.1.2.</span> <span class="nav-text">对偶框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%A7%E8%B4%A8"><span class="nav-number">4.1.3.</span> <span class="nav-text">性质</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E4%BA%A4%E5%B0%8F%E6%B3%A2"><span class="nav-number">4.2.</span> <span class="nav-text">正交小波</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xqy"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">xqy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liamxu1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liamxu1" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/Math/Wavelet-Analysis/20210528/Wavelet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          小波
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-28 16:39:27" itemprop="dateCreated datePublished" datetime="2021-05-28T16:39:27+08:00">2021-05-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/" itemprop="url" rel="index"><span itemprop="name">Math</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/Wavelet-Analysis/" itemprop="url" rel="index"><span itemprop="name">Wavelet Analysis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言">前言</h1>
+<p>指出了傅里叶变换和窗口傅里叶变换的问题，我们还是希望找到一种方式能解决上述问题，由此便引出了小波的概念。傅里叶变换之所以失败的原因是因为其基函数<span class="math inline">\(\{e^{i\omega t}\}\)</span>铺满了整个时域，而使用小波函数最基本的想法就是采用另外的一组基函数<span class="math inline">\(\{\psi(\frac{t-\tau}{a})\}\)</span>，其本身就具有可伸缩平移及局部的特性。小波变换也有和窗口傅里叶变换类似的时间-频率特性，根据小波变换的伸缩平移性，只要不同时检测高频与低频信息，例如先找到最高频信息将其抽离，再找次高频信息，以此类推，即可得到不同频率下的小波系数；恢复信号时也只需反向操作即可。这里的首要的重点是选好小波函数。</p>
+<h1 id="定义">定义</h1>
+<h2 id="基小波">基小波</h2>
+<p>如果一个函数<span class="math inline">\(\psi\in L^2(\mathbb{R})\)</span>满足容许性条件 <span class="math display">\[
+C_\psi=2\pi \int_{\mathbb{R}}\frac{|\hat{\psi}(\lambda)|^2}{|\lambda|}d\lambda&lt;\infty
+\]</span> 则称<span class="math inline">\(\psi\)</span>为基小波。</p>
+<p>注：容易从定义中看出若<span class="math inline">\(\hat{\psi}\)</span>连续则<span class="math inline">\(\hat{\psi}(0)=0\)</span>必然成立，即<span class="math inline">\(\int\psi=0\)</span>，而一般<span class="math inline">\(L^2\)</span>函数都具有衰减性，故一般基小波有波动性且在有限区间外等于零或很快趋于零。</p>
+<h3 id="haar小波">Haar小波</h3>
+<p>这是最简单的小波例子，以后也经常用它直观体现一些性质。 <span class="math display">\[
+\psi (t)=
+\begin{cases}
+1,&amp;0\le t&lt;1/2\\
+-1,&amp;1/2\le t&lt;1\\
+0,&amp;else
+\end{cases}
+\]</span> 不难验证它满足基小波性质。</p>
+<h2 id="连续小波变换">连续小波变换</h2>
+<p>假设<span class="math inline">\(\psi\)</span>是一个基小波，基小波的伸缩和平移得到的小波序列 <span class="math display">\[
+\psi_{a,b}(t)=|a|^{-\frac{1}{2}}\psi(\frac{t-b}{a})
+\]</span> 小波变换定义为 <span class="math display">\[
+(W_{\psi}f)(a,b)=\langle f,\psi_{a,b}\rangle=|a|^{-\frac{1}{2}}\int_{\mathbb{R}}f(t)\overline{\psi(\frac{t-b}{a})}dt
+\]</span> 其伸缩平移等性质与Fourier变换类似容易验证</p>
+<h3 id="能量守恒">能量守恒</h3>
+<p>假设<span class="math inline">\(f,g\in L^2(\mathbb{R})\)</span>，<span class="math inline">\(\psi\)</span>是一基小波，则 <span class="math display">\[
+\frac{1}{C_\psi}\iint(W_\psi(f))(a,b)\overline{(W_\psi(g))(a,b)}\frac{1}{a^2}dadb=\langle f,g\rangle
+\]</span> 特别地 <span class="math display">\[
+\frac{1}{C_\psi}\iint|(W_\psi(f))(a,b)|^2\frac{1}{a^2}dadb=\Vert f\Vert^2
+\]</span></p>
+<h3 id="反演定理">反演定理</h3>
+<p>条件相同 <span class="math display">\[
+f(t)=\frac{1}{C_\psi}\iint|a|^{-1/2}\psi(\frac{t-b}{a})(W_\psi(f))(a,b)\frac{1}{a^2}dadb
+\]</span></p>
+<h1 id="二进小波变换">二进小波变换</h1>
+<p>连续小波变换的时频窗为 <span class="math display">\[
+[b+at^*-a\Delta_\psi,b+at^*+a\Delta_\psi]*[\frac{\lambda^*}{a}-\frac{\Delta_{\hat{\psi}}}{a},\frac{\lambda^*}{a}+\frac{\Delta_{\hat{\psi}}}{a}]
+\]</span> 在频率窗中取<span class="math inline">\(a_j=\frac{1}{2^j}\)</span>，并且假设<span class="math inline">\(\lambda^*=3\Delta_{\hat{\psi}}\)</span>，则频率窗变成 <span class="math display">\[
+[2^{j+1}\Delta_{\hat{\psi}},2^{j+2}\Delta_{\hat{\psi}}]
+\]</span> 于是小波变换<span class="math inline">\((W_\psi f)(\frac{1}{2^j},b)\)</span>给出了信号在上述频率带中的局部信息，这些频率带给出了所有正频率域的一个二进剖分。因此，经过离散后，小波变换<span class="math inline">\((W_\psi f)(\frac{1}{2^j},b)\)</span>可以得到信号在所有频率域上的信息。</p>
+<p>注： <span class="math display">\[
+\lambda^*=3\Delta_{\hat{\psi}}
+\]</span> 是很容易满足的。事实上假设<span class="math inline">\(\psi\)</span>是一个基小波，令<span class="math inline">\(\tilde{\psi}=e^{i\alpha t}\psi(t)\)</span>，则<span class="math inline">\(\hat{\tilde{\psi}}(\lambda)=\hat{\psi}(\lambda-\alpha)\)</span>。于是<span class="math inline">\(\hat{\tilde{\psi}}\)</span>的中心和半径分别为 <span class="math display">\[
+\tilde{\lambda^*}=\lambda^*+\alpha,\Delta_{\hat{\tilde{\psi}}}=\Delta_{\hat{\psi}}
+\]</span> 从而，只要选择 <span class="math display">\[
+\alpha=3\Delta_{\hat{\psi}}-\lambda^*
+\]</span> 即可。</p>
+<h2 id="定义-1">定义</h2>
+<p>一个函数<span class="math inline">\(\psi\in L^2(\mathbb{R})\)</span>称为二进小波，如果存在两个正常数<span class="math inline">\(A\)</span>和<span class="math inline">\(B\)</span>满足<span class="math inline">\(0&lt;A\le B&lt;\infty\)</span>，使得稳定性条件 <span class="math display">\[
+A\le \sum_{j=-\infty}^{+\infty}|\hat{\psi}(2^{-j}\lambda)|^2\le B
+\]</span> 成立。对于<span class="math inline">\(f\in L^2(\mathbb{R})\)</span>，其二进小波变换定义为 <span class="math display">\[
+(W_\psi^jf)(b)=2^{\frac{j}{2}}(W_\psi f)(2^{-j},b)
+\]</span> 其中稳定性条件中有定理 <span class="math display">\[
+A\ln (2)\le\int_0^\infty \frac{|\hat{\psi}(\lambda)|^2}{\lambda} d\lambda \le B\ln(2)
+\]</span> （分段放缩即可）</p>
+<h2 id="二进对偶">二进对偶</h2>
+<p>假设<span class="math inline">\(\psi\)</span>是一个二进小波，称 <span class="math display">\[
+\hat{\psi^*}(\lambda)=\frac{\hat{\psi}(\lambda)}{\sum_{k=-\infty}^{\infty}|\hat{\psi}(2^{-k}\lambda)|^2}
+\]</span> 的逆傅里叶变换<span class="math inline">\(\psi^*\in L^2(\mathbb{R})\)</span>为<span class="math inline">\(\psi\)</span>的二进对偶。</p>
+<h1 id="小波框架和正交小波">小波框架和正交小波</h1>
+<p>为了计算的有效性，将时间离散化 <span class="math display">\[
+b_{j,k}=\frac{k}{2^j}b_0
+\]</span> 引入 <span class="math display">\[
+\psi_{b_0;j,k}=2^{\frac{j}{2}}\psi(2^jt-kb_0)
+\]</span> 我们希望考虑的问题是利用连续小波变换的离散形式来重构<span class="math inline">\(f\)</span>。</p>
+<h2 id="框架理论">框架理论</h2>
+<p>假设<span class="math inline">\(\phi_j\)</span>是Hilbert空间<span class="math inline">\(H\)</span>中的序列，如果存在常数<span class="math inline">\(A,B\)</span>满足<span class="math inline">\(0&lt;A\le B&lt;\infty\)</span>，使得对任意的<span class="math inline">\(f\in H\)</span>有 <span class="math display">\[
+A\Vert f\Vert^2\le \sum_{j=-\infty}^{\infty}|\langle f,\phi_j\rangle|^2\le B\Vert f\Vert^2
+\]</span> 则称<span class="math inline">\(\{\phi_j\}\)</span>是<span class="math inline">\(H\)</span>中的一个框架。<span class="math inline">\(A,B\)</span>称为框架的上下界。如果<span class="math inline">\(A=B\)</span>，则称<span class="math inline">\(\{\phi_j\}\)</span>是<span class="math inline">\(H\)</span>中的紧框架。</p>
+<p>（注意框架与基的关联与不同）</p>
+<h3 id="一些关于框架的算子">一些关于框架的算子</h3>
+<p>设序列<span class="math inline">\(\{\phi_j\}\)</span>是Hilbert空间<span class="math inline">\(H\)</span>的一个框架，称线性算子 <span class="math display">\[
+F:H\to l^2,F(f)=\{\langle f,\phi_j\rangle\},\forall f\in H
+\]</span> 为框架的分析算子。称<span class="math inline">\(F\)</span>的伴随算子 <span class="math display">\[
+F^*:l^2\to H,F^*(c)=\sum c_j\phi_j,\forall c=\{c_j\}\in l^2
+\]</span> 为框架的综合算子。令<span class="math inline">\(T=F^*F\)</span>，则 <span class="math display">\[
+T:H\to H,T(f)=\sum\langle f,\phi_j\rangle\phi_j,\forall f\in H
+\]</span> 为框架的框架算子。</p>
+<p>易知， <span class="math display">\[
+\langle T(f),f\rangle=\sum|\langle f,\phi_j\rangle|^2=\Vert F(f)\Vert^2
+\]</span></p>
+<h3 id="对偶框架">对偶框架</h3>
+<p>记号定义如上，令<span class="math inline">\(\tilde{\phi_j}=T^{-1}\phi_j\)</span>，则<span class="math inline">\(\{\tilde{\phi_j}\}\)</span>是一个以<span class="math inline">\(B^{-1},A^{-1}\)</span>为界的框架，称为原框架的对偶框架。</p>
+<p>注意到<span class="math inline">\(T^*=T\)</span>有 <span class="math display">\[
+\langle f,\tilde{\phi_j}\rangle=\langle f,T^{-1}\phi_j\rangle=\langle T^{-1}f,\phi_j\rangle
+\]</span> 从而 <span class="math display">\[
+\begin{aligned}
+\sum|\langle f,\tilde{\phi_j}\rangle|^2&amp;=\sum|\langle T^{-1}f,\phi_j\rangle|^2\\
+&amp;=\Vert F(T^{-1}f)\Vert^2\\
+&amp;=\langle T^{-1}f,f\rangle
+\end{aligned}
+\]</span> 于是上面的结论是自然的。</p>
+<h3 id="性质">性质</h3>
+<p><span class="math display">\[
+f=\sum\langle f,\phi_j\rangle\tilde{\phi_j}
+\]</span></p>
+<p><span class="math display">\[
+f=\sum\langle f,\tilde{\phi_j}\rangle\phi_j
+\]</span></p>
+<p>这种展开方式的“最优性”</p>
+<ol type="1">
+<li>如果</li>
+</ol>
+<p><span class="math display">\[
+f=\sum c_j\phi_j,\{c_j\}\ne\{\langle f,\tilde{\phi_j}\rangle\}
+\]</span></p>
+<p>则 <span class="math display">\[
+\sum|c_j|^2&gt;\sum|\langle f,\tilde{\phi_j}\rangle|^2
+\]</span></p>
+<ol start="2" type="1">
+<li>如果</li>
+</ol>
+<p><span class="math display">\[
+f=\sum\langle f,\phi_j\rangle u_j，\{u_j\}\ne\{\tilde{\phi_j}\}
+\]</span></p>
+<p>则 <span class="math display">\[
+\sum|\langle f,u_j\rangle|^2\ge\sum|\langle f,\tilde{\phi_j}\rangle|^2
+\]</span></p>
+<h2 id="正交小波">正交小波</h2>
+<p>对于函数<span class="math inline">\(\psi\in L^2(\mathbb{R})\)</span>，如果序列 <span class="math display">\[
+\psi_{b_0;j,k}=2^{j/2}\psi(2^j t-kb_0)
+\]</span> 构成<span class="math inline">\(L^2\)</span>一个框架，则称其生成一个具有抽样速率<span class="math inline">\(b_0\)</span>的小波框架。</p>
+<p>对于函数<span class="math inline">\(\psi\in L^2(\mathbb{R})\)</span>，如果 <span class="math display">\[
+\psi_{j,k}(t)=2^{j/2}\psi(2^jt-k)
+\]</span> 构成<span class="math inline">\(L^2\)</span>的标准正交基，则<span class="math inline">\(\psi\)</span>称为正交小波。如何寻找正交小波成为接下来的主要课题。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Math/Wavelet-Analysis/20210526/DiscreteFourierTransform/" rel="prev" title="离散傅里叶变换">
+                  <i class="fa fa-chevron-left"></i> 离散傅里叶变换
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div><script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xqy</span>
+</div>
+
+<script>
+  function toEnglish(){
+    window.location.pathname = '/en'+window.location.pathname;
+  }
+</script>
+
+<div class="copyright">
+  <!-- <a href="javascript:toEnglish()">English</a> -->
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">25k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;cdn&quot;:&quot;&#x2F;&#x2F;cdn.bootcss.com&#x2F;mathjax&#x2F;2.7.1&#x2F;latest.js?config&#x3D;TeX-AMS-MML_HTMLorMML&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{&quot;enable&quot;:true,&quot;github_id&quot;:&quot;liamxu1&quot;,&quot;repo&quot;:&quot;blog-comment&quot;,&quot;client_id&quot;:&quot;71fc74d167082de3ed9c&quot;,&quot;client_secret&quot;:&quot;f3a01dce4304be5f57bb6f3e0521dd1ee4434e3e&quot;,&quot;admin_user&quot;:&quot;liamxu1&quot;,&quot;distraction_free_mode&quot;:true,&quot;proxy&quot;:&quot;https:&#x2F;&#x2F;cors-anywhere.azm.workers.dev&#x2F;https:&#x2F;&#x2F;github.com&#x2F;login&#x2F;oauth&#x2F;access_token&quot;,&quot;language&quot;:null,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;gitalk@1.7.2&#x2F;dist&#x2F;gitalk.min.js&quot;,&quot;integrity&quot;:&quot;sha256-Pmj85ojLaPOWwRtlMJwmezB&#x2F;Qg8BzvJp5eTzvXaYAfA&#x3D;&quot;},&quot;path_md5&quot;:&quot;94ad9e34d56eaec9894bf4c58b869cba&quot;}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
