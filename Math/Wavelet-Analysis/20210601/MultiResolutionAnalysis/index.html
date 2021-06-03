@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;liamxu1.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="前言——浅谈内积与正交性 还记得本学期开始上课的时候，老师就在不断强调“内积”这个概念的重要性，说是学会了内积，剩下的都是细节。当差不多学到了尾声，回头看看可能这句话也没有那么言过其实。从引入正题的傅里叶级数起，每一次信号处理实质上都是求内积的过程。老师特别喜欢挂在嘴边的的一句话是“内积表示相似性”，不管是前面的傅里叶变换、窗口傅里叶变换，还是后面将要讲的小波变换、小波包、提升小波，实质上都是在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多分辨率分析">
+<meta property="og:url" content="http://liamxu1.github.io/Math/Wavelet-Analysis/20210601/MultiResolutionAnalysis/index.html">
+<meta property="og:site_name" content="Xqy的秘密小空间">
+<meta property="og:description" content="前言——浅谈内积与正交性 还记得本学期开始上课的时候，老师就在不断强调“内积”这个概念的重要性，说是学会了内积，剩下的都是细节。当差不多学到了尾声，回头看看可能这句话也没有那么言过其实。从引入正题的傅里叶级数起，每一次信号处理实质上都是求内积的过程。老师特别喜欢挂在嘴边的的一句话是“内积表示相似性”，不管是前面的傅里叶变换、窗口傅里叶变换，还是后面将要讲的小波变换、小波包、提升小波，实质上都是在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210603221932.png">
+<meta property="article:published_time" content="2021-06-01T05:57:27.000Z">
+<meta property="article:modified_time" content="2021-06-03T14:50:51.409Z">
+<meta property="article:author" content="xqy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210603221932.png">
+
+
+<link rel="canonical" href="http://liamxu1.github.io/Math/Wavelet-Analysis/20210601/MultiResolutionAnalysis/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;liamxu1.github.io&#x2F;Math&#x2F;Wavelet-Analysis&#x2F;20210601&#x2F;MultiResolutionAnalysis&#x2F;&quot;,&quot;path&quot;:&quot;Math&#x2F;Wavelet-Analysis&#x2F;20210601&#x2F;MultiResolutionAnalysis&#x2F;&quot;,&quot;title&quot;:&quot;多分辨率分析&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>多分辨率分析 | Xqy的秘密小空间</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Xqy的秘密小空间</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎来到我的Blog！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80%E6%B5%85%E8%B0%88%E5%86%85%E7%A7%AF%E4%B8%8E%E6%AD%A3%E4%BA%A4%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">前言——浅谈内积与正交性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E5%88%86%E8%BE%A8%E7%8E%87%E5%88%86%E6%9E%90mra"><span class="nav-number">2.</span> <span class="nav-text">多分辨率分析(MRA)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="nav-number">2.2.</span> <span class="nav-text">一个例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E5%B0%BA%E5%BA%A6%E6%96%B9%E7%A8%8B"><span class="nav-number">2.3.</span> <span class="nav-text">双尺度方程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E5%9F%9F%E6%8F%8F%E8%BF%B0"><span class="nav-number">2.3.1.</span> <span class="nav-text">时域描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%91%E5%9F%9F%E6%8F%8F%E8%BF%B0"><span class="nav-number">2.3.2.</span> <span class="nav-text">频域描述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E9%87%8D%E8%A6%81%E7%9A%84%E5%AE%9A%E7%90%86"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">一个重要的定理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E6%B3%A2%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="nav-number">2.4.</span> <span class="nav-text">小波滤波器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E6%B3%A2%E5%AD%90%E7%A9%BA%E9%97%B4%E5%92%8Cl2%E7%A9%BA%E9%97%B4%E7%9A%84%E6%AD%A3%E4%BA%A4%E5%88%86%E8%A7%A3"><span class="nav-number">2.5.</span> <span class="nav-text">小波子空间和\(L^2\)空间的正交分解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E6%AD%A3%E4%BA%A4%E5%B0%8F%E6%B3%A2%E9%80%9A%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">2.6.</span> <span class="nav-text">构造正交小波通用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%B0%8F%E6%B3%A2"><span class="nav-number">2.7.</span> <span class="nav-text">常见小波</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E8%A7%A3%E9%87%8D%E6%9E%84%E7%AE%97%E6%B3%95"><span class="nav-number">2.8.</span> <span class="nav-text">分解重构算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E6%B3%A2%E6%BB%A4%E6%B3%A2%E5%99%A8-1"><span class="nav-number">2.9.</span> <span class="nav-text">小波滤波器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%BA%E5%BA%A6%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%AD%E4%BB%A3%E6%9E%84%E9%80%A0"><span class="nav-number">3.</span> <span class="nav-text">尺度函数的迭代构造</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xqy"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">xqy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liamxu1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liamxu1" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/Math/Wavelet-Analysis/20210601/MultiResolutionAnalysis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          多分辨率分析
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-01 13:57:27" itemprop="dateCreated datePublished" datetime="2021-06-01T13:57:27+08:00">2021-06-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/" itemprop="url" rel="index"><span itemprop="name">Math</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/Wavelet-Analysis/" itemprop="url" rel="index"><span itemprop="name">Wavelet Analysis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言浅谈内积与正交性">前言——浅谈内积与正交性</h1>
+<p>还记得本学期开始上课的时候，老师就在不断强调“内积”这个概念的重要性，说是学会了内积，剩下的都是细节。当差不多学到了尾声，回头看看可能这句话也没有那么言过其实。从引入正题的傅里叶级数起，每一次信号处理实质上都是求内积的过程。老师特别喜欢挂在嘴边的的一句话是“内积表示相似性”，不管是前面的傅里叶变换、窗口傅里叶变换，还是后面将要讲的小波变换、小波包、提升小波，实质上都是在空间上找一组标准正交基，再用我们的信号去和每一个基函数去做内积，去得到它们之间的相似性。<span class="math inline">\(f=\sum\langle f,e_i\rangle e_i\)</span>。重新观察这个式子，信号与基函数越接近，就在构造其时在该基函数上乘上越大的系数再组合起来。我们整学期课程学习的信号处理在某种程度上就可以理解为将信号变为一串系数列，通过某种阈值筛选之后再重新组合起来。</p>
+<p>上次最后说要找正交小波，其实正交性的作用在上面的叙述之后也逐渐变得明朗起来，正是正交性保证了上面的重构公式的存在性。如果只有基性质没有正交性，虽然理论上求出系数也是可行的，但是需要通过求解大型线性方程组，这就意味着大量开销与不可避免的误差。有了正交性，系数就可以通过内积计算，本质上就是加法和乘法，计算的开销会小得多，误差也更容易控制。</p>
+<h1 id="多分辨率分析mra">多分辨率分析(MRA)</h1>
+<p>1988年，Mallat创造性地将多分辨率分析的概念与构造正交小波基结合起来，从空间的概念上形象地给出了一个构造正交小波基函数的通用框架。</p>
+<h2 id="定义">定义</h2>
+<p>设<span class="math inline">\(\{V_j\}\)</span>是<span class="math inline">\(L^2(\mathbb{R})\)</span>的一个闭子空间系列，<span class="math inline">\(\{V_j\}\)</span>称为<span class="math inline">\(L^2(\mathbb{R})\)</span>的一个多分辨率分析，如果满足 <span class="math display">\[
+V_j\subset V_{j+1}
+\tag{1}
+\]</span></p>
+<p><span class="math display">\[
+\overline{\bigcup V_j}=L^2(\mathbb{R})
+\tag{2}
+\]</span></p>
+<p><span class="math display">\[
+\bigcap V_j=\{0\}
+\tag{3}
+\]</span></p>
+<p><span class="math display">\[
+f(t)\in V_j \iff f(2t)\in V_{j+1}
+\tag{4}
+\]</span></p>
+<p><span class="math display">\[
+f(t)\in V_0\iff f(t-k)\in V_0
+\tag{5}
+\]</span></p>
+<p><span class="math display">\[
+\exists \phi \in V_0,\{\phi(t-k)\}构成V_0标准正交基
+\tag{6}
+\]</span></p>
+<p>前三条实质上只是指出了一个嵌套的关系，第四条指出函数伸缩性，第五条指出其平移不变性，第六条是一个核心的性质，<span class="math inline">\(\phi\)</span>为尺度函数真正刻画了空间的模样。</p>
+<p>容易看出有结论 <span class="math display">\[
+\{\phi_{j,k}(t)=2^{j/2}\phi(2^j t-k)\}
+\]</span> 为<span class="math inline">\(V_j\)</span>的标准正交基。</p>
+<h2 id="一个例子">一个例子</h2>
+<p>上课时候通过这些性质直接进行理论推导确实没什么感觉，所以先举个例子来直观感受一下。</p>
+<p>之前提到过一个最简单的小波例子——haar小波</p>
+<p>它所对应的尺度函数<span class="math inline">\(\phi(x)=I_{[0,1)}\)</span>，生成的多分辨率分析为 <span class="math display">\[
+V_j=\{f(x)\in L^2(\mathbb{R})|f(x)=c_k\in[\frac{n}{2^j},\frac{n+1}{2^j})\}
+\]</span> 这就是用一串不断加细节的趋向于<span class="math inline">\(L^2\)</span>的空间。</p>
+<p>haar小波为 <span class="math display">\[
+\psi (t)=
+\begin{cases}
+1,&amp;0\le t&lt;1/2\\
+-1,&amp;1/2\le t&lt;1\\
+0,&amp;else
+\end{cases}
+\]</span> 做内积直观上就是算两部分函数的差。如果将信号看成一张图片，那么一块像素点的平均值，或者说它们的和性质是刻画了它们的整体特征；而像素点之间的差性质则是刻画了局部的细节轮廓。使用小波函数其实就是不断将信号分成整体与细节两部分，尺度函数就对应整体的部分，而小波函数对应细节的部分，两者结合则给出了信号的全部信息。</p>
+<h2 id="双尺度方程">双尺度方程</h2>
+<h3 id="时域描述">时域描述</h3>
+<p>由空间的嵌套性，我们有<span class="math inline">\(\phi(t)\in V_1\)</span>则存在系数使得 <span class="math display">\[
+\phi(t)=\sum_k h_k\phi(2t-k)
+\]</span> 这里的系数<span class="math inline">\(\{h_k\}\)</span>就称为双尺度系数</p>
+<p>由<span class="math inline">\(\{\phi(2t-k)\}\)</span>的标准正交性可以得到<span class="math inline">\(h_k\)</span>的计算公式 <span class="math display">\[
+h_k=2\int_\mathbb{R}\phi(t)\overline{\phi(2t-k)}dt
+\]</span></p>
+<p>容易验证双尺度系数满足以下性质 <span class="math display">\[
+\begin{aligned}
+&amp;\sum h_{k-2n}\overline{h_{k-2m}}=2\delta_{m,n}\\
+&amp;\sum |h_k|^2=2\\
+&amp;\sum h_k = 2\\
+&amp;\sum h_{2k}=\sum h_{2k+1}=1
+\end{aligned}
+\]</span></p>
+<h3 id="频域描述">频域描述</h3>
+<p>对双尺度方程<span class="math inline">\(\phi(t)=\sum_k h_k\phi(2t-k)\)</span>两边做傅里叶变换可得 <span class="math display">\[
+\hat{\phi}(\lambda)=\frac{1}{2}\sum_k h_k e^{-\frac{ik\lambda}{2}}\hat{\phi}(\frac{\lambda}{2})
+\]</span> 令<span class="math inline">\(H(\lambda)=\frac{1}{2}\sum_k h_k e^{-ik\lambda}\)</span>，则<span class="math inline">\(\hat{\phi}(\lambda)=H(\frac{\lambda}{2})\hat{\phi}(\frac{\lambda}{2})\)</span></p>
+<p>这即为双尺度方程的频域表示。</p>
+<h4 id="一个重要的定理">一个重要的定理</h4>
+<p>假设<span class="math inline">\(\phi\in L^2(\mathbb{R})\)</span>，则<span class="math inline">\(\{\phi(t-k)\}\)</span>是标准正交集的充要条件是 <span class="math display">\[
+\sum|\hat{\phi}(\lambda+2k\pi)|^2=\frac{1}{2\pi}
+\]</span> 此定理证明就是把标准正交条件写出来，两边作傅里叶变换即可，技术上很容易想到。它的重要性在于它不仅给出了一种验证标准正交性的方式，更是给出了一种构造的方式。</p>
+<p>事实上只要令 <span class="math display">\[
+\hat{\phi}^*(\lambda)=\frac{\hat{\phi}(\lambda)}{(2\pi \sum |\hat{\phi}(\lambda+2k\pi)|^2)^{1/2}}
+\]</span> 则可以通过频域上的伸缩变换给出一个满足标准正交性的尺度函数。</p>
+<p>此外有性质 <span class="math display">\[
+|H(\lambda)|^2+|H(\lambda + \pi)|^2=1
+\]</span></p>
+<h2 id="小波滤波器">小波滤波器</h2>
+<p>引入<span class="math inline">\(g_k=(-1)^k\bar{h}_{1-k}\)</span>，并类似地记<span class="math inline">\(G(\lambda)=\frac{1}{2}\sum g_ke^{-ik\lambda}\)</span>，则其有以下性质： <span class="math display">\[
+\begin{aligned}
+&amp;\sum g_{k-2n}\overline{g_{k-2m}}=2\delta_{m,n}\\
+&amp;\sum h_{k-2n}\overline{g_{k-2m}}=0\\
+&amp;\sum h_{n-2k}\overline{h_{m-2k}}+g_{n-2k}\overline{g_{m-2k}}=2\delta_{m,n}\\
+&amp;G(\lambda)=-e^{-i\lambda}\overline{H(\lambda+\pi)}\\
+&amp;|G(\lambda)|^2+|G(\lambda + \pi)|^2=1\\
+&amp;H(\lambda)\overline{G(\lambda)}+H(\lambda + \pi)\overline{G(\lambda + \pi)}=1
+\end{aligned}
+\]</span></p>
+<h2 id="小波子空间和l2空间的正交分解">小波子空间和<span class="math inline">\(L^2\)</span>空间的正交分解</h2>
+<p>令<span class="math inline">\(\psi(x)=\sum g_k\phi(2x-k)\)</span></p>
+<p><span class="math inline">\(Thm\)</span> 记<span class="math inline">\(W_j\)</span>是函数系列<span class="math inline">\(\{\psi_{j,k}(x)=\psi(2^j-k)\}\)</span>张成的空间，则<span class="math inline">\(W_j\)</span>是<span class="math inline">\(V_{j+1}\)</span>中<span class="math inline">\(V_j\)</span>的正交补空间，并且<span class="math inline">\(\psi_{j,k}(x)\)</span>为<span class="math inline">\(W_j\)</span>的一个标准正交基。</p>
+<p>这是一个非常优美的结论。此定理从理论上证明了前面说的所谓整体性质与细节的分解的可行性，大空间包含的信息恰好是较小的空间与一个“细节空间”所能包含信息的和！至此，有空间的分解 <span class="math display">\[
+V_j=V_{j-1}\oplus W_j=V_{j-2}\oplus W_{j-1}\oplus W_{j}=\cdots
+\]</span></p>
+<h2 id="构造正交小波通用方法">构造正交小波通用方法</h2>
+<p>整理一下上面的步骤。首先找到多分辨率序列<span class="math inline">\(\{V_j\}\)</span>以及其尺度函数<span class="math inline">\(\phi(x)\)</span>，求出对应的双尺度函数<span class="math inline">\(h_k\)</span>，接着就可以得到正交小波基函数<span class="math inline">\(\psi(x)=\sum (-1)^k\overline{h_{1-k}}\phi(2x-k)\)</span></p>
+<h2 id="常见小波">常见小波</h2>
+<p>Haar小波： <span class="math display">\[
+V_j=\{f(x)\in L^2(\mathbb{R})|f(x)=c_k\in[\frac{n}{2^j},\frac{n+1}{2^j})\}
+\]</span></p>
+<p><span class="math display">\[
+\psi (t)=
+\begin{cases}
+1,&amp;0\le t&lt;1/2\\
+-1,&amp;1/2\le t&lt;1\\
+0,&amp;else
+\end{cases}
+\]</span></p>
+<p>Shannon小波： <span class="math display">\[
+V_j=\{f(x)\in L^2(\mathbb{R})|supp(\hat{f}(\lambda))\in[-2^j\pi,2^j\pi] \}
+\]</span></p>
+<p><span class="math display">\[
+\psi(t)=
+\begin{cases}
+1,&amp;t=0\\
+\frac{\sin(\pi x)}{\pi x},&amp;else
+\end{cases}
+\]</span></p>
+<p>Haar小波光滑性太差，Shannon小波虽然光滑性好，但是支集太大，处理时也会差生较大误差。于是希望构造一个连续又紧支的小波函数。</p>
+<p>线性样条小波（Battle-Lemarie小波）： <span class="math display">\[
+V_j=\{f(x)\in L^2(\mathbb{R})\cap C^1(\mathbb{R})|f(x)=c_k x+d_k,x\in[\frac{n}{2^j},\frac{n+1}{2^j})\}
+\]</span></p>
+<p><span class="math display">\[
+\psi (t)=
+\begin{cases}
+t+1,&amp;-1\le t\le 0\\
+1-t,&amp;0&lt; t\le 1\\
+0,&amp;else
+\end{cases}
+\]</span> 这样的函数满足刚才提出的希望条件，但是不满足正交性，可以用之前介绍的方式通过频域上的变换使之正交化即可。这样产生的小波函数和尺度函数都很快趋于零。</p>
+<h2 id="分解重构算法">分解重构算法</h2>
+<p>正如前言所说，我们对于信号的处理本质上就是分解重构。下面介绍在多分辨率分析下的小波的分解与重构算法。</p>
+<ol type="1">
+<li><p>初始化</p>
+<p>由原始信号投影到某个<span class="math inline">\(V_j\)</span>空间上。由于我们不能处理直接无限的信号信息，首先应当选取一个合适的空间，将信号转化为若干基函数的线性组合，再对系数作操作。</p></li>
+<li><p>分解</p>
+<p>这是多分辨率分析的核心，将空间<span class="math inline">\(V_j\)</span>上的信号分解到<span class="math inline">\(V_{j-1}\)</span>与<span class="math inline">\(W_{j-1}\)</span>上。每一步都从当前主要信息中提取整体信息和细节信息。 <span class="math display">\[
+\begin{aligned}
+f_j(x)&amp;=\sum c_{j,k}\phi_{j,k}(x)\\
+f_{j-1}(x)&amp;=\sum c_{j-1,k}\phi_{j-1,k}(x)\\
+w_{j-1}(x)&amp;=\sum d_{j-1,k}\phi_{j-1,k}(x)
+\end{aligned}
+\]</span></p>
+<p>要做的就是根据系数<span class="math inline">\(\{c_{j,k}\}\)</span>计算<span class="math inline">\(\{c_{j-1,k}\}\)</span>与<span class="math inline">\(\{d_{j-1,k}\}\)</span>。 <span class="math display">\[
+f_j(x)=f_{j-1}(x)+w_{j-1}(x)
+\]</span> 则 <span class="math display">\[
+c_{j-1,l}=\sum c_{j,k}\langle \phi_{j,k},\phi_{j-1,l}\rangle
+\]</span> 又双尺度方程 <span class="math display">\[
+\phi(t)=\sum h_k\phi(2t-k)
+\]</span> 可推出 <span class="math display">\[
+\phi_{j-1,l}(t)=2^{-1/2}\sum h_{k-2l}\phi_{j,k}(t)
+\]</span> 于是</p>
+<p><span class="math display">\[
+c_{j-1,l}=2^{-1/2}\sum c_{j,k}\overline{h_{k-2l}}
+\]</span> 同理由小波方程可得 <span class="math display">\[
+d_{j-1,l}=2^{-1/2}\sum c_{j,k}\overline{g_{k-2l}}
+\]</span></p></li>
+<li><p>重构</p>
+<p>分解完即可对这些系数信息进行一定的调整以达到去噪增强等效果，之后按原样组合起来。重构算法即根据系数<span class="math inline">\(\{c_{j-1,k}\}\)</span>与<span class="math inline">\(\{d_{j-1,k}\}\)</span>计算<span class="math inline">\(\{c_{j,k}\}\)</span>。</p>
+<p>由于 <span class="math display">\[
+\begin{aligned}
+\phi_{j-1,l}(t)=2^{-1/2}\sum h_{k-2l}\phi_{j,k}(t)\\
+\psi_{j-1,l}(t)=2^{-1/2}\sum g_{k-2l}\phi_{j,k}(t)
+\end{aligned}
+\]</span> 可得 <span class="math display">\[
+c_{j,l}=2^{-1/2}\sum c_{j-1,k}h_{l-2k}+2^{-1/2}\sum d_{j-1,k}g_{l-2k}
+\]</span> 即可</p></li>
+</ol>
+<h2 id="小波滤波器-1">小波滤波器</h2>
+<p>上面这样的操作过程可以有更简洁的离散滤波器的形式来表现。</p>
+<p>定义下采样算子 <span class="math display">\[
+D:(\cdots,x_{-1},x_0,x_1,\cdots)\to (\cdots,x_{-2},x_0,x_2,\cdots)
+\]</span> 则分解算法即 <span class="math display">\[
+\begin{cases}
+c^{j-1}=D(c^j*\bar{h}^*)\\
+d^{j-1}=D(c^j*\bar{g}^*)
+\end{cases}
+\]</span> 其中 <span class="math display">\[
+\begin{aligned}
+\bar{h}^*=\{\frac{1}{\sqrt2}\bar{h}_{-k} \}\\
+\bar{g}^*=\{\frac{1}{\sqrt2}\bar{g}_{-k} \}
+\end{aligned}
+\]</span> 重构算法类似，引入上采样算子 <span class="math display">\[
+U:(\cdots,x_{-1},x_0,x_1,\cdots)\to (\cdots,x_{-1},0,x_0,0,x_1,\cdots)
+\]</span> 则 <span class="math display">\[
+c^j=Uc^{j-1}*h+Ud^{j-1}*g
+\]</span> 其中 <span class="math display">\[
+\begin{aligned}
+h=\{\frac{1}{\sqrt2}h_k \}\\
+g=\{\frac{1}{\sqrt2}g_k \}
+\end{aligned}
+\]</span> <img src="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210603221932.png" /></p>
+<p>大致流程图如上。</p>
+<h1 id="尺度函数的迭代构造">尺度函数的迭代构造</h1>
+<p>上面根据尺度空间张成的多分辨率分析嵌套空间，我们构造出了一组正交小波，那么尺度函数本身应该如何构造呢。</p>
+<p><span class="math inline">\(Thm\)</span> 假设<span class="math inline">\(\phi\)</span>是一个具有紧支集的连续函数，并且满足标准正交化条件、标准化条件（积分为1）、双尺度方程（只有有限个<span class="math inline">\(h_k\)</span>非零）。则<span class="math inline">\(V_j\)</span>构成一个多分辨率分析。</p>
+<p><span class="math inline">\(Thm\)</span> 假设<span class="math inline">\(P(z)=\frac{1}{2}\sum h_k z^k\)</span>是一个多项式满足<span class="math inline">\(P(1)=1\)</span>，<span class="math inline">\(|P(z)|^2+|P(-z)|^2=1,|z|=1\)</span>，<span class="math inline">\(|P(e^{it})|&gt;0,|t|&lt;\pi/2\)</span>。<span class="math inline">\(\phi_0\)</span>为Haar尺度函数，<span class="math inline">\(\phi_n(x)=\sum h_k\phi_{n-1}(2x-k)\)</span>，则<span class="math inline">\(\phi_n\)</span>依范数收敛到<span class="math inline">\(\phi\)</span>且<span class="math inline">\(\phi\)</span>满足上述定理三个条件。</p>
+<p>例如<span class="math inline">\(P(z)=\frac{1+z}{2}\)</span>可以得到Haar小波。在Daubechies小波的构造中将要用到这个事实。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Math/Wavelet-Analysis/20210528/Wavelet/" rel="prev" title="小波函数简介">
+                  <i class="fa fa-chevron-left"></i> 小波函数简介
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div><script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xqy</span>
+</div>
+
+<script>
+  function toEnglish(){
+    window.location.pathname = '/en'+window.location.pathname;
+  }
+</script>
+
+<div class="copyright">
+  <!-- <a href="javascript:toEnglish()">English</a> -->
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">31k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;cdn&quot;:&quot;&#x2F;&#x2F;cdn.bootcss.com&#x2F;mathjax&#x2F;2.7.1&#x2F;latest.js?config&#x3D;TeX-AMS-MML_HTMLorMML&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{&quot;enable&quot;:true,&quot;github_id&quot;:&quot;liamxu1&quot;,&quot;repo&quot;:&quot;blog-comment&quot;,&quot;client_id&quot;:&quot;71fc74d167082de3ed9c&quot;,&quot;client_secret&quot;:&quot;f3a01dce4304be5f57bb6f3e0521dd1ee4434e3e&quot;,&quot;admin_user&quot;:&quot;liamxu1&quot;,&quot;distraction_free_mode&quot;:true,&quot;proxy&quot;:&quot;https:&#x2F;&#x2F;cors-anywhere.azm.workers.dev&#x2F;https:&#x2F;&#x2F;github.com&#x2F;login&#x2F;oauth&#x2F;access_token&quot;,&quot;language&quot;:null,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;gitalk@1.7.2&#x2F;dist&#x2F;gitalk.min.js&quot;,&quot;integrity&quot;:&quot;sha256-Pmj85ojLaPOWwRtlMJwmezB&#x2F;Qg8BzvJp5eTzvXaYAfA&#x3D;&quot;},&quot;path_md5&quot;:&quot;086ebbd15e2c6902d6b041bae24594e9&quot;}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
