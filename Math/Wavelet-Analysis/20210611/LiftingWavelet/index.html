@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;liamxu1.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="前言 经典小波分析是从傅里叶分析的基础上发展起来的，因此它在一定程度上收到傅里叶分析的限制。小波变换和多分辨率分析都是建立在小波的二进伸缩平移的基础上，称之为第一代小波。1996年，Sweldens提出了不依赖傅里叶变换的小波提升方法，提升小波主要具有以下性质。  能够用于构造第一代小波：可以用来提高小波的消失矩，构造具有插值的小波等，可以加深对第一代小波的理解。 能够改进第一代小波的算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="提升小波">
+<meta property="og:url" content="http://liamxu1.github.io/Math/Wavelet-Analysis/20210611/LiftingWavelet/index.html">
+<meta property="og:site_name" content="Xqy的秘密小空间">
+<meta property="og:description" content="前言 经典小波分析是从傅里叶分析的基础上发展起来的，因此它在一定程度上收到傅里叶分析的限制。小波变换和多分辨率分析都是建立在小波的二进伸缩平移的基础上，称之为第一代小波。1996年，Sweldens提出了不依赖傅里叶变换的小波提升方法，提升小波主要具有以下性质。  能够用于构造第一代小波：可以用来提高小波的消失矩，构造具有插值的小波等，可以加深对第一代小波的理解。 能够改进第一代小波的算法">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-11T02:37:27.000Z">
+<meta property="article:modified_time" content="2021-06-11T16:02:21.179Z">
+<meta property="article:author" content="xqy">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://liamxu1.github.io/Math/Wavelet-Analysis/20210611/LiftingWavelet/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;liamxu1.github.io&#x2F;Math&#x2F;Wavelet-Analysis&#x2F;20210611&#x2F;LiftingWavelet&#x2F;&quot;,&quot;path&quot;:&quot;Math&#x2F;Wavelet-Analysis&#x2F;20210611&#x2F;LiftingWavelet&#x2F;&quot;,&quot;title&quot;:&quot;提升小波&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>提升小波 | Xqy的秘密小空间</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Xqy的秘密小空间</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎来到我的Blog！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#z%E5%8F%98%E6%8D%A2%E4%B8%8B%E7%9A%84%E5%A4%9A%E5%88%86%E8%BE%A8%E7%8E%87%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">Z变换下的多分辨率分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E5%8D%87%E5%B0%8F%E6%B3%A2%E7%9A%84%E6%9E%84%E9%80%A0"><span class="nav-number">3.</span> <span class="nav-text">提升小波的构造</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%9B%B8%E4%BD%8D%E7%9F%A9%E9%98%B5%E7%9A%84%E5%9B%A0%E5%AD%90%E5%88%86%E8%A7%A3"><span class="nav-number">3.1.</span> <span class="nav-text">多相位矩阵的因子分解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#laurent%E5%A4%9A%E9%A1%B9%E5%BC%8F"><span class="nav-number">3.1.1.</span> <span class="nav-text">Laurent多项式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-number">3.1.2.</span> <span class="nav-text">构造方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E5%8D%87%E7%AE%97%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">提升算法</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xqy"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">xqy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liamxu1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liamxu1" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/Math/Wavelet-Analysis/20210611/LiftingWavelet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          提升小波
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-11 10:37:27" itemprop="dateCreated datePublished" datetime="2021-06-11T10:37:27+08:00">2021-06-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/" itemprop="url" rel="index"><span itemprop="name">Math</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/Wavelet-Analysis/" itemprop="url" rel="index"><span itemprop="name">Wavelet Analysis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言">前言</h1>
+<p>经典小波分析是从傅里叶分析的基础上发展起来的，因此它在一定程度上收到傅里叶分析的限制。小波变换和多分辨率分析都是建立在小波的二进伸缩平移的基础上，称之为第一代小波。1996年，Sweldens提出了不依赖傅里叶变换的小波提升方法，提升小波主要具有以下性质。</p>
+<ol type="1">
+<li>能够用于构造第一代小波：可以用来提高小波的消失矩，构造具有插值的小波等，可以加深对第一代小波的理解。</li>
+<li>能够改进第一代小波的算法性能：完全是原位计算且容易推广到边界。</li>
+<li>可用于构造第二代小波：其摆脱了傅里叶变换的限制，同时满足小波变换的好性质，该思想可以用来构造复杂区域上的小波变换。</li>
+</ol>
+<h1 id="z变换下的多分辨率分析">Z变换下的多分辨率分析</h1>
+<p>利用Z变换重新认识多分辨率分析的分解重构算法。</p>
+<p>之前定义过序列的Z变换 <span class="math display">\[
+x(z)=\sum_{j\in\mathbb{Z}} x_jz^{-j}
+\]</span> 定义偶序列对应的Z变换 <span class="math display">\[
+x_e(z)=\sum_{j\in\mathbb{Z}} x_{2j}z^{-j}
+\]</span> 则 <span class="math display">\[
+x_e(z^2)=\sum_{j\in\mathbb{Z}} x_{2j}z^{-2j}
+\]</span> 同样定义奇序列的Z变换满足 <span class="math display">\[
+x_o(z^2)=\sum_{j\in\mathbb{Z}} x_{2j+1}z^{-2j}
+\]</span> 则有 <span class="math display">\[
+\left(
+\begin{matrix}
+x_e(z^2)\\
+x_o(z^2)
+\end{matrix}
+\right)
+=
+\left(
+\begin{matrix}
+\frac12&amp;\frac12\\
+\frac z2&amp;-\frac z2
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+x(z)\\
+x(-z)
+\end{matrix}
+\right)
+\]</span> 回忆之前的分解重构算法： <span class="math display">\[
+\begin{aligned}
+c_{j-1,l}&amp;=2^{-1/2}\sum c_{j,k}\overline{h_{k-2l}}\\
+d_{j-1,l}&amp;=2^{-1/2}\sum c_{j,k}\overline{g_{k-2l}}\\
+c_{j,l}=2^{-1/2}\sum &amp;c_{j-1,k}h_{l-2k}+2^{-1/2}\sum d_{j-1,k}g_{l-2k}
+\end{aligned}
+\]</span> 考虑双尺度系数和小波系数Z变换得到的函数 <span class="math display">\[
+h(z)=\sum_{j\in\mathbb{Z}} h_jz^{-j},g(z)=\sum_{j\in\mathbb{Z}} g_jz^{-j}
+\]</span> 由性质可得 <span class="math display">\[
+g(z)=-z^{-1}\bar{h}(-z^{-1}),\bar g(z)=-z^{-1}h(-z^{-1})
+\]</span> 且奇序列偶序列Z变换 <span class="math display">\[
+h_e(z^2)=\frac{h(z)+h(-z)}{2},h_o(z^2)=\frac{h(z)-h(-z)}{2z^{-1}}
+\]</span></p>
+<p><span class="math display">\[
+g_e(z^2)=\frac{g(z)+g(-z)}{2},g_o(z^2)=\frac{g(z)-g(-z)}{2z^{-1}}
+\]</span></p>
+<p>分解算法： <span class="math display">\[
+\begin{aligned}
+c^{j-1}(z^2)&amp;=\sum_l c_{j-1,l}z^{-2l}\\
+&amp;=2^{-1/2}\sum_l(\sum_k c_{j,k}\overline{h_{k-2l}})z^{-2l}\\
+&amp;=2^{-1/2}c^j(z)\bar{h}(z^{-1})
+\end{aligned}
+\]</span> 用-z代替z可得 <span class="math display">\[
+c^{j-1}(z^2)=2^{-1/2}c^j(-z)\bar{h}(-z^{-1})
+\]</span> 于是 <span class="math display">\[
+c^{j-1}(z^2)=2^{-1/2}\frac{c^j(z)\bar{h}(z^{-1})+c^j(-z)\bar{h}(-z^{-1})}{2}
+\]</span> 同理 <span class="math display">\[
+d^{j-1}(z^2)=2^{-1/2}\frac{c^j(z)\bar{g}(z^{-1})+c^j(-z)\bar{g}(-z^{-1})}{2}
+\]</span> 可推出 <span class="math display">\[
+\left(
+\begin{matrix}
+c^{j-1}(z^2)\\
+d^{j-1}(z^2)
+\end{matrix}
+\right)
+=
+2^{-1/2}
+\left(
+\begin{matrix}
+\bar{h}_e(z^{-2})&amp;\bar{h}_o(z^{-2})\\
+\bar{g}_e(z^{-2})&amp;\bar{g}_o(z^{-2})
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+c^j_e(z^2)\\
+c^j_o(z^2)
+\end{matrix}
+\right)
+\]</span> 定义h和g的多相位矩阵为 <span class="math display">\[
+P(z)=
+\left(
+\begin{matrix}
+h_e(z)&amp;g_e(z)\\
+h_o(z)&amp;g_o(z)\\
+\end{matrix}
+\right)
+\]</span> 则小波分解算法可记为 <span class="math display">\[
+\left(
+\begin{matrix}
+c^{j-1}(z^2)\\
+d^{j-1}(z^2)
+\end{matrix}
+\right)
+=
+2^{-1/2}
+\bar{P}(z^{-2})^T
+\left(
+\begin{matrix}
+c^j_e(z^2)\\
+c^j_o(z^2)
+\end{matrix}
+\right)
+\]</span> 即 <span class="math display">\[
+\left(
+\begin{matrix}
+c^{j-1}(z)\\
+d^{j-1}(z)
+\end{matrix}
+\right)
+=
+2^{-1/2}
+\bar{P}(z^{-1})^T
+\left(
+\begin{matrix}
+c^j_e(z)\\
+c^j_o(z)
+\end{matrix}
+\right)
+\]</span> 类似地重构算法： <span class="math display">\[
+\left(
+\begin{matrix}
+c^j_e(z)\\
+c^j_o(z)
+\end{matrix}
+\right)
+=
+2^{-1/2}
+P(z)
+\left(
+\begin{matrix}
+c^{j-1}(z)\\
+d^{j-1}(z)
+\end{matrix}
+\right)
+\]</span> 完全重构的条件为 <span class="math display">\[
+P(z)\bar{P}(z^{-1})^T=2I
+\]</span></p>
+<h1 id="提升小波的构造">提升小波的构造</h1>
+<p>可以看出分解重构都只需要用到多相位矩阵<span class="math inline">\(P(z)\)</span>，简单的想法是将<span class="math inline">\(P(z)\)</span>分解为一系列简单矩阵的乘积，则只需要作原位计算。</p>
+<p>事实上有结论，若<span class="math inline">\(P(z)\)</span>的行列式等于-2（若多相位矩阵来自于多分辨率分析，则这一点必然成立），</p>
+<p>则存在Laurent多项式<span class="math inline">\(u_i(z),p_i(z)\)</span>和非零常数<span class="math inline">\(K\)</span>满足 <span class="math display">\[
+P(z)=\prod_{i=1}^m
+\left(
+\begin{matrix}
+1&amp;u_i(z)\\
+0&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+1&amp;0\\
+p_i(z)&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+K&amp;0\\
+0&amp;-\frac{2}{K}
+\end{matrix}
+\right),p_m(z)=0
+\]</span> 下面给出这些Laurent多项式的构造方法</p>
+<h2 id="多相位矩阵的因子分解">多相位矩阵的因子分解</h2>
+<h3 id="laurent多项式">Laurent多项式</h3>
+<p><span class="math display">\[
+h(z)=\sum_{k=k_a}^{k_b}h_kz^{-k},h_{k_a}\ne 0 ,h_{k_b}\ne 0
+\]</span></p>
+<p>称为一个Laurent多项式。次数为 <span class="math display">\[
+|h(z)|=k_b-k_a
+\]</span></p>
+<p>Laurent多项式的带余除法可以和普通多项式类似定义，但不唯一，任取其一即可。</p>
+<h3 id="构造方法">构造方法</h3>
+<p>使用Euclid算法 <span class="math display">\[
+\begin{aligned}
+a_{i+1}(z)&amp;=b_i(z)\\
+b_{i+1}(z)&amp;=a_i(z)\%b_i(z)
+\end{aligned}
+\]</span> 总可以使<span class="math inline">\(b_n(z)=0\)</span>的<span class="math inline">\(n\)</span>为偶数且尽量小，则 <span class="math display">\[
+\left(
+\begin{matrix}
+a_n(z)\\
+0
+\end{matrix}
+\right)
+=
+\prod_{i=n}^1
+\left(
+\begin{matrix}
+0&amp;1\\
+1&amp;-q_i(z)
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+a(z)\\
+b(z)
+\end{matrix}
+\right)
+\]</span></p>
+<p>这等价于</p>
+<p><span class="math display">\[
+\left(
+\begin{matrix}
+a(z)\\
+b(z)
+\end{matrix}
+\right)
+=
+\prod_{i=1}^n
+\left(
+\begin{matrix}
+q_i(z)&amp;1\\
+1&amp;0
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+a_n(z)\\
+0
+\end{matrix}
+\right)
+\]</span></p>
+<p>从而</p>
+<p><span class="math display">\[
+\left(
+\begin{matrix}
+a(z)\\
+b(z)
+\end{matrix}
+\right)
+=
+\left(
+\begin{matrix}
+1&amp;q_1(z)\\
+0&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+1&amp;0\\
+q_2(z)&amp;1
+\end{matrix}
+\right)
+\prod_{i=3}^n
+\left(
+\begin{matrix}
+q_i(z)&amp;1\\
+1&amp;0
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+a_n(z)\\
+0
+\end{matrix}
+\right)
+\]</span></p>
+<p>对</p>
+<p><span class="math display">\[
+\left(
+\begin{matrix}
+h_e(z)\\
+h_o(z)\\
+\end{matrix}
+\right)
+\]</span></p>
+<p>操作即有</p>
+<p><span class="math display">\[
+\left(
+\begin{matrix}
+h_e(z)\\
+h_o(z)\\
+\end{matrix}
+\right)
+=\prod_{i=1}^{m-1}
+\left(
+\begin{matrix}
+1&amp;u_i(z)\\
+0&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+1&amp;0\\
+p_i(z)&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+K\\
+0
+\end{matrix}
+\right)
+\]</span></p>
+<p>记</p>
+<p><span class="math display">\[
+\left(
+\begin{matrix}
+h_e(z)&amp;p_e(z)\\
+h_o(z)&amp;p_o(z)\\
+\end{matrix}
+\right)
+=\prod_{i=1}^{m-1}
+\left(
+\begin{matrix}
+1&amp;u_i(z)\\
+0&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+1&amp;0\\
+p_i(z)&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+K&amp;0\\
+0&amp;-\frac{2}{K}
+\end{matrix}
+\right)
+\]</span></p>
+<p>结合我们希望得到的形式</p>
+<p><span class="math display">\[
+P(z)
+=\prod_{i=1}^{m-1}
+\left(
+\begin{matrix}
+1&amp;u_i(z)\\
+0&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+1&amp;0\\
+p_i(z)&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+K&amp;0\\
+0&amp;-\frac{2}{K}
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+1&amp;\frac{2u_m(z)}{K^2}\\
+0&amp;1
+\end{matrix}
+\right)
+\]</span> 只要取 <span class="math display">\[
+u_m(z)=-\frac{K^2}{4}(p_o(z)g_e(z)-p_e(z)g_o(z))
+\]</span> 即可。</p>
+<h1 id="提升算法">提升算法</h1>
+<p><span class="math display">\[
+P(z)=\prod_{i=1}^m
+\left(
+\begin{matrix}
+1&amp;u_i(z)\\
+0&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+1&amp;0\\
+p_i(z)&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+K&amp;0\\
+0&amp;-\frac{2}{K}
+\end{matrix}
+\right)
+\]</span></p>
+<p>从而</p>
+<p><span class="math display">\[
+P^{-1}(z)=
+\left(
+\begin{matrix}
+\frac{1}{K}&amp;0\\
+0&amp;-\frac{K}{2}
+\end{matrix}
+\right)
+\prod_{i=m}^1
+\left(
+\begin{matrix}
+1&amp;0\\
+-p_i(z)&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+1&amp;-u_i(z)\\
+0&amp;1
+\end{matrix}
+\right)
+\]</span></p>
+<p>因此代入到分解重构公式中：</p>
+<p><span class="math display">\[
+\left(
+\begin{matrix}
+c^{j-1}(z)\\
+d^{j-1}(z)
+\end{matrix}
+\right)
+=
+2^{-1/2}
+\bar{P}(z^{-1})^T
+\left(
+\begin{matrix}
+c^j_e(z)\\
+c^j_o(z)
+\end{matrix}
+\right)
+\]</span></p>
+<p><span class="math display">\[
+\left(
+\begin{matrix}
+c^j_e(z)\\
+c^j_o(z)
+\end{matrix}
+\right)
+=
+2^{-1/2}
+P(z)
+\left(
+\begin{matrix}
+c^{j-1}(z)\\
+d^{j-1}(z)
+\end{matrix}
+\right)
+\]</span></p>
+<p>从而分解算法：</p>
+<ol type="1">
+<li>先分成奇偶序列（懒小波变换）</li>
+<li>保持奇序列，偶序列更新为<span class="math inline">\(c_e^j(z)-u_i(z)c_o^j(z)\)</span></li>
+<li>保持偶序列，奇序列更新为<span class="math inline">\(c_o^j(z)-p_i(z)c_e^j(z)\)</span></li>
+<li>重复23，最终做一个放缩变换。</li>
+</ol>
+<p>重构算法恰好将之前的步骤全都反过来即可。</p>
+<p>以上所有的过程都可原位运算！</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Math/Wavelet-Analysis/20210609/WaveletPacket/" rel="prev" title="小波包">
+                  <i class="fa fa-chevron-left"></i> 小波包
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div><script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xqy</span>
+</div>
+
+<script>
+  function toEnglish(){
+    window.location.pathname = '/en'+window.location.pathname;
+  }
+</script>
+
+<div class="copyright">
+  <!-- <a href="javascript:toEnglish()">English</a> -->
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">43k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;cdn&quot;:&quot;&#x2F;&#x2F;cdn.bootcss.com&#x2F;mathjax&#x2F;2.7.1&#x2F;latest.js?config&#x3D;TeX-AMS-MML_HTMLorMML&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{&quot;enable&quot;:true,&quot;github_id&quot;:&quot;liamxu1&quot;,&quot;repo&quot;:&quot;blog-comment&quot;,&quot;client_id&quot;:&quot;71fc74d167082de3ed9c&quot;,&quot;client_secret&quot;:&quot;f3a01dce4304be5f57bb6f3e0521dd1ee4434e3e&quot;,&quot;admin_user&quot;:&quot;liamxu1&quot;,&quot;distraction_free_mode&quot;:true,&quot;proxy&quot;:&quot;https:&#x2F;&#x2F;cors-anywhere.azm.workers.dev&#x2F;https:&#x2F;&#x2F;github.com&#x2F;login&#x2F;oauth&#x2F;access_token&quot;,&quot;language&quot;:null,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;gitalk@1.7.2&#x2F;dist&#x2F;gitalk.min.js&quot;,&quot;integrity&quot;:&quot;sha256-Pmj85ojLaPOWwRtlMJwmezB&#x2F;Qg8BzvJp5eTzvXaYAfA&#x3D;&quot;},&quot;path_md5&quot;:&quot;f7eafbbdd2a79c881f65b67670beb95d&quot;}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
