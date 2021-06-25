@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;liamxu1.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="主要内容来自于Evans PDE书Chapter5.9与Chapter7。 二阶抛物方程（续） 我们已经通过Galerkin逼近的方式给出了弱解的存在唯一性，接下来仿照二阶椭圆算子继续探讨能否提高解的正则性，以及类似讨论重要的最大值定理。 正则性 \(Thm\)  若 \[ g\in H_0^1(U),f\in L^2(0,T;L^2(U)) \] 对于弱解 \[ u\in L^">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二阶抛物&#x2F;双曲方程（二）">
+<meta property="og:url" content="http://liamxu1.github.io/Math/PDE/20210625/SecondOrderParabolicHyperbolicEquations2/index.html">
+<meta property="og:site_name" content="Xqy的秘密小空间">
+<meta property="og:description" content="主要内容来自于Evans PDE书Chapter5.9与Chapter7。 二阶抛物方程（续） 我们已经通过Galerkin逼近的方式给出了弱解的存在唯一性，接下来仿照二阶椭圆算子继续探讨能否提高解的正则性，以及类似讨论重要的最大值定理。 正则性 \(Thm\)  若 \[ g\in H_0^1(U),f\in L^2(0,T;L^2(U)) \] 对于弱解 \[ u\in L^">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-25T02:19:12.000Z">
+<meta property="article:modified_time" content="2021-06-25T10:51:09.841Z">
+<meta property="article:author" content="xqy">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://liamxu1.github.io/Math/PDE/20210625/SecondOrderParabolicHyperbolicEquations2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;liamxu1.github.io&#x2F;Math&#x2F;PDE&#x2F;20210625&#x2F;SecondOrderParabolicHyperbolicEquations2&#x2F;&quot;,&quot;path&quot;:&quot;Math&#x2F;PDE&#x2F;20210625&#x2F;SecondOrderParabolicHyperbolicEquations2&#x2F;&quot;,&quot;title&quot;:&quot;二阶抛物&#x2F;双曲方程（二）&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>二阶抛物/双曲方程（二） | Xqy的秘密小空间</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Xqy的秘密小空间</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎来到我的Blog！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E9%98%B6%E6%8A%9B%E7%89%A9%E6%96%B9%E7%A8%8B%E7%BB%AD"><span class="nav-number">1.</span> <span class="nav-text">二阶抛物方程（续）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">正则性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%80%BC%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">最大值原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%B1%E6%9E%81%E5%80%BC%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.1.</span> <span class="nav-text">弱极值原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#harnack%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="nav-number">1.2.2.</span> <span class="nav-text">Harnack不等式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E6%9E%81%E5%80%BC%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.3.</span> <span class="nav-text">强极值原理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E9%98%B6%E5%8F%8C%E6%9B%B2%E6%96%B9%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">二阶双曲方程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E9%99%90%E4%BC%A0%E6%92%AD%E9%80%9F%E5%BA%A6"><span class="nav-number">2.1.</span> <span class="nav-text">有限传播速度</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xqy"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">xqy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liamxu1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liamxu1" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/Math/PDE/20210625/SecondOrderParabolicHyperbolicEquations2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          二阶抛物/双曲方程（二）
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-25 10:19:12" itemprop="dateCreated datePublished" datetime="2021-06-25T10:19:12+08:00">2021-06-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/" itemprop="url" rel="index"><span itemprop="name">Math</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/PDE/" itemprop="url" rel="index"><span itemprop="name">PDE</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>主要内容来自于Evans PDE书Chapter5.9与Chapter7。</p>
+<h1 id="二阶抛物方程续">二阶抛物方程（续）</h1>
+<p>我们已经通过Galerkin逼近的方式给出了弱解的存在唯一性，接下来仿照二阶椭圆算子继续探讨能否提高解的正则性，以及类似讨论重要的最大值定理。</p>
+<h2 id="正则性">正则性</h2>
+<p><span class="math inline">\(Thm\)</span></p>
+<ol type="1">
+<li><p>若 <span class="math display">\[
+g\in H_0^1(U),f\in L^2(0,T;L^2(U))
+\]</span> 对于弱解 <span class="math display">\[
+u\in L^2(0,T;H_0^1(U)),u&#39;\in L^2(0,T;H^{-1}(U))
+\]</span> 则 <span class="math display">\[
+u\in L^2(0,T;H^2(U))\bigcap L^\infty(0,T;H_0^1(U)),u&#39;\in L^2(0,T;L^2(U))
+\]</span> 且 <span class="math display">\[
+\begin{aligned}
+\text{ess sup}_{0\le t\le T}\Vert u(t)\Vert_{H_0^1(U)}&amp;+\Vert u\Vert_{L^2(0,T;H^2(U))}+\Vert u&#39;\Vert_{L^2(0,T;L^2(U))}\\
+&amp;\le C(\Vert f\Vert_{L^2(0,T;L^2(U))}+\Vert g\Vert_{H_0^1(U)})
+\end{aligned}
+\]</span></p></li>
+<li><p>若进一步 <span class="math display">\[
+g\in H^2(U),f&#39;\in L^2(0,T;L^2(U))
+\]</span> 则 <span class="math display">\[
+u\in L^\infty(0,T;H^2(U)),u&#39;\in L^\infty(0,T;L^2(U))\bigcap L^2(0,T;H_0^1(U)),u&#39;&#39;\in L^2(0,T;H^{-1}(U))
+\]</span> 且 <span class="math display">\[
+\begin{aligned}
+\text{ess sup}_{0\le t\le T}&amp;(\Vert u(t)\Vert_{H^2(U)}+\Vert u&#39;(t)\Vert_{L^2(U)})+\Vert u&#39;\Vert_{L^2(0,T;H_0^1(U))}+\Vert u&#39;&#39;\Vert_{L^2(0,T;H^{-1}(U))}\\
+&amp;\le C(\Vert f\Vert_{H^1(0,T;L^2(U))}+\Vert g\Vert_{H^2(U)})
+\end{aligned}
+\]</span></p></li>
+</ol>
+<p><span class="math inline">\(Proof\)</span></p>
+<p>经典解可考虑两边乘u积分，两边乘utt积分，和求导后两边乘ut积分，更为简单，略。</p>
+<ol type="1">
+<li><p>对于弱解有 <span class="math display">\[
+(u_m&#39;,u_m&#39;)+B[u_m,u_m&#39;;t]=(f,u_m&#39;)
+\]</span> 将第二项拆开 <span class="math display">\[
+\begin{aligned}
+B[u_m,u_m&#39;;t]&amp;=\int_U a^{ij}u_{m,i}u_{m,j}&#39;dx+\int_U b^iu_{m,i}u_m&#39;+cu_mu_m&#39;dx\\
+&amp;:= A+B
+\end{aligned}
+\]</span> 于是 <span class="math display">\[
+A=\frac12\frac{d}{dt}(A[u_m,u_m])
+\]</span></p>
+<p><span class="math display">\[
+B\le C_\epsilon\Vert u_m\Vert^2_{H_0^1(U)}+\epsilon\Vert u_m&#39;\Vert_{L^2(U)}^2
+\]</span></p>
+<p>则 <span class="math display">\[
+\Vert u_m&#39;\Vert_{L^2(U)}^2+\frac12\frac{d}{dt}(A[u_m,u_m])\le C(\Vert u_m\Vert^2_{H_0^1(U)}+\Vert f\Vert_{L^2(U)}^2)+\frac12\Vert u_m&#39;\Vert_{L^2(U)}^2
+\]</span> 可推出 <span class="math display">\[
+\begin{aligned}
+&amp;\int_0^T\Vert u_m&#39;\Vert_{L^2(U)}^2dt+\sup_{0\le t\le T}A[u_m(t),u_m(t)]\\
+\le&amp;C(A[u_m(0),u_m(0)]+\int_0^T\Vert u_m\Vert_{H_0^1(U)}^2+\Vert f\Vert_{L^2(U)}^2dt)\\
+\le&amp; C(\Vert g\Vert_{H_0^1(U)}^2+\Vert f\Vert_{L^2(0,T;L^2(U))}^2)
+\end{aligned}
+\]</span> 又 <span class="math display">\[
+A[u,u]\ge \theta\int_U|Du|^2dx
+\]</span> 故有 <span class="math display">\[
+\sup_{0\le t\le T}\Vert u_m(t)\Vert_{H_0^1(U)}\le C(\Vert f\Vert_{L^2(0,T;L^2(U))}+\Vert g\Vert_{H_0^1(U)})
+\]</span> 令<span class="math inline">\(m=m_l\to\infty\)</span>有 <span class="math display">\[
+u\in L^\infty(0,T;H_0^1(U)),u&#39;\in L^2(0,T;L^2(U))
+\]</span></p>
+<p>另外，<span class="math inline">\(\forall v\in H_0^1(U),~a.e. t\)</span>，有 <span class="math display">\[
+(u&#39;,v)+B[u,v]=(f,v)
+\]</span> 成立</p>
+<p>记为<span class="math inline">\(B[u,v]=(h,v),h=f-u&#39;\)</span></p>
+<p>由椭圆中的高阶正则性估计可以得到 <span class="math display">\[
+\begin{aligned}
+\Vert u\Vert^2_{H^2(U)}&amp;\le C(\Vert h\Vert^2_{L^2(U)}+\Vert u\Vert^2_{L^2(U)})\\
+&amp;\le C(\Vert f\Vert^2_{L^2(U)}+\Vert u&#39;\Vert^2_{L^2(U)}+\Vert u\Vert^2_{L^2(U)})
+\end{aligned}
+\]</span> 于是1得证。</p></li>
+<li><p>对 <span class="math display">\[
+(u_m&#39;,\omega_k)+B[u_m,\omega_k]=(f,\omega_k)
+\]</span> 关于t求偏导得 <span class="math display">\[
+(\tilde{u}_m&#39;,\omega_k)+B[\tilde{u}_m,\omega_k]=(f&#39;,\omega_k),\tilde{u}_m=u_m&#39;
+\]</span> 于是 <span class="math display">\[
+(\tilde{u}_m&#39;,\tilde{u}_m)+B[\tilde{u}_m,\tilde{u}_m]=(f&#39;,\tilde{u}_m)
+\]</span> 类似地运用Gronwall不等式即有 <span class="math display">\[
+\sup_{0\le t\le T}\Vert u_m&#39;(t)\Vert^2_{L^2(U)}+\int_0^T\Vert u_m&#39;(t)\Vert^2_{H_0^1(U)}dt\le C(\Vert f\Vert^2_{H^1(0,T;L^2(U))}+\Vert u_m(0)\Vert^2_{H^2(U)})
+\]</span> 最后一项仍需进行估计。</p>
+<p>注意到<span class="math inline">\(\Delta\omega_k=-\lambda_k \omega_k=0,on~\partial U\)</span>，则<span class="math inline">\(\Delta u_m=0,on~\partial U\)</span> <span class="math display">\[
+\Vert u_m(0)\Vert^2_{H^2(U)}\le C\Vert \Delta u_m(0)\Vert^2_{L^2(U)}=C(u_m(0),\Delta^2u_m(0))
+\]</span> 由于<span class="math inline">\(\Delta^2u_m(0)\in \text{span}\{\omega_k\}_{k=1}^m\)</span>且<span class="math inline">\((u_m(0),\omega_k)=(g,\omega_k)\)</span>，则 <span class="math display">\[
+\Vert u_m(0)\Vert^2_{H^2(U)}\le C(g,\Delta^2u_m(0))=C(\Delta g,\Delta u_m(0))
+\le \frac12\Vert u_m(0)\Vert^2_{H^2(U)}+C\Vert g\Vert^2_{H^2(U)}
+\]</span> 则 <span class="math display">\[
+\Vert u_m(0)\Vert^2_{H^2(U)}\le C\Vert g\Vert^2_{H^2(U)}
+\]</span> 故估计可进一步变为 <span class="math display">\[
+\sup_{0\le t\le T}\Vert u_m&#39;(t)\Vert^2_{L^2(U)}+\int_0^T\Vert u_m&#39;(t)\Vert^2_{H_0^1(U)}dt\le C(\Vert f\Vert^2_{H^1(0,T;L^2(U))}+\Vert g\Vert^2_{H^2(U)})
+\]</span></p>
+<p>仿照之前过程 <span class="math display">\[
+B[u_m,\omega_k]=(f-u_m&#39;,\omega_k)
+\]</span> 则 <span class="math display">\[
+(Lu_m,-\Delta u_m)=B[u_m,-\Delta u_m]=(f-u_m&#39;,-\Delta u_m)
+\]</span> 可以证明 <span class="math display">\[
+\beta \Vert u\Vert_{H^2(U)}^2\le (Lu,-\Delta u)+\gamma\Vert u\Vert_{L^2(U)}^2,\forall u\in H^2(U)\cap H_0^1(U)
+\]</span> 于是结合以上两式可得 <span class="math display">\[
+\Vert u_m\Vert_{H^2(U)}\le C(\Vert f\Vert_{L^2(U)}+\Vert u_m&#39;\Vert_{L^2(U)}+\Vert u_m\Vert_{L^2(U)})
+\]</span> 于是 <span class="math display">\[
+\begin{aligned}
+\sup_{0\le t\le T}&amp;(\Vert u_m(t)\Vert_{H^2(U)}+\Vert u_m&#39;(t)\Vert_{L^2(U)})+\Vert u_m&#39;\Vert_{L^2(0,T;H_0^1(U))}\\
+&amp;\le C(\Vert f\Vert_{H^1(0,T;L^2(U))}+\Vert g\Vert_{H^2(U)})
+\end{aligned}
+\]</span> 还需证第三项 <span class="math display">\[
+\Vert u&#39;&#39;\Vert_{L^2(0,T;H^{-1}(U))}\le C(\Vert f\Vert_{H^1(0,T;L^2(U))}+\Vert g\Vert_{H^2(U)})
+\]</span> 任取<span class="math inline">\(v\in H_0^1(U),\Vert v\Vert_{H_0^1(U)}\le 1\)</span>，和之前相同找到v在子空间中的投影<span class="math inline">\(v=v^1+v^2\)</span> <span class="math display">\[
+\langle u_m&#39;&#39;,v\rangle=(u_m&#39;&#39;,v)=(u_m&#39;&#39;,v^1)=(f&#39;,v^1)-B[u_m&#39;,v^1]
+\]</span> 由任意性得 <span class="math display">\[
+\Vert u_m&#39;&#39;\Vert_{H^{-1}(U)}\le C(\Vert f&#39;\Vert_{L^2(U)}+\Vert u_m&#39;\Vert_{H_0^1(U)})
+\]</span> 求极限可得结论。</p></li>
+</ol>
+<h2 id="最大值原理">最大值原理</h2>
+<h3 id="弱极值原理">弱极值原理</h3>
+<p><span class="math inline">\(Thm\)</span></p>
+<p>假设<span class="math inline">\(u\in C_1^2(U_T)\cap C(\bar{U}_T),c\equiv 0,in~U_T\)</span>，则</p>
+<ol type="1">
+<li><p>若 <span class="math display">\[
+u_t+Lu\le 0 ,in~ U_T
+\]</span> 则 <span class="math display">\[
+\max_{\bar{U}_T}u=\max_{\Gamma_T}u
+\]</span></p></li>
+<li><p>若 <span class="math display">\[
+u_t+Lu\ge 0 ,in~ U_T
+\]</span> 则 <span class="math display">\[
+\min_{\bar{U}_T}u=\min_{\Gamma_T}u
+\]</span></p></li>
+</ol>
+<p><span class="math inline">\(Proof\)</span></p>
+<p>不妨只证1不等号严格成立情形，可以用经典的<span class="math inline">\(u-\epsilon t\)</span>技术补充证明。</p>
+<p>假设<span class="math inline">\((x_0,t_0)\in U_T\)</span>满足最大值，则若<span class="math inline">\(0&lt;t_0&lt;T\)</span>，在该点 <span class="math display">\[
+u_t=0,u_i=0,u_{ii}\le 0
+\]</span></p>
+<p><span class="math display">\[
+u_t+Lu=Lu\ge 0
+\]</span></p>
+<p>矛盾！</p>
+<p>若<span class="math inline">\(t_0=T\)</span>，则<span class="math inline">\(u_t\ge 0, at~(x_0,t_0)\)</span>，同样矛盾！</p>
+<p>上面的过程可以证明<span class="math inline">\(c\ge 0\)</span>时，若<span class="math inline">\(u_t+Lu\le 0 ,in~ U_T\)</span>，则<span class="math inline">\(\max_{\bar{U}_T}u=\max_{\Gamma_T}u^+\)</span>。对称地<span class="math inline">\(c\le 0\)</span>也有类似结论。</p>
+<h3 id="harnack不等式">Harnack不等式</h3>
+<p><span class="math inline">\(Thm\)</span></p>
+<p>假设<span class="math inline">\(u\in C_1^2(U_T),u_t+Lu=0,in~U_T,u\ge 0,in~U_T\)</span>则任意连通紧子集<span class="math inline">\(V\subset\subset U\)</span>和<span class="math inline">\(0&lt;t_1&lt;t_2\le T\)</span>有常数使得 <span class="math display">\[
+\sup_V u(\cdot,t1)\le C\inf_V u(\cdot,t_2)
+\]</span> 其中<span class="math inline">\(C\sim V,t_1,t_2,L\)</span></p>
+<p><span class="math inline">\(Proof\)</span></p>
+<p>其实也是常规思路<del>（但这个构造是人能想出来的？）</del>，和椭圆中情形差不多，令<span class="math inline">\(v=\log u\)</span>则 <span class="math display">\[
+v_t=a^{ij}v_{ij}+a^{ij}v_iv_j:=w+\tilde{w}
+\]</span> 构造<span class="math inline">\(\hat{w}=w+\kappa \tilde{w}\)</span>，辅助函数<span class="math inline">\(\phi=\xi^4\hat{w}+\mu t\)</span>，找<span class="math inline">\(\mu\)</span>充分大常数使<span class="math inline">\(\phi\ge 0\)</span>，进一步可证。</p>
+<h3 id="强极值原理">强极值原理</h3>
+<p><span class="math inline">\(Thm\)</span></p>
+<p><span class="math inline">\(u\in C_1^2(U_T)\cap C(\bar{U}_T),c\equiv 0,in~U_T\)</span>，U连通，则</p>
+<ol type="1">
+<li><p>若 <span class="math display">\[
+u_t+Lu\le 0
+\]</span> 且在<span class="math inline">\(U_T\)</span>取到最大值，则u为常数</p></li>
+<li><p>若 <span class="math display">\[
+u_t+Lu\ge 0
+\]</span> 且在<span class="math inline">\(U_T\)</span>取到最小值，则u为常数</p></li>
+</ol>
+<p><span class="math inline">\(Proof\)</span> 只证1</p>
+<p>设点为<span class="math inline">\((x_0,t_0)\)</span>，取<span class="math inline">\(W\subset\subset U,x_0\in W\)</span>，v为下方程的解 <span class="math display">\[
+\begin{cases}
+v_t+Lv=0,&amp;in~W_T\\
+v=u,&amp;on~\Delta_T
+\end{cases}
+\]</span> 由弱极值原理有<span class="math inline">\(u\le v\le M=\max_{\bar{U}_T}u\)</span>，于是显然有<span class="math inline">\(v=M,at~(x_0,t_0)\)</span></p>
+<p>令<span class="math inline">\(\tilde{v}=M-v\)</span>则<span class="math inline">\(\tilde{v}_t+L\tilde{v}=0,\tilde{v}\ge 0,in~W_T\)</span>，则任意<span class="math inline">\(V\subset\subset W,x_0\in V,0&lt;t&lt;t_0\)</span>有 <span class="math display">\[
+\max_V \tilde{v}(\cdot,t)\le C\inf_V \tilde{v}(\cdot,t_0)\le 0
+\]</span> 于是<span class="math inline">\(\tilde{v}\equiv 0,in~W_{t_0}\)</span>，则<span class="math inline">\(v\equiv M,in~W_{t_0}\)</span>，进一步<span class="math inline">\(u\equiv M,on~U_{t_0}\)</span>。</p>
+<p><span class="math inline">\(Thm\)</span> <span class="math inline">\(c\ge 0\)</span>对非负最大值，非正最小值有类似结论。</p>
+<h1 id="二阶双曲方程">二阶双曲方程</h1>
+<p>问题 <span class="math display">\[
+\begin{cases}
+u_{tt}+Lu=f,&amp;in~U_T\\
+u=0,&amp;on~\partial U\times[0,T]\\
+u=g,u_t=h&amp;on~U\times\{t=0\}
+\end{cases}
+\]</span> 弱解 <span class="math display">\[
+\langle u&#39;&#39;,v\rangle+B[u,v;t]=(f,v),u(0)=g,u&#39;(0)=h
+\]</span> 能量估计、弱解存在唯一性、正则性提升都与抛物方程的处理方式完全类似，就不加赘述了。唯一要提的就是有限传播性。</p>
+<h2 id="有限传播速度">有限传播速度</h2>
+<p>考虑 <span class="math display">\[
+Lu=-\sum a^{ij}u_{ij}
+\]</span> 方程 <span class="math display">\[
+u_{tt}+Lu=0
+\]</span> 希望一个初始位置和初始速度的条件就可以唯一确定波的传播。</p>
+<p>令q为方程 <span class="math display">\[
+\begin{cases}
+\sum a^{ij}q_iq_j=1,q&gt;0,in~R^n-\{x_0\}\\
+q(x_0)=0
+\end{cases}
+\]</span> 的解，波在时空域上传播的“锥形”是 <span class="math display">\[
+K:=\{(x,t)|q(x)&lt;t_0-t\}
+\]</span> 定义 <span class="math display">\[
+K_t:=\{(x,t)|q(x)&lt;t_0-t\}
+\]</span> 为t时刻的截面。</p>
+<p><span class="math inline">\(Thm\)</span></p>
+<p>若u是上述方程的光滑解，则若 <span class="math display">\[
+u\equiv u_t\equiv 0,on~K_0
+\]</span> 则 <span class="math display">\[
+u\equiv 0, in~K
+\]</span> (故解仅依赖于<span class="math inline">\(K_0\)</span>初值)</p>
+<p><span class="math inline">\(Proof\)</span></p>
+<p>考虑能量 <span class="math display">\[
+e(t)=\frac12\int_{K_t}u_t^2+a^{ij}u_iu_jdx
+\]</span> 根据余面积公式 <span class="math display">\[
+\frac{d}{dt}\left(\int_{K_t}fdx\right)=-\int_{\partial K_t}\frac{f}{|Dq|}dS
+\]</span> 于是 <span class="math display">\[
+\frac{d}{dt}e(t)=\int_{K_t}u_tu_{tt}+a^{ij}u_iu_{jt}dx-\frac12\int_{\partial K_t}(u_t^2+a^{ij}u_iu_j)/|Dq|dx:=A-B
+\]</span> 分部积分计算 <span class="math display">\[
+\begin{aligned}
+A&amp;=\int_{K_t}u_t(u_{tt}-(a^{ij}u_i)_j)dx+\int_{\partial K_t}a^{ij}u_i\nu^ju_tdS\\
+&amp;=-\int_{K_t}u_ta^{ij}_ju_idx+\int_{\partial K_t}a^{ij}u_i\nu^ju_tdS
+\end{aligned}
+\]</span> 而在边界上由表达式有<span class="math inline">\(\nu=\frac{Dq}{|Dq|}\)</span>，于是 <span class="math display">\[
+a^{ij}\nu^i\nu^j=\frac{a^{ij}q_iq_j}{|Dq|^2}=\frac{1}{|Dq|^2}
+\]</span> 则 <span class="math display">\[
+|a^{ij}u_i\nu^j|\le (a^{ij}u_iu_j)^{\frac12}(a^{ij}\nu^i\nu^j)^{\frac12}=\frac{(a^{ij}u_iu_j)^{\frac12}}{|Dq|}
+\]</span> 于是 <span class="math display">\[
+\begin{aligned}
+|A|&amp;\le Ce(t)+\int_{\partial K_t}(a^{ij}u_iu_j)^{\frac12}|u_t|\frac{1}{|Dq|}dS\\
+&amp;\le Ce(t)+\frac12\int_{\partial K_t}(u_t^2+a^{ij}u_iu_j)\frac{1}{|Dq|}dS\\
+&amp;=Ce(t)+B
+\end{aligned}
+\]</span> 则 <span class="math display">\[
+\frac{d}{dt}e(t)\le Ce(t)
+\]</span> 又<span class="math inline">\(e(0)=0\)</span>则<span class="math inline">\(e(t)\equiv 0\)</span>，从而<span class="math inline">\(u\equiv 0\)</span>。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Math/PDE/20210623/SecondOrderParabolicHyperbolicEquations1/" rel="prev" title="二阶抛物/双曲方程（一）">
+                  <i class="fa fa-chevron-left"></i> 二阶抛物/双曲方程（一）
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div><script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xqy</span>
+</div>
+
+<script>
+  function toEnglish(){
+    window.location.pathname = '/en'+window.location.pathname;
+  }
+</script>
+
+<div class="copyright">
+  <!-- <a href="javascript:toEnglish()">English</a> -->
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">59k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;cdn&quot;:&quot;&#x2F;&#x2F;cdn.bootcss.com&#x2F;mathjax&#x2F;2.7.1&#x2F;latest.js?config&#x3D;TeX-AMS-MML_HTMLorMML&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{&quot;enable&quot;:true,&quot;github_id&quot;:&quot;liamxu1&quot;,&quot;repo&quot;:&quot;blog-comment&quot;,&quot;client_id&quot;:&quot;71fc74d167082de3ed9c&quot;,&quot;client_secret&quot;:&quot;f3a01dce4304be5f57bb6f3e0521dd1ee4434e3e&quot;,&quot;admin_user&quot;:&quot;liamxu1&quot;,&quot;distraction_free_mode&quot;:true,&quot;proxy&quot;:&quot;https:&#x2F;&#x2F;cors-anywhere.azm.workers.dev&#x2F;https:&#x2F;&#x2F;github.com&#x2F;login&#x2F;oauth&#x2F;access_token&quot;,&quot;language&quot;:null,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;gitalk@1.7.2&#x2F;dist&#x2F;gitalk.min.js&quot;,&quot;integrity&quot;:&quot;sha256-Pmj85ojLaPOWwRtlMJwmezB&#x2F;Qg8BzvJp5eTzvXaYAfA&#x3D;&quot;},&quot;path_md5&quot;:&quot;966df2ce21666dc9a930cf9c935711f4&quot;}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
