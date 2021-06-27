@@ -32,7 +32,7 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:false,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:&quot;&quot;,&quot;permalink&quot;:&quot;&quot;,&quot;path&quot;:&quot;index.html&quot;,&quot;title&quot;:&quot;&quot;}</script>
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:true,&quot;isPost&quot;:false,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:&quot;&quot;,&quot;permalink&quot;:&quot;&quot;,&quot;path&quot;:&quot;index.html&quot;,&quot;title&quot;:&quot;&quot;}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
 <title>Xqy的秘密小空间</title><script src="/js/config.js"></script>
@@ -253,6 +253,2664 @@
 
 
 
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/Math/PDE/20210625/SecondOrderParabolicHyperbolicEquations2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Math/PDE/20210625/SecondOrderParabolicHyperbolicEquations2/" class="post-title-link" itemprop="url">二阶抛物/双曲方程（二）</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-25 10:19:12" itemprop="dateCreated datePublished" datetime="2021-06-25T10:19:12+08:00">2021-06-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/" itemprop="url" rel="index"><span itemprop="name">Math</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/PDE/" itemprop="url" rel="index"><span itemprop="name">PDE</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>主要内容来自于Evans PDE书Chapter5.9与Chapter7。</p>
+<h1 id="二阶抛物方程续">二阶抛物方程（续）</h1>
+<p>我们已经通过Galerkin逼近的方式给出了弱解的存在唯一性，接下来仿照二阶椭圆算子继续探讨能否提高解的正则性，以及类似讨论重要的最大值定理。</p>
+<h2 id="正则性">正则性</h2>
+<p><span class="math inline">\(Thm\)</span></p>
+<ol type="1">
+<li><p>若 <span class="math display">\[
+g\in H_0^1(U),f\in L^2(0,T;L^2(U))
+\]</span> 对于弱解 <span class="math display">\[
+u\in L^2(0,T;H_0^1(U)),u&#39;\in L^2(0,T;H^{-1}(U))
+\]</span> 则 <span class="math display">\[
+u\in L^2(0,T;H^2(U))\bigcap L^\infty(0,T;H_0^1(U)),u&#39;\in L^2(0,T;L^2(U))
+\]</span> 且 <span class="math display">\[
+\begin{aligned}
+\text{ess sup}_{0\le t\le T}\Vert u(t)\Vert_{H_0^1(U)}&amp;+\Vert u\Vert_{L^2(0,T;H^2(U))}+\Vert u&#39;\Vert_{L^2(0,T;L^2(U))}\\
+&amp;\le C(\Vert f\Vert_{L^2(0,T;L^2(U))}+\Vert g\Vert_{H_0^1(U)})
+\end{aligned}
+\]</span></p></li>
+<li><p>若进一步 <span class="math display">\[
+g\in H^2(U),f&#39;\in L^2(0,T;L^2(U))
+\]</span> 则 <span class="math display">\[
+u\in L^\infty(0,T;H^2(U)),u&#39;\in L^\infty(0,T;L^2(U))\bigcap L^2(0,T;H_0^1(U)),u&#39;&#39;\in L^2(0,T;H^{-1}(U))
+\]</span> 且 <span class="math display">\[
+\begin{aligned}
+\text{ess sup}_{0\le t\le T}&amp;(\Vert u(t)\Vert_{H^2(U)}+\Vert u&#39;(t)\Vert_{L^2(U)})+\Vert u&#39;\Vert_{L^2(0,T;H_0^1(U))}+\Vert u&#39;&#39;\Vert_{L^2(0,T;H^{-1}(U))}\\
+&amp;\le C(\Vert f\Vert_{H^1(0,T;L^2(U))}+\Vert g\Vert_{H^2(U)})
+\end{aligned}
+\]</span></p></li>
+</ol>
+<p><span class="math inline">\(Proof\)</span></p>
+<p>经典解可考虑两边乘u积分，两边乘utt积分，和求导后两边乘ut积分，更为简单，略。</p>
+<ol type="1">
+<li><p>对于弱解有 <span class="math display">\[
+(u_m&#39;,u_m&#39;)+B[u_m,u_m&#39;;t]=(f,u_m&#39;)
+\]</span> 将第二项拆开 <span class="math display">\[
+\begin{aligned}
+B[u_m,u_m&#39;;t]&amp;=\int_U a^{ij}u_{m,i}u_{m,j}&#39;dx+\int_U b^iu_{m,i}u_m&#39;+cu_mu_m&#39;dx\\
+&amp;:= A+B
+\end{aligned}
+\]</span> 于是 <span class="math display">\[
+A=\frac12\frac{d}{dt}(A[u_m,u_m])
+\]</span></p>
+<p><span class="math display">\[
+B\le C_\epsilon\Vert u_m\Vert^2_{H_0^1(U)}+\epsilon\Vert u_m&#39;\Vert_{L^2(U)}^2
+\]</span></p>
+<p>则 <span class="math display">\[
+\Vert u_m&#39;\Vert_{L^2(U)}^2+\frac12\frac{d}{dt}(A[u_m,u_m])\le C(\Vert u_m\Vert^2_{H_0^1(U)}+\Vert f\Vert_{L^2(U)}^2)+\frac12\Vert u_m&#39;\Vert_{L^2(U)}^2
+\]</span> 可推出 <span class="math display">\[
+\begin{aligned}
+&amp;\int_0^T\Vert u_m&#39;\Vert_{L^2(U)}^2dt+\sup_{0\le t\le T}A[u_m(t),u_m(t)]\\
+\le&amp;C(A[u_m(0),u_m(0)]+\int_0^T\Vert u_m\Vert_{H_0^1(U)}^2+\Vert f\Vert_{L^2(U)}^2dt)\\
+\le&amp; C(\Vert g\Vert_{H_0^1(U)}^2+\Vert f\Vert_{L^2(0,T;L^2(U))}^2)
+\end{aligned}
+\]</span> 又 <span class="math display">\[
+A[u,u]\ge \theta\int_U|Du|^2dx
+\]</span> 故有 <span class="math display">\[
+\sup_{0\le t\le T}\Vert u_m(t)\Vert_{H_0^1(U)}\le C(\Vert f\Vert_{L^2(0,T;L^2(U))}+\Vert g\Vert_{H_0^1(U)})
+\]</span> 令<span class="math inline">\(m=m_l\to\infty\)</span>有 <span class="math display">\[
+u\in L^\infty(0,T;H_0^1(U)),u&#39;\in L^2(0,T;L^2(U))
+\]</span></p>
+<p>另外，<span class="math inline">\(\forall v\in H_0^1(U),~a.e. t\)</span>，有 <span class="math display">\[
+(u&#39;,v)+B[u,v]=(f,v)
+\]</span> 成立</p>
+<p>记为<span class="math inline">\(B[u,v]=(h,v),h=f-u&#39;\)</span></p>
+<p>由椭圆中的高阶正则性估计可以得到 <span class="math display">\[
+\begin{aligned}
+\Vert u\Vert^2_{H^2(U)}&amp;\le C(\Vert h\Vert^2_{L^2(U)}+\Vert u\Vert^2_{L^2(U)})\\
+&amp;\le C(\Vert f\Vert^2_{L^2(U)}+\Vert u&#39;\Vert^2_{L^2(U)}+\Vert u\Vert^2_{L^2(U)})
+\end{aligned}
+\]</span> 于是1得证。</p></li>
+<li><p>对 <span class="math display">\[
+(u_m&#39;,\omega_k)+B[u_m,\omega_k]=(f,\omega_k)
+\]</span> 关于t求偏导得 <span class="math display">\[
+(\tilde{u}_m&#39;,\omega_k)+B[\tilde{u}_m,\omega_k]=(f&#39;,\omega_k),\tilde{u}_m=u_m&#39;
+\]</span> 于是 <span class="math display">\[
+(\tilde{u}_m&#39;,\tilde{u}_m)+B[\tilde{u}_m,\tilde{u}_m]=(f&#39;,\tilde{u}_m)
+\]</span> 类似地运用Gronwall不等式即有 <span class="math display">\[
+\sup_{0\le t\le T}\Vert u_m&#39;(t)\Vert^2_{L^2(U)}+\int_0^T\Vert u_m&#39;(t)\Vert^2_{H_0^1(U)}dt\le C(\Vert f\Vert^2_{H^1(0,T;L^2(U))}+\Vert u_m(0)\Vert^2_{H^2(U)})
+\]</span> 最后一项仍需进行估计。</p>
+<p>注意到<span class="math inline">\(\Delta\omega_k=-\lambda_k \omega_k=0,on~\partial U\)</span>，则<span class="math inline">\(\Delta u_m=0,on~\partial U\)</span> <span class="math display">\[
+\Vert u_m(0)\Vert^2_{H^2(U)}\le C\Vert \Delta u_m(0)\Vert^2_{L^2(U)}=C(u_m(0),\Delta^2u_m(0))
+\]</span> 由于<span class="math inline">\(\Delta^2u_m(0)\in \text{span}\{\omega_k\}_{k=1}^m\)</span>且<span class="math inline">\((u_m(0),\omega_k)=(g,\omega_k)\)</span>，则 <span class="math display">\[
+\Vert u_m(0)\Vert^2_{H^2(U)}\le C(g,\Delta^2u_m(0))=C(\Delta g,\Delta u_m(0))
+\le \frac12\Vert u_m(0)\Vert^2_{H^2(U)}+C\Vert g\Vert^2_{H^2(U)}
+\]</span> 则 <span class="math display">\[
+\Vert u_m(0)\Vert^2_{H^2(U)}\le C\Vert g\Vert^2_{H^2(U)}
+\]</span> 故估计可进一步变为 <span class="math display">\[
+\sup_{0\le t\le T}\Vert u_m&#39;(t)\Vert^2_{L^2(U)}+\int_0^T\Vert u_m&#39;(t)\Vert^2_{H_0^1(U)}dt\le C(\Vert f\Vert^2_{H^1(0,T;L^2(U))}+\Vert g\Vert^2_{H^2(U)})
+\]</span></p>
+<p>仿照之前过程 <span class="math display">\[
+B[u_m,\omega_k]=(f-u_m&#39;,\omega_k)
+\]</span> 则 <span class="math display">\[
+(Lu_m,-\Delta u_m)=B[u_m,-\Delta u_m]=(f-u_m&#39;,-\Delta u_m)
+\]</span> 可以证明 <span class="math display">\[
+\beta \Vert u\Vert_{H^2(U)}^2\le (Lu,-\Delta u)+\gamma\Vert u\Vert_{L^2(U)}^2,\forall u\in H^2(U)\cap H_0^1(U)
+\]</span> 于是结合以上两式可得 <span class="math display">\[
+\Vert u_m\Vert_{H^2(U)}\le C(\Vert f\Vert_{L^2(U)}+\Vert u_m&#39;\Vert_{L^2(U)}+\Vert u_m\Vert_{L^2(U)})
+\]</span> 于是 <span class="math display">\[
+\begin{aligned}
+\sup_{0\le t\le T}&amp;(\Vert u_m(t)\Vert_{H^2(U)}+\Vert u_m&#39;(t)\Vert_{L^2(U)})+\Vert u_m&#39;\Vert_{L^2(0,T;H_0^1(U))}\\
+&amp;\le C(\Vert f\Vert_{H^1(0,T;L^2(U))}+\Vert g\Vert_{H^2(U)})
+\end{aligned}
+\]</span> 还需证第三项 <span class="math display">\[
+\Vert u&#39;&#39;\Vert_{L^2(0,T;H^{-1}(U))}\le C(\Vert f\Vert_{H^1(0,T;L^2(U))}+\Vert g\Vert_{H^2(U)})
+\]</span> 任取<span class="math inline">\(v\in H_0^1(U),\Vert v\Vert_{H_0^1(U)}\le 1\)</span>，和之前相同找到v在子空间中的投影<span class="math inline">\(v=v^1+v^2\)</span> <span class="math display">\[
+\langle u_m&#39;&#39;,v\rangle=(u_m&#39;&#39;,v)=(u_m&#39;&#39;,v^1)=(f&#39;,v^1)-B[u_m&#39;,v^1]
+\]</span> 由任意性得 <span class="math display">\[
+\Vert u_m&#39;&#39;\Vert_{H^{-1}(U)}\le C(\Vert f&#39;\Vert_{L^2(U)}+\Vert u_m&#39;\Vert_{H_0^1(U)})
+\]</span> 求极限可得结论。</p></li>
+</ol>
+<h2 id="最大值原理">最大值原理</h2>
+<h3 id="弱极值原理">弱极值原理</h3>
+<p><span class="math inline">\(Thm\)</span></p>
+<p>假设<span class="math inline">\(u\in C_1^2(U_T)\cap C(\bar{U}_T),c\equiv 0,in~U_T\)</span>，则</p>
+<ol type="1">
+<li><p>若 <span class="math display">\[
+u_t+Lu\le 0 ,in~ U_T
+\]</span> 则 <span class="math display">\[
+\max_{\bar{U}_T}u=\max_{\Gamma_T}u
+\]</span></p></li>
+<li><p>若 <span class="math display">\[
+u_t+Lu\ge 0 ,in~ U_T
+\]</span> 则 <span class="math display">\[
+\min_{\bar{U}_T}u=\min_{\Gamma_T}u
+\]</span></p></li>
+</ol>
+<p><span class="math inline">\(Proof\)</span></p>
+<p>不妨只证1不等号严格成立情形，可以用经典的<span class="math inline">\(u-\epsilon t\)</span>技术补充证明。</p>
+<p>假设<span class="math inline">\((x_0,t_0)\in U_T\)</span>满足最大值，则若<span class="math inline">\(0&lt;t_0&lt;T\)</span>，在该点 <span class="math display">\[
+u_t=0,u_i=0,u_{ii}\le 0
+\]</span></p>
+<p><span class="math display">\[
+u_t+Lu=Lu\ge 0
+\]</span></p>
+<p>矛盾！</p>
+<p>若<span class="math inline">\(t_0=T\)</span>，则<span class="math inline">\(u_t\ge 0, at~(x_0,t_0)\)</span>，同样矛盾！</p>
+<p>上面的过程可以证明<span class="math inline">\(c\ge 0\)</span>时，若<span class="math inline">\(u_t+Lu\le 0 ,in~ U_T\)</span>，则<span class="math inline">\(\max_{\bar{U}_T}u=\max_{\Gamma_T}u^+\)</span>。对称地<span class="math inline">\(c\le 0\)</span>也有类似结论。</p>
+<h3 id="harnack不等式">Harnack不等式</h3>
+<p><span class="math inline">\(Thm\)</span></p>
+<p>假设<span class="math inline">\(u\in C_1^2(U_T),u_t+Lu=0,in~U_T,u\ge 0,in~U_T\)</span>则任意连通紧子集<span class="math inline">\(V\subset\subset U\)</span>和<span class="math inline">\(0&lt;t_1&lt;t_2\le T\)</span>有常数使得 <span class="math display">\[
+\sup_V u(\cdot,t1)\le C\inf_V u(\cdot,t_2)
+\]</span> 其中<span class="math inline">\(C\sim V,t_1,t_2,L\)</span></p>
+<p><span class="math inline">\(Proof\)</span></p>
+<p>其实也是常规思路<del>（但这个构造是人能想出来的？）</del>，和椭圆中情形差不多，令<span class="math inline">\(v=\log u\)</span>则 <span class="math display">\[
+v_t=a^{ij}v_{ij}+a^{ij}v_iv_j:=w+\tilde{w}
+\]</span> 构造<span class="math inline">\(\hat{w}=w+\kappa \tilde{w}\)</span>，辅助函数<span class="math inline">\(\phi=\xi^4\hat{w}+\mu t\)</span>，找<span class="math inline">\(\mu\)</span>充分大常数使<span class="math inline">\(\phi\ge 0\)</span>，进一步可证。</p>
+<h3 id="强极值原理">强极值原理</h3>
+<p><span class="math inline">\(Thm\)</span></p>
+<p><span class="math inline">\(u\in C_1^2(U_T)\cap C(\bar{U}_T),c\equiv 0,in~U_T\)</span>，U连通，则</p>
+<ol type="1">
+<li><p>若 <span class="math display">\[
+u_t+Lu\le 0
+\]</span> 且在<span class="math inline">\(U_T\)</span>取到最大值，则u为常数</p></li>
+<li><p>若 <span class="math display">\[
+u_t+Lu\ge 0
+\]</span> 且在<span class="math inline">\(U_T\)</span>取到最小值，则u为常数</p></li>
+</ol>
+<p><span class="math inline">\(Proof\)</span> 只证1</p>
+<p>设点为<span class="math inline">\((x_0,t_0)\)</span>，取<span class="math inline">\(W\subset\subset U,x_0\in W\)</span>，v为下方程的解 <span class="math display">\[
+\begin{cases}
+v_t+Lv=0,&amp;in~W_T\\
+v=u,&amp;on~\Delta_T
+\end{cases}
+\]</span> 由弱极值原理有<span class="math inline">\(u\le v\le M=\max_{\bar{U}_T}u\)</span>，于是显然有<span class="math inline">\(v=M,at~(x_0,t_0)\)</span></p>
+<p>令<span class="math inline">\(\tilde{v}=M-v\)</span>则<span class="math inline">\(\tilde{v}_t+L\tilde{v}=0,\tilde{v}\ge 0,in~W_T\)</span>，则任意<span class="math inline">\(V\subset\subset W,x_0\in V,0&lt;t&lt;t_0\)</span>有 <span class="math display">\[
+\max_V \tilde{v}(\cdot,t)\le C\inf_V \tilde{v}(\cdot,t_0)\le 0
+\]</span> 于是<span class="math inline">\(\tilde{v}\equiv 0,in~W_{t_0}\)</span>，则<span class="math inline">\(v\equiv M,in~W_{t_0}\)</span>，进一步<span class="math inline">\(u\equiv M,on~U_{t_0}\)</span>。</p>
+<p><span class="math inline">\(Thm\)</span> <span class="math inline">\(c\ge 0\)</span>对非负最大值，非正最小值有类似结论。</p>
+<h2 id="一些关于最大值原理的简单推论">一些关于最大值原理的简单推论</h2>
+<h3 id="去掉c的符号限制">去掉c的符号限制</h3>
+<p>假设<span class="math inline">\(u\in C_1^2(U_T)\cap C(\bar{U}_T)\)</span>，c有界，U有界，<span class="math inline">\(Lu\le 0\)</span>，则 <span class="math display">\[
+\sup_{\Gamma_T}u\le 0\to \sup_{U_T}u\le 0
+\]</span> （取<span class="math inline">\(v=e^{c_0t}u,c_0\le \inf_{U_T}c\)</span>即可）</p>
+<h3 id="比较原理">比较原理</h3>
+<p><span class="math inline">\(u,v\in C_1^2(U_T)\cap C(\bar{U}_T)\)</span>，c有界 <span class="math display">\[
+\begin{cases}
+Lu\le Lv,&amp;in~U_T\\
+u\le v,&amp;on~\Gamma_T
+\end{cases}
+\]</span> 则<span class="math inline">\(u\le v,in~U_T\)</span>。</p>
+<p>由上面结论显然。</p>
+<p>可推出最多一个光滑解。</p>
+<h3 id="最大模估计">最大模估计</h3>
+<p><span class="math inline">\(u\in C_1^2(U_T)\cap C(\bar{U}_T),Lu=f\)</span>，c非负有界，则 <span class="math display">\[
+\begin{aligned}
+\sup_{U_T}|u|&amp;\le \sup_{\Gamma_T}|u|+T\sup_{U_T}|f|\\
+\sup_{U_T}|u|&amp;\le \sup_{\Gamma_T}|u|+M\sup_{U_T}|f|,M\sim U
+\end{aligned}
+\]</span></p>
+<ol type="1">
+<li><p><span class="math inline">\(w=-\sup_{\Gamma_T}|u|-t\sup_{U_T}|f|,v=\sup_{\Gamma_T}|u|+t\sup_{U_T}|f|\)</span>，可通过比较原理推出<span class="math inline">\(w\le u\le v\)</span></p></li>
+<li><p><span class="math inline">\(v=\sup_{\Gamma_T}|u|+h(x)\sup_{U_T}|f|\)</span>，待定<span class="math inline">\(h\)</span>满足 <span class="math display">\[
+\begin{cases}
+h\ge 0, on~\Gamma_T\\
+Lh\ge 1,in~U_T
+\end{cases}
+\]</span> 取<span class="math inline">\(h=e^d-e^{x_1-x_1^0},x_1^0=\inf\{x_1|x\in U\},d\)</span>为区域直径，满足条件，然后同1即得结论</p></li>
+</ol>
+<h3 id="c有界最大模估计">c有界最大模估计</h3>
+<p>上面条件中删去c非负，则： <span class="math display">\[
+\begin{aligned}
+\sup_{U_T}|u|&amp;\le e^{-c_0T}(\sup_{\Gamma_T}|u|+T\sup_{U_T}|f|)\\
+\sup_{U_T}|u|&amp;\le e^{-c_0T}(\sup_{\Gamma_T}|u|+M\sup_{U_T}|f|),M\sim U
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+c_0=\min\{\inf_{U_T} c(x),0\}
+\]</span></p>
+<p>取<span class="math inline">\(v=e^{c_0t}u\)</span>即可</p>
+<p>可推出光滑解稳定性。</p>
+<h1 id="二阶双曲方程">二阶双曲方程</h1>
+<p>问题 <span class="math display">\[
+\begin{cases}
+u_{tt}+Lu=f,&amp;in~U_T\\
+u=0,&amp;on~\partial U\times[0,T]\\
+u=g,u_t=h&amp;on~U\times\{t=0\}
+\end{cases}
+\]</span> 弱解 <span class="math display">\[
+\langle u&#39;&#39;,v\rangle+B[u,v;t]=(f,v),u(0)=g,u&#39;(0)=h
+\]</span> 能量估计、弱解存在唯一性、正则性提升都与抛物方程的处理方式完全类似，就不加赘述了。唯一要提的就是有限传播性。</p>
+<h2 id="有限传播速度">有限传播速度</h2>
+<p>考虑 <span class="math display">\[
+Lu=-\sum a^{ij}u_{ij}
+\]</span> 方程 <span class="math display">\[
+u_{tt}+Lu=0
+\]</span> 希望一个初始位置和初始速度的条件就可以唯一确定波的传播。</p>
+<p>令q为方程 <span class="math display">\[
+\begin{cases}
+\sum a^{ij}q_iq_j=1,q&gt;0,in~R^n-\{x_0\}\\
+q(x_0)=0
+\end{cases}
+\]</span> 的解，波在时空域上传播的“锥形”是 <span class="math display">\[
+K:=\{(x,t)|q(x)&lt;t_0-t\}
+\]</span> 定义 <span class="math display">\[
+K_t:=\{(x,t)|q(x)&lt;t_0-t\}
+\]</span> 为t时刻的截面。</p>
+<p><span class="math inline">\(Thm\)</span></p>
+<p>若u是上述方程的光滑解，则若 <span class="math display">\[
+u\equiv u_t\equiv 0,on~K_0
+\]</span> 则 <span class="math display">\[
+u\equiv 0, in~K
+\]</span> (故解仅依赖于<span class="math inline">\(K_0\)</span>初值)</p>
+<p><span class="math inline">\(Proof\)</span></p>
+<p>考虑能量 <span class="math display">\[
+e(t)=\frac12\int_{K_t}u_t^2+a^{ij}u_iu_jdx
+\]</span> 根据余面积公式 <span class="math display">\[
+\frac{d}{dt}\left(\int_{K_t}fdx\right)=-\int_{\partial K_t}\frac{f}{|Dq|}dS
+\]</span> 于是 <span class="math display">\[
+\frac{d}{dt}e(t)=\int_{K_t}u_tu_{tt}+a^{ij}u_iu_{jt}dx-\frac12\int_{\partial K_t}(u_t^2+a^{ij}u_iu_j)/|Dq|dx:=A-B
+\]</span> 分部积分计算 <span class="math display">\[
+\begin{aligned}
+A&amp;=\int_{K_t}u_t(u_{tt}-(a^{ij}u_i)_j)dx+\int_{\partial K_t}a^{ij}u_i\nu^ju_tdS\\
+&amp;=-\int_{K_t}u_ta^{ij}_ju_idx+\int_{\partial K_t}a^{ij}u_i\nu^ju_tdS
+\end{aligned}
+\]</span> 而在边界上由表达式有<span class="math inline">\(\nu=\frac{Dq}{|Dq|}\)</span>，于是 <span class="math display">\[
+a^{ij}\nu^i\nu^j=\frac{a^{ij}q_iq_j}{|Dq|^2}=\frac{1}{|Dq|^2}
+\]</span> 则 <span class="math display">\[
+|a^{ij}u_i\nu^j|\le (a^{ij}u_iu_j)^{\frac12}(a^{ij}\nu^i\nu^j)^{\frac12}=\frac{(a^{ij}u_iu_j)^{\frac12}}{|Dq|}
+\]</span> 于是 <span class="math display">\[
+\begin{aligned}
+|A|&amp;\le Ce(t)+\int_{\partial K_t}(a^{ij}u_iu_j)^{\frac12}|u_t|\frac{1}{|Dq|}dS\\
+&amp;\le Ce(t)+\frac12\int_{\partial K_t}(u_t^2+a^{ij}u_iu_j)\frac{1}{|Dq|}dS\\
+&amp;=Ce(t)+B
+\end{aligned}
+\]</span> 则 <span class="math display">\[
+\frac{d}{dt}e(t)\le Ce(t)
+\]</span> 又<span class="math inline">\(e(0)=0\)</span>则<span class="math inline">\(e(t)\equiv 0\)</span>，从而<span class="math inline">\(u\equiv 0\)</span>。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/Math/PDE/20210623/SecondOrderParabolicHyperbolicEquations1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Math/PDE/20210623/SecondOrderParabolicHyperbolicEquations1/" class="post-title-link" itemprop="url">二阶抛物/双曲方程（一）</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-23 19:19:12" itemprop="dateCreated datePublished" datetime="2021-06-23T19:19:12+08:00">2021-06-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/" itemprop="url" rel="index"><span itemprop="name">Math</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/PDE/" itemprop="url" rel="index"><span itemprop="name">PDE</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>主要内容来自于Evans PDE书Chapter5.9与Chapter7。</p>
+<h1 id="二阶抛物方程">二阶抛物方程</h1>
+<p>本章中，我们主要研究的问题就是形如 <span class="math display">\[
+\begin{cases}
+u_t+Lu=f,&amp;in~U_T\\
+u=0,&amp;on~\partial U\times[0,T]\\
+u=g,&amp;on~U\times\{t=0\}
+\end{cases}
+\]</span> 的方程。其中<span class="math inline">\(U\)</span>为<span class="math inline">\(R^n\)</span>中有界开集，<span class="math inline">\(U_T=U\times(0,T]\)</span>，<span class="math inline">\(L\)</span>同之前说的有两种形式，满足<span class="math inline">\(\sum a^{ij}\xi_i\xi_j\ge\theta |\xi|^2\)</span>。<span class="math inline">\(f,g\)</span>给定，求解<span class="math inline">\(u\)</span>。</p>
+<p>与之前相同，我们也主要研究弱解的存在唯一性、正则性提高以及最大值原理。在此之前，首先要做一些准备工作。</p>
+<h2 id="关于二阶椭圆方程的进一步探讨">关于二阶椭圆方程的进一步探讨</h2>
+<p>回忆一维情形下，解这种偏微分方程最常用的套路就是分离变量法，我们尝试把相同的思路用在高维情形下。</p>
+<p>不妨先看简单情形 <span class="math display">\[
+\begin{cases}
+u_t=\Delta u,&amp;in~U_T\\
+u=0,&amp;on~\partial U\times[0,T]\\
+u=g,&amp;on~U\times\{t=0\}
+\end{cases}
+\]</span> 假设 <span class="math display">\[
+u(x,t)=v(x)w(t)
+\]</span> 则满足 <span class="math display">\[
+\begin{cases}
+\frac{w&#39;(t)}{w(t)}=\frac{\Delta v(x)}{v(x)}=-\lambda,&amp;~in~U_T\\
+v=0,&amp;on~\partial U_T\\
+\end{cases}
+\]</span> 最终 <span class="math display">\[
+u(x,t)=\sum_{k=1}^{\infty}c_ke^{-\lambda_kt}\omega_k(x)
+\]</span> 其中<span class="math inline">\(\{\lambda_k,\omega_k\}\)</span>就是<span class="math inline">\(-\Delta\)</span>在<span class="math inline">\(H_0^1\)</span>空间中的特征值和特征向量。为进一步用<span class="math inline">\(u|_{t=0}=g\)</span>确定系数，希望对这些特征向量有正交性的要求，一般来说，就是对二阶椭圆算子的特征向量正交性要求。</p>
+<p>根据对称算子的谱理论，容易知道二阶对称椭圆算子的特征值都是正实数且趋于无穷，记 <span class="math display">\[
+0&lt;\lambda_1\le\lambda_2\le\cdots,\lambda_k\to\infty
+\]</span> 其分别对应的特征向量<span class="math inline">\(\{\omega_k\}\)</span>为<span class="math inline">\(L^2\)</span>中的正交基。由此进一步有结论：</p>
+<h3 id="结论">结论</h3>
+<p><span class="math inline">\(Thm\)</span></p>
+<ol type="1">
+<li><span class="math inline">\(\lambda_1=\min\{B[u,u],u\in H_0^1(U),\Vert u\Vert_{L^2}=1\}\)</span></li>
+<li>存在恒正的特征向量<span class="math inline">\(\omega_1\)</span></li>
+<li>任意关于<span class="math inline">\(\lambda_1\)</span>的特征向量都是<span class="math inline">\(\omega_1\)</span>的倍数（故<span class="math inline">\(\lambda_1&lt;\lambda_2\)</span>）</li>
+</ol>
+<p><span class="math inline">\(Proof\)</span></p>
+<ol type="1">
+<li><p>取特征向量<span class="math inline">\(\{\omega_k\}\)</span>为<span class="math inline">\(L^2\)</span>中标准正交基，则同时有 <span class="math display">\[
+B[\omega_k,\omega_l]=\lambda_k(\omega_k,\omega_l)=\lambda_k \delta_{kl}
+\]</span></p>
+<p>于是<span class="math inline">\(\{\omega_k/\lambda_k^{1/2}\}\)</span>在<span class="math inline">\(H_0^1(U)\)</span>中关于内积<span class="math inline">\(B[\cdot,\cdot]\)</span>构成标准正交基。</p>
+<p>任意<span class="math inline">\(u\in H_0^1(U),\Vert u\Vert_{L^2}=1\)</span>则 <span class="math display">\[
+u=\sum_{k=1}^\infty d_k\omega_k=\sum_{k=1}^\infty (u,\omega_k)\omega_k,\sum_{k=1}^{\infty}d_k^2=1
+\]</span> 从而也是标准正交基。 <span class="math display">\[
+B[u,u]=\sum d_k^2\lambda_k\ge \lambda_1
+\]</span></p></li>
+<li><p>同时上述过程可以证明满足 <span class="math display">\[
+u\in H_0^1(U),\Vert u\Vert_{L^2}=1
+\]</span> 的u都是<span class="math inline">\(\lambda_1\)</span>的特征向量。</p>
+<p>假设u满足上述条件，则令 <span class="math display">\[
+\alpha=\int_U(u^+)^2dx,\beta=\int_U(u^-)^2dx
+\]</span> 则<span class="math inline">\(\alpha+\beta=1\)</span> <span class="math display">\[
+\begin{aligned}
+\lambda_1&amp;=B[u,u]=B[u^+,u^+]+B[u^-,u^-]\\
+&amp;\ge \lambda_1\Vert u^+\Vert_{L^2(U)}+\lambda_1\Vert u^-\Vert_{L^2(U)}\\
+&amp;=\lambda_1
+\end{aligned}
+\]</span> 要使不等式取等成立，则 <span class="math display">\[
+B[u^+,u^+]=\lambda_1\Vert u^+\Vert_{L^2(U)}
+\]</span> 即为想要的结论。</p>
+<p>同时<span class="math inline">\(u^+&gt;0\)</span>或<span class="math inline">\(u\equiv 0\)</span>，故<span class="math inline">\(u\)</span>在<span class="math inline">\(U\)</span>中不变号</p></li>
+<li><p>对于两个特征向量解<span class="math inline">\(u,v\)</span>有 <span class="math display">\[
+\int_U u\ne0,\int_U v\ne0
+\]</span> 令 <span class="math display">\[
+\int_Uu-cv=0
+\]</span> 则<span class="math inline">\(u-cv\)</span>也为特征向量，由之前结论必恒为零，则命题得证。</p></li>
+</ol>
+<h2 id="一些定义">一些定义</h2>
+<h3 id="带时间函数的空间">带时间函数的空间</h3>
+<p>为了描述函数<span class="math inline">\(u(x,t)\)</span>，首先给出空间定义。</p>
+<p>函数的范数分别定义为 <span class="math display">\[
+\Vert u\Vert_{L^p(0,T;X)}=(\int_0^T\Vert u(t)\Vert^pdt)^{1/p}
+\]</span></p>
+<p><span class="math display">\[
+\Vert u\Vert_{L^\infty(0,T;X)}=\text{ess sup}_{0\le t\le T}\Vert u(t)\Vert
+\]</span></p>
+<p><span class="math display">\[
+\Vert u\Vert_{C([0,T];X)}=\max_{0\le t\le T}\Vert u\Vert
+\]</span></p>
+<p>空间即为范数有限的可测/连续函数全体。</p>
+<p>Sobelev空间的定义类似。</p>
+<p>可以证得Sobelev空间中函数关于时间几乎连续。</p>
+<p><span class="math inline">\(Thm\)</span> <span class="math display">\[
+u\in W^{1,p}(0,T;X)
+\]</span> 则</p>
+<ol type="1">
+<li><p><span class="math display">\[
+u\in C([0,T];X)
+\]</span></p></li>
+<li><p><span class="math display">\[
+u(t)=u(s)+\int_s^t u&#39;(\tau)d\tau
+\]</span></p></li>
+<li><p><span class="math display">\[
+\max_{0\le t\le T}\Vert u(t)\Vert\le C\Vert u\Vert_{W^{1,p}(0,T;X)}
+\]</span></p></li>
+</ol>
+<p><span class="math inline">\(Thm\)</span> <span class="math display">\[
+u\in L^2(0,T;H_0^1(U)),u&#39;\in L^2(0,T;H^{-1}(U))
+\]</span> 则</p>
+<ol type="1">
+<li><p><span class="math display">\[
+u\in C([0,T];L^2(U))
+\]</span></p></li>
+<li><p>映射<span class="math inline">\(t\to \Vert u(t)\Vert_{L^2(U)}^2\)</span>绝对连续，且 <span class="math display">\[
+\frac{d}{dt}\Vert u(t)\Vert_{L^2(U)}^2=2\langle u&#39;(t),u(t)\rangle
+\]</span></p></li>
+<li><p><span class="math display">\[
+\max_{0\le t\le T}\Vert u(t)\Vert_{L^2(U)}\le C(\Vert u\Vert_{L^2(0,T;H_0^1(U))}+\Vert u&#39;\Vert_{L^2(0,T;H^{-1}(U))})
+\]</span></p></li>
+</ol>
+<p>证明思路都是先作延拓后与光滑核卷积，通过光滑函数的极限导出结论。</p>
+<h3 id="弱解">弱解</h3>
+<p>类似定义 <span class="math display">\[
+B[u,v;t]=\int_U a^{ij}(\cdot,t)u_iv_j+b^i(\cdot,t)u_i v+c(\cdot, t)uv dx
+\]</span> 同样先用光滑函数尝试性质，再分部积分即得弱解定义。</p>
+<p>称一个函数 <span class="math display">\[
+u\in L^2(0,T;H_0^1(U)),u&#39;\in L^2(0,T;H^{-1}(U))
+\]</span> 是方程的弱解是指任意的 <span class="math display">\[
+v\in H_0^1(U),0\le t\le T~a.e.
+\]</span> 都有 <span class="math display">\[
+\langle u&#39;,v\rangle+B[u,v;t]=(f,v),u(0)=g
+\]</span></p>
+<h2 id="弱解的构造galerkin逼近">弱解的构造——Galerkin逼近</h2>
+<p>由之前讨论，找一组<span class="math inline">\(\{\omega_k\}\)</span>为<span class="math inline">\(H_0^1(U)\)</span>与<span class="math inline">\(L^2(U)\)</span>正交基，记 <span class="math display">\[
+u_m(t)=\sum_{k=1}^{m}d_m^k(t)\omega_k
+\]</span> 取系数满足 <span class="math display">\[
+\begin{aligned}
+&amp;d_m^k(0)=(g,\omega_k)\\
+(u_m&#39;,\omega_k)&amp;+B[u_m,\omega_k;t]=(f,\omega_k),k=1,\cdots,m
+\end{aligned}
+\]</span> 则找到了一个子空间中满足条件的解。将其取极限即得想要的解。</p>
+<h3 id="序列存在性">序列存在性</h3>
+<p>这样序列的存在性，即系数函数的存在性</p>
+<p>事实上 <span class="math display">\[
+(u_m&#39;,\omega_k)={d_m^k}&#39;(t)
+\]</span> 令 <span class="math display">\[
+e^{kl}(t)=B[\omega_k,\omega_l;t]
+\]</span></p>
+<p><span class="math display">\[
+f^k(t)=(f(t),\omega_k)
+\]</span></p>
+<p>则 <span class="math display">\[
+B[u_m,\omega_k;t]=\sum_{l=1}^m e^{kl}(t)d_m^l(t)
+\]</span> 代入所需满足条件得 <span class="math display">\[
+{d_m^k}&#39;(t)+\sum_{l=1}^m e^{kl}(t)d_m^l(t)=f^k(t)
+\]</span> 即一个常微分方程组，这样的解是存在的。</p>
+<h3 id="能量估计">能量估计</h3>
+<p><span class="math display">\[
+\max_{0\le t\le T}\Vert u_m(t)\Vert_{L^2(U)}+\Vert u_m\Vert_{L^2(0,T;H_0^1(U))}+\Vert u_m&#39;\Vert_{L^2(0,T;H^{-1}(U))}\le C(\Vert f\Vert_{L^2(0,T;L^2(U))}+\Vert g\Vert_{L^2(U)})
+\]</span></p>
+<p><span class="math inline">\(Proof\)</span> <span class="math display">\[
+(u_m&#39;,\omega_k)+B[u_m,\omega_k;t]=(f,\omega_k),k=1,\cdots,m
+\]</span> 乘<span class="math inline">\(d_m^k\)</span>对k求和可得 <span class="math display">\[
+(u_m&#39;,u_m)+B[u_m,u_m;t]=(f,u_m),k=1,\cdots,m
+\]</span> 椭圆中能量估计有 <span class="math display">\[
+\beta\Vert u_m\Vert^2_{H_0^1(U)}\le B[u_m,u_m;t]+\gamma\Vert u_m\Vert^2_{L^2(U)}
+\]</span> 由于 <span class="math display">\[
+(f,u_m)\le \frac12\Vert f\Vert^2_{L^2(U)}+\frac12\Vert u_m\Vert^2_{L^2(U)}
+\]</span></p>
+<p><span class="math display">\[
+(u_m&#39;,u_m)=\frac12\frac{d}{dt}\Vert u_m\Vert^2_{L^2(U)}
+\]</span></p>
+<p>则 <span class="math display">\[
+\frac{d}{dt}\Vert u_m\Vert^2_{L^2(U)}+2\beta\Vert u_m\Vert^2_{H_0^1(U)}\le C_1\Vert u_m\Vert^2_{L^2(U)}+C_2\Vert f\Vert^2_{L^2(U)}
+\]</span> 运用Gronwell不等式</p>
+<blockquote>
+<p><span class="math display">\[
+\eta&#39;(t)\le C_1\eta(t)+C_2\xi(t)
+\]</span></p>
+<p>则 <span class="math display">\[
+\eta(t)\le e^{C_1 t}\left(\eta(0)+C_2\int_0^t\xi(s)ds\right)
+\]</span></p>
+</blockquote>
+<p>再加上 <span class="math display">\[
+\Vert u_m(0)\Vert^2_{L^2(U)}\le \Vert g\Vert^2_{L^2(U)}
+\]</span> 于是 <span class="math display">\[
+\max_{0\le t\le T}\Vert u_m(t)\Vert_{L^2(U)}\le C(\Vert f\Vert_{L^2(0,T;L^2(U))}+\Vert g\Vert_{L^2(U)})
+\]</span> 由定义 <span class="math display">\[
+\Vert u_m\Vert_{L^2(0,T;H_0^1(U))}\le C(\Vert f\Vert_{L^2(0,T;L^2(U))}+\Vert g\Vert_{L^2(U)})
+\]</span> 对前面估计式积分易得</p>
+<p>只要证明 <span class="math display">\[
+\Vert u_m&#39;\Vert_{L^2(0,T;H^{-1}(U))}\le C(\Vert f\Vert_{L^2(0,T;L^2(U))}+\Vert g\Vert_{L^2(U)})
+\]</span> 这里任取<span class="math inline">\(v\in H_0^1(U),\Vert v\Vert_{H_0^1(U)}\le 1\)</span>，令<span class="math inline">\(v=v^1+v^2,v^1\in \text{span}\{w_k\}_{k=1}^m,(v^2,\omega_k)=0\)</span></p>
+<p>则 <span class="math display">\[
+\Vert v^1\Vert_{H_0^1(U)}\le \Vert v\Vert_{H_0^1(U)}\le 1
+\]</span> 且 <span class="math display">\[
+(u_m&#39;,v^1)+B[u_m,v^1;t]=(f,v^1),k=1,\cdots,m
+\]</span> 于是 <span class="math display">\[
+\langle u_m&#39;,v\rangle=(u_m&#39;,v)=(u_m&#39;,v^1)=(f,v^1)-B[u_m,v^1;t]
+\]</span> 从而 <span class="math display">\[
+|\langle u_m&#39;,v\rangle|\le C(\Vert f\Vert_{L^2(U)}+\Vert u_m\Vert_{H_0^1(U)})
+\]</span> 由任意性有 <span class="math display">\[
+\Vert u_m&#39;\Vert_{H^{-1}(U)}\le C(\Vert f\Vert_{L^2(U)}+\Vert u_m\Vert_{H_0^1(U)})
+\]</span> 于是积分得证！</p>
+<h3 id="弱解存在性">弱解存在性</h3>
+<p>由以上的能量估计有 <span class="math display">\[
+\Vert u_m\Vert_{L^2(0,T;H_0^1(U))},\Vert u_m&#39;\Vert_{L^2(0,T;H^{-1}(U))}
+\]</span> 有界</p>
+<p>于是存在其子列弱收敛，即 <span class="math display">\[
+\begin{cases}
+u_{ml}\rightharpoonup u,in~L^2(0,T;H_0^1(U))\\
+u_{ml}&#39;\rightharpoonup u&#39;,in~L^2(0,T;H^{-1}(U))
+\end{cases}
+\]</span> 则任选<span class="math inline">\(v\in C^1([0,T];H_0^1(U)),v=\sum_{k=1}^N d^k(t)\omega_k\)</span></p>
+<p>则 <span class="math display">\[
+\int_0^T\langle u_m&#39;,v\rangle+B[u_m,v;t]dt=\int_0^T(f,v)dt
+\]</span> 令<span class="math inline">\(m=m_l\)</span>取极限有 <span class="math display">\[
+\int_0^T\langle u&#39;,v\rangle+B[u,v;t]dt=\int_0^T(f,v)dt
+\]</span> 由稠密性则对<span class="math inline">\(v\in L^2(0,T;H_0^1(U))\)</span>都成立</p>
+<p>只需再验证<span class="math inline">\(u(0)=g\)</span></p>
+<p>由于对<span class="math inline">\(v\in C^1([0,T];H_0^1(U)),v(T)=0\)</span> <span class="math display">\[
+\int_0^T -\langle v&#39;,u\rangle+B[u,v;t]dt=\int_0^T(f,v)dt+(u(0),v(0))
+\]</span></p>
+<p><span class="math display">\[
+\int_0^T -\langle v&#39;,u_m\rangle+B[u_m,v;t]dt=\int_0^T(f,v)dt+(u_m(0),v(0))
+\]</span></p>
+<p>于是 <span class="math display">\[
+\int_0^T -\langle v&#39;,u\rangle+B[u,v;t]dt=\int_0^T(f,v)dt+(g,v(0))
+\]</span> 再由任意性即可。</p>
+<h3 id="弱解唯一性">弱解唯一性</h3>
+<p>只需证<span class="math inline">\(f\equiv g\equiv 0\)</span>时<span class="math inline">\(u\equiv 0\)</span></p>
+<p>于是 <span class="math display">\[
+\frac{d}{dt}(\frac12 \Vert u\Vert^2_{L^2(U)})+B[u,u;t]=0
+\]</span> 又 <span class="math display">\[
+B[u,u;t]\ge \beta\Vert u\Vert^2_{H_0^1(U)}-\gamma\Vert u\Vert^2_{L^2(U)}\ge -\gamma\Vert u\Vert^2_{L^2(U)}
+\]</span> 再结合Gronwell不等式即得。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/Math/Wavelet-Analysis/20210611/LiftingWavelet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Math/Wavelet-Analysis/20210611/LiftingWavelet/" class="post-title-link" itemprop="url">提升小波</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-11 10:37:27" itemprop="dateCreated datePublished" datetime="2021-06-11T10:37:27+08:00">2021-06-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/" itemprop="url" rel="index"><span itemprop="name">Math</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/Wavelet-Analysis/" itemprop="url" rel="index"><span itemprop="name">Wavelet Analysis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言">前言</h1>
+<p>经典小波分析是从傅里叶分析的基础上发展起来的，因此它在一定程度上收到傅里叶分析的限制。小波变换和多分辨率分析都是建立在小波的二进伸缩平移的基础上，称之为第一代小波。1996年，Sweldens提出了不依赖傅里叶变换的小波提升方法，提升小波主要具有以下性质。</p>
+<ol type="1">
+<li>能够用于构造第一代小波：可以用来提高小波的消失矩，构造具有插值的小波等，可以加深对第一代小波的理解。</li>
+<li>能够改进第一代小波的算法性能：完全是原位计算且容易推广到边界。</li>
+<li>可用于构造第二代小波：其摆脱了傅里叶变换的限制，同时满足小波变换的好性质，该思想可以用来构造复杂区域上的小波变换。</li>
+</ol>
+<h1 id="z变换下的多分辨率分析">Z变换下的多分辨率分析</h1>
+<p>利用Z变换重新认识多分辨率分析的分解重构算法。</p>
+<p>之前定义过序列的Z变换 <span class="math display">\[
+x(z)=\sum_{j\in\mathbb{Z}} x_jz^{-j}
+\]</span> 定义偶序列对应的Z变换 <span class="math display">\[
+x_e(z)=\sum_{j\in\mathbb{Z}} x_{2j}z^{-j}
+\]</span> 则 <span class="math display">\[
+x_e(z^2)=\sum_{j\in\mathbb{Z}} x_{2j}z^{-2j}
+\]</span> 同样定义奇序列的Z变换满足 <span class="math display">\[
+x_o(z^2)=\sum_{j\in\mathbb{Z}} x_{2j+1}z^{-2j}
+\]</span> 则有 <span class="math display">\[
+\left(
+\begin{matrix}
+x_e(z^2)\\
+x_o(z^2)
+\end{matrix}
+\right)
+=
+\left(
+\begin{matrix}
+\frac12&amp;\frac12\\
+\frac z2&amp;-\frac z2
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+x(z)\\
+x(-z)
+\end{matrix}
+\right)
+\]</span> 回忆之前的分解重构算法： <span class="math display">\[
+\begin{aligned}
+c_{j-1,l}&amp;=2^{-1/2}\sum c_{j,k}\overline{h_{k-2l}}\\
+d_{j-1,l}&amp;=2^{-1/2}\sum c_{j,k}\overline{g_{k-2l}}\\
+c_{j,l}=2^{-1/2}\sum &amp;c_{j-1,k}h_{l-2k}+2^{-1/2}\sum d_{j-1,k}g_{l-2k}
+\end{aligned}
+\]</span> 考虑双尺度系数和小波系数Z变换得到的函数 <span class="math display">\[
+h(z)=\sum_{j\in\mathbb{Z}} h_jz^{-j},g(z)=\sum_{j\in\mathbb{Z}} g_jz^{-j}
+\]</span> 由性质可得 <span class="math display">\[
+g(z)=-z^{-1}\bar{h}(-z^{-1}),\bar g(z)=-z^{-1}h(-z^{-1})
+\]</span> 且奇序列偶序列Z变换 <span class="math display">\[
+h_e(z^2)=\frac{h(z)+h(-z)}{2},h_o(z^2)=\frac{h(z)-h(-z)}{2z^{-1}}
+\]</span></p>
+<p><span class="math display">\[
+g_e(z^2)=\frac{g(z)+g(-z)}{2},g_o(z^2)=\frac{g(z)-g(-z)}{2z^{-1}}
+\]</span></p>
+<p>分解算法： <span class="math display">\[
+\begin{aligned}
+c^{j-1}(z^2)&amp;=\sum_l c_{j-1,l}z^{-2l}\\
+&amp;=2^{-1/2}\sum_l(\sum_k c_{j,k}\overline{h_{k-2l}})z^{-2l}\\
+&amp;=2^{-1/2}c^j(z)\bar{h}(z^{-1})
+\end{aligned}
+\]</span> 用-z代替z可得 <span class="math display">\[
+c^{j-1}(z^2)=2^{-1/2}c^j(-z)\bar{h}(-z^{-1})
+\]</span> 于是 <span class="math display">\[
+c^{j-1}(z^2)=2^{-1/2}\frac{c^j(z)\bar{h}(z^{-1})+c^j(-z)\bar{h}(-z^{-1})}{2}
+\]</span> 同理 <span class="math display">\[
+d^{j-1}(z^2)=2^{-1/2}\frac{c^j(z)\bar{g}(z^{-1})+c^j(-z)\bar{g}(-z^{-1})}{2}
+\]</span> 可推出 <span class="math display">\[
+\left(
+\begin{matrix}
+c^{j-1}(z^2)\\
+d^{j-1}(z^2)
+\end{matrix}
+\right)
+=
+2^{-1/2}
+\left(
+\begin{matrix}
+\bar{h}_e(z^{-2})&amp;\bar{h}_o(z^{-2})\\
+\bar{g}_e(z^{-2})&amp;\bar{g}_o(z^{-2})
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+c^j_e(z^2)\\
+c^j_o(z^2)
+\end{matrix}
+\right)
+\]</span> 定义h和g的多相位矩阵为 <span class="math display">\[
+P(z)=
+\left(
+\begin{matrix}
+h_e(z)&amp;g_e(z)\\
+h_o(z)&amp;g_o(z)\\
+\end{matrix}
+\right)
+\]</span> 则小波分解算法可记为 <span class="math display">\[
+\left(
+\begin{matrix}
+c^{j-1}(z^2)\\
+d^{j-1}(z^2)
+\end{matrix}
+\right)
+=
+2^{-1/2}
+\bar{P}(z^{-2})^T
+\left(
+\begin{matrix}
+c^j_e(z^2)\\
+c^j_o(z^2)
+\end{matrix}
+\right)
+\]</span> 即 <span class="math display">\[
+\left(
+\begin{matrix}
+c^{j-1}(z)\\
+d^{j-1}(z)
+\end{matrix}
+\right)
+=
+2^{-1/2}
+\bar{P}(z^{-1})^T
+\left(
+\begin{matrix}
+c^j_e(z)\\
+c^j_o(z)
+\end{matrix}
+\right)
+\]</span> 类似地重构算法： <span class="math display">\[
+\left(
+\begin{matrix}
+c^j_e(z)\\
+c^j_o(z)
+\end{matrix}
+\right)
+=
+2^{-1/2}
+P(z)
+\left(
+\begin{matrix}
+c^{j-1}(z)\\
+d^{j-1}(z)
+\end{matrix}
+\right)
+\]</span> 完全重构的条件为 <span class="math display">\[
+P(z)\bar{P}(z^{-1})^T=2I
+\]</span></p>
+<h1 id="提升小波的构造">提升小波的构造</h1>
+<p>可以看出分解重构都只需要用到多相位矩阵<span class="math inline">\(P(z)\)</span>，简单的想法是将<span class="math inline">\(P(z)\)</span>分解为一系列简单矩阵的乘积，则只需要作原位计算。</p>
+<p>事实上有结论，若<span class="math inline">\(P(z)\)</span>的行列式等于-2（若多相位矩阵来自于多分辨率分析，则这一点必然成立），</p>
+<p>则存在Laurent多项式<span class="math inline">\(u_i(z),p_i(z)\)</span>和非零常数<span class="math inline">\(K\)</span>满足 <span class="math display">\[
+P(z)=\prod_{i=1}^m
+\left(
+\begin{matrix}
+1&amp;u_i(z)\\
+0&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+1&amp;0\\
+p_i(z)&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+K&amp;0\\
+0&amp;-\frac{2}{K}
+\end{matrix}
+\right),p_m(z)=0
+\]</span> 下面给出这些Laurent多项式的构造方法</p>
+<h2 id="多相位矩阵的因子分解">多相位矩阵的因子分解</h2>
+<h3 id="laurent多项式">Laurent多项式</h3>
+<p><span class="math display">\[
+h(z)=\sum_{k=k_a}^{k_b}h_kz^{-k},h_{k_a}\ne 0 ,h_{k_b}\ne 0
+\]</span></p>
+<p>称为一个Laurent多项式。次数为 <span class="math display">\[
+|h(z)|=k_b-k_a
+\]</span></p>
+<p>Laurent多项式的带余除法可以和普通多项式类似定义，但不唯一，任取其一即可。</p>
+<h3 id="构造方法">构造方法</h3>
+<p>使用Euclid算法 <span class="math display">\[
+\begin{aligned}
+a_{i+1}(z)&amp;=b_i(z)\\
+b_{i+1}(z)&amp;=a_i(z)\%b_i(z)
+\end{aligned}
+\]</span> 总可以使<span class="math inline">\(b_n(z)=0\)</span>的<span class="math inline">\(n\)</span>为偶数且尽量小，则 <span class="math display">\[
+\left(
+\begin{matrix}
+a_n(z)\\
+0
+\end{matrix}
+\right)
+=
+\prod_{i=n}^1
+\left(
+\begin{matrix}
+0&amp;1\\
+1&amp;-q_i(z)
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+a(z)\\
+b(z)
+\end{matrix}
+\right)
+\]</span></p>
+<p>这等价于</p>
+<p><span class="math display">\[
+\left(
+\begin{matrix}
+a(z)\\
+b(z)
+\end{matrix}
+\right)
+=
+\prod_{i=1}^n
+\left(
+\begin{matrix}
+q_i(z)&amp;1\\
+1&amp;0
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+a_n(z)\\
+0
+\end{matrix}
+\right)
+\]</span></p>
+<p>从而</p>
+<p><span class="math display">\[
+\left(
+\begin{matrix}
+a(z)\\
+b(z)
+\end{matrix}
+\right)
+=
+\left(
+\begin{matrix}
+1&amp;q_1(z)\\
+0&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+1&amp;0\\
+q_2(z)&amp;1
+\end{matrix}
+\right)
+\prod_{i=3}^n
+\left(
+\begin{matrix}
+q_i(z)&amp;1\\
+1&amp;0
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+a_n(z)\\
+0
+\end{matrix}
+\right)
+\]</span></p>
+<p>对</p>
+<p><span class="math display">\[
+\left(
+\begin{matrix}
+h_e(z)\\
+h_o(z)\\
+\end{matrix}
+\right)
+\]</span></p>
+<p>操作即有</p>
+<p><span class="math display">\[
+\left(
+\begin{matrix}
+h_e(z)\\
+h_o(z)\\
+\end{matrix}
+\right)
+=\prod_{i=1}^{m-1}
+\left(
+\begin{matrix}
+1&amp;u_i(z)\\
+0&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+1&amp;0\\
+p_i(z)&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+K\\
+0
+\end{matrix}
+\right)
+\]</span></p>
+<p>记</p>
+<p><span class="math display">\[
+\left(
+\begin{matrix}
+h_e(z)&amp;p_e(z)\\
+h_o(z)&amp;p_o(z)\\
+\end{matrix}
+\right)
+=\prod_{i=1}^{m-1}
+\left(
+\begin{matrix}
+1&amp;u_i(z)\\
+0&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+1&amp;0\\
+p_i(z)&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+K&amp;0\\
+0&amp;-\frac{2}{K}
+\end{matrix}
+\right)
+\]</span></p>
+<p>结合我们希望得到的形式</p>
+<p><span class="math display">\[
+P(z)
+=\prod_{i=1}^{m-1}
+\left(
+\begin{matrix}
+1&amp;u_i(z)\\
+0&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+1&amp;0\\
+p_i(z)&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+K&amp;0\\
+0&amp;-\frac{2}{K}
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+1&amp;\frac{2u_m(z)}{K^2}\\
+0&amp;1
+\end{matrix}
+\right)
+\]</span> 只要取 <span class="math display">\[
+u_m(z)=-\frac{K^2}{4}(p_o(z)g_e(z)-p_e(z)g_o(z))
+\]</span> 即可。</p>
+<h1 id="提升算法">提升算法</h1>
+<p><span class="math display">\[
+P(z)=\prod_{i=1}^m
+\left(
+\begin{matrix}
+1&amp;u_i(z)\\
+0&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+1&amp;0\\
+p_i(z)&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+K&amp;0\\
+0&amp;-\frac{2}{K}
+\end{matrix}
+\right)
+\]</span></p>
+<p>从而</p>
+<p><span class="math display">\[
+P^{-1}(z)=
+\left(
+\begin{matrix}
+\frac{1}{K}&amp;0\\
+0&amp;-\frac{K}{2}
+\end{matrix}
+\right)
+\prod_{i=m}^1
+\left(
+\begin{matrix}
+1&amp;0\\
+-p_i(z)&amp;1
+\end{matrix}
+\right)
+\left(
+\begin{matrix}
+1&amp;-u_i(z)\\
+0&amp;1
+\end{matrix}
+\right)
+\]</span></p>
+<p>因此代入到分解重构公式中：</p>
+<p><span class="math display">\[
+\left(
+\begin{matrix}
+c^{j-1}(z)\\
+d^{j-1}(z)
+\end{matrix}
+\right)
+=
+2^{-1/2}
+\bar{P}(z^{-1})^T
+\left(
+\begin{matrix}
+c^j_e(z)\\
+c^j_o(z)
+\end{matrix}
+\right)
+\]</span></p>
+<p><span class="math display">\[
+\left(
+\begin{matrix}
+c^j_e(z)\\
+c^j_o(z)
+\end{matrix}
+\right)
+=
+2^{-1/2}
+P(z)
+\left(
+\begin{matrix}
+c^{j-1}(z)\\
+d^{j-1}(z)
+\end{matrix}
+\right)
+\]</span></p>
+<p>从而分解算法：</p>
+<ol type="1">
+<li>先分成奇偶序列（懒小波变换）</li>
+<li>保持奇序列，偶序列更新为<span class="math inline">\(c_e^j(z)-u_i(z)c_o^j(z)\)</span></li>
+<li>保持偶序列，奇序列更新为<span class="math inline">\(c_o^j(z)-p_i(z)c_e^j(z)\)</span></li>
+<li>重复23，最终做一个放缩变换。</li>
+</ol>
+<p>重构算法恰好将之前的步骤全都反过来即可。</p>
+<p>以上所有的过程都可原位运算！</p>
+<h1 id="提升小波的经典应用细分曲面的构造">提升小波的经典应用——细分曲面的构造</h1>
+<p>在计算机图形学领域，单一的参数曲面只能表达亏格为1的曲面，一个自然的思路就是利用多片曲面的拼接来表达一个复杂图形。然而边界上的光滑拼接是一个非常难的课题，细分表示就是在这样的背景下产生的。细分曲面的产生思路就类似于多分辨率分析，通过简单的规则不断加入细节就可以得到一个极限曲面，这就是我们想要的光滑曲面。</p>
+<h2 id="基于多分辨率分析的细分曲面">基于多分辨率分析的细分曲面</h2>
+<p>对于网格<span class="math inline">\(M^0\)</span>，假设它的顶点为<span class="math inline">\(V_i^0\)</span>，则极限曲面<span class="math inline">\(S(x)\)</span>可以看作定义在<span class="math inline">\(M^0\)</span>上的参数方程，从而存在<span class="math inline">\(\phi_i^0(x)\)</span>使得 <span class="math display">\[
+S(x)=\sum\phi_i^0(x)V_i^0
+\]</span> <span class="math inline">\(\phi_i^0\)</span>在<span class="math inline">\(V_i^0\)</span>取值1，其它顶点取值0。对于细分后的网格<span class="math inline">\(M^j\)</span>类似有 <span class="math display">\[
+S(x)=\sum\phi_i^j(x)V_i^j
+\]</span> 记 <span class="math display">\[
+\begin{aligned}
+\Phi^j(x)&amp;=(\phi_0^j(x),\phi_1^j(x),\cdots)\\
+V^j&amp;=(V^j_0,V_1^j,\cdots)\\
+T^j(M^0)&amp;=span\{\phi_0^j(x),\phi_1^j(x),\cdots\}
+\end{aligned}
+\]</span> 则<span class="math inline">\(\forall i, \forall j\le k\)</span>有 <span class="math display">\[
+\phi_i^j(x)\in T^k(M^0)
+\]</span> 上述规则定义了一个嵌套空间序列 <span class="math display">\[
+T^0(M^0)\subset T^1(M^0)\subset T^2(M^0)\subset \cdots
+\]</span></p>
+<p>根据细分规则，有 <span class="math display">\[
+\Phi^j(x)=\Phi^{j+1}(x)P^j
+\]</span> 记 <span class="math display">\[
+S^j(x)=\Phi^j(x)V^j
+\]</span> 引入内积 <span class="math display">\[
+\langle f,g\rangle=\sum_{\tau\in F(M^0)}\frac{1}{Area(\tau)}\int_{\tau}f(x)g(x)dx,f,g\in T^j(M^0)
+\]</span> 对应小波空间即为<span class="math inline">\(T^j(M^0)\)</span>在<span class="math inline">\(T^{j+1}(M^0)\)</span>中的补空间。</p>
+<p>这样只能整体操作，还有求解线性方程组等操作，时间复杂度非常高。</p>
+<h2 id="基于loop细分的提升小波构造">基于Loop细分的提升小波构造</h2>
+<p>Loop细分的基网格为三角网格。每次细分，将上一层的每一个三角形分成四个新的三角形。</p>
+<h3 id="loop细分具体规则">Loop细分具体规则</h3>
+<ol type="1">
+<li><p>对于每条边，找到其所对应的两个三角形，如图</p>
+<p>新的边点e定义为 <span class="math display">\[
+e=\frac38(V_0+V_1)+\frac18(V_2+V_3)
+\]</span></p></li>
+</ol>
+<p><img src="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210612124956.png" /></p>
+<ol start="2" type="1">
+<li>对于原来的每个顶点<span class="math inline">\(V\)</span>，假设邻居<span class="math inline">\(V_i,i=1,\cdots, n\)</span>，则更新它的位置为 <span class="math display">\[
+v=\alpha_nV+\sum_{i=1}^n\beta_nV_i
+\]</span> 其中 <span class="math display">\[
+\alpha_n=\frac38+(\frac38+\frac14\cos \frac{2\pi}{n})^2,\beta_n=\frac{1-\alpha_n}{n}
+\]</span></li>
+</ol>
+<h3 id="loop细分的提升小波">Loop细分的提升小波</h3>
+<p>使用上面的办法，新的顶点位置需要用原来的顶点位置组合更新，则不能原位操作。我们将顶点和边点分别看作奇序列偶序列，希望找到用奇序列更新偶序列，偶序列更新奇序列的办法。</p>
+<p>由 <span class="math display">\[
+e=\frac38(V_0+V_1)+\frac18(V_2+V_3)
+\]</span></p>
+<p><span class="math display">\[
+v=\alpha_nV+\sum_{i=1}^n\beta_nV_i
+\]</span></p>
+<p>求和得 <span class="math display">\[
+\sum e_i=\frac{3n}{8}V+\frac58\sum V_i
+\]</span> 代入得 <span class="math display">\[
+v=\gamma_nV+\delta_n\sum e_i
+\]</span> 其中 <span class="math display">\[
+\gamma_n=\frac85\alpha_n-\frac35,\delta_n=\frac85\beta_n
+\]</span> 于是Loop细分提升小波重构算法： <span class="math display">\[
+\begin{cases}
+e\gets e+\frac38(v_0+v_1)+\frac18(v_2+v_3)\\
+v\gets \gamma_n v\\
+v_i\gets v_i+\delta_n e
+\end{cases}
+\]</span> 分解算法： <span class="math display">\[
+\begin{cases}
+v_i\gets v_i-\delta_n e\\
+v\gets \frac{1}{\gamma_n} v\\
+e\gets e-\frac38(v_0+v_1)-\frac18(v_2+v_3)\\
+\end{cases}
+\]</span> 这样的算法就简单高效得多，但是正交性不佳。</p>
+<h3 id="双正交loop细分小波提升构造方法">双正交Loop细分小波提升构造方法</h3>
+<p>找 <span class="math display">\[
+\psi(x)=\psi_k(x)+\sum_{i=0}^3\omega_i\phi_i(x)
+\]</span> 使得<span class="math inline">\(\langle \psi(x),\phi_i(x)\rangle=0\)</span></p>
+<p>设<span class="math inline">\(\langle \phi_i(x),\phi_j(x)\rangle=a_{i,j},-\langle \psi_k(x),\phi_i(x)\rangle=b_{i}\)</span>，要解<span class="math inline">\(A\omega=b\)</span></p>
+<p>连续的内积不是很方便计算，所以在实际应用中，内积一般使用的是离散内积。</p>
+<p>首先将<span class="math inline">\(\phi_i,\psi_k\)</span>表示成下一层基函数的线性组合，并假设下一层基函数两两内积相同，从而连续内积即是下一层基函数系数乘积之和。系数见图：</p>
+<p><img src="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210612141356.png" /></p>
+<p>从而可求出<span class="math inline">\(a_{i,j}\)</span>和<span class="math inline">\(b_i\)</span>。</p>
+<p>注意到上述计算中系数只与顶点的度有关，且大部分情况下度都为6，于是<span class="math inline">\(w_i\)</span>的值可以预先计算出来。</p>
+<p>于是新的Loop细分提升小波算法为 <span class="math display">\[
+\begin{cases}
+v_i\gets v_i+\omega_ie\\
+e\gets e+\frac38(v_0+v_1)+\frac18(v_2+v_3)\\
+v\gets \gamma_n v\\
+v_i\gets v_i+\delta_n e
+\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+\begin{cases}
+v_i\gets v_i-\delta_n e\\
+v\gets \frac{1}{\gamma_n} v\\
+e\gets e-\frac38(v_0+v_1)-\frac18(v_2+v_3)\\
+v_i\gets v_i-\omega_ie\\
+\end{cases}
+\]</span></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/Math/Wavelet-Analysis/20210609/WaveletPacket/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Math/Wavelet-Analysis/20210609/WaveletPacket/" class="post-title-link" itemprop="url">小波包</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-09 19:57:27" itemprop="dateCreated datePublished" datetime="2021-06-09T19:57:27+08:00">2021-06-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/" itemprop="url" rel="index"><span itemprop="name">Math</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/Wavelet-Analysis/" itemprop="url" rel="index"><span itemprop="name">Wavelet Analysis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言">前言</h1>
+<p>在多分辨率分析的分解过程中 <span class="math display">\[
+V_{j+1}=V_j \oplus W_j
+\]</span> 这样每次将低频函数信息再分解为低频与高频部分。然而每次的分解实际上都不是完全的，高频的空间中同样含有一定的低频信息，而且高频信息不做分解则高频信息分辨率不高，由此即有小波包的概念。我们可以同时对<span class="math inline">\(V_j\)</span>与<span class="math inline">\(W_j\)</span>空间做分解，得到类似于二叉树的分解形式。</p>
+<p>如图大致为小波分解与小波包分解的过程。</p>
+<ul>
+<li>小波分解</li>
+</ul>
+<p><img src="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210609203852.png" /></p>
+<ul>
+<li>小波包分解</li>
+</ul>
+<p><img src="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210609203936.png" /></p>
+<h1 id="小波包定义">小波包定义</h1>
+<p>令<span class="math inline">\(\phi_0=\phi,\phi_1=\psi\)</span>，则我们已经有双尺度方程和小波关系如下： <span class="math display">\[
+\phi_0(x)=\sum h_k\phi_0(2x-k)
+\]</span></p>
+<p><span class="math display">\[
+\phi_1(x)=\sum g_k\phi_0(2x-k)
+\]</span></p>
+<p>其中<span class="math inline">\(g_k=(-1)^k\overline{h_{1-k}}\)</span></p>
+<p>推广定义 <span class="math display">\[
+\phi_{2l}(x)=\sum h_k\phi_l(2x-k)
+\]</span></p>
+<p><span class="math display">\[
+\phi_{2l+1}(x)=\sum g_k\phi_l(2x-k)
+\]</span></p>
+<p>它们即定义为由正交尺度函数<span class="math inline">\(\phi(x)\)</span>确定的正交小波包。</p>
+<p>这样对于一个<span class="math inline">\(\phi_n\)</span>，通过n的二进制表示，则可以直接得到<span class="math inline">\(\phi_n\)</span>的构造过程。</p>
+<p><span class="math inline">\(Thm\)</span> 设n的二进制表示 <span class="math display">\[
+n=\sum_{j=1}^\infty\epsilon_j 2^{j-1}
+\]</span> 则 <span class="math display">\[
+\hat{\phi}_n(\lambda)=\prod_{j=1}^\infty P_{\epsilon_j}(\frac{\lambda}{2^j})\hat{\phi}_0(0)=\frac{1}{\sqrt{2\pi}}\prod_{j=1}^\infty P_{\epsilon_j}(\frac{\lambda}{2^j})
+\]</span> 其中 <span class="math display">\[
+P_0(\lambda)=\frac{1}{2}\sum h_ke^{-ik\lambda},P_1(\lambda)=\frac{1}{2}\sum g_ke^{-ik\lambda}
+\]</span></p>
+<p><span class="math inline">\(Thm\)</span> 正交尺度函数生成的<span class="math inline">\(\{\phi_n\}\)</span>标准正交。</p>
+<h1 id="小波包的运用">小波包的运用</h1>
+<h2 id="正交分解">正交分解</h2>
+<p>令<span class="math inline">\(U_j^n=\overline{span\{\phi_n(2^jx-k)\}}\)</span></p>
+<p>则 <span class="math display">\[
+U_{j+1}^n=U_j^{2n}\oplus U_j^{2n+1}
+\]</span> 这也正是上面分解过程图中所表现的。</p>
+<p>这种空间结构就是和原本的小波分解完全一致的，只是在高频部分作了同样的变换。</p>
+<h2 id="分解重构算法">分解重构算法</h2>
+<p><span class="math display">\[
+U_{j+1}^n=U_j^{2n}\oplus U_j^{2n+1}
+\]</span></p>
+<p>假设 <span class="math display">\[
+u_{j,k,l}(x)=2^{j/2}\phi_k(2^jx-l)
+\]</span> 信号投影： <span class="math display">\[
+f_{j+1,n}(x)=f_{j,2n}(x)+f_{j,2n+1}(x)
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+f_{j+1,n}(x)&amp;=\sum c_{j+1,n,l}u_{j+1,n,l}(x)\\
+f_{j,2n}(x)&amp;=\sum c_{j,2n,l}u_{j,2n,l}(x)\\
+f_{j,2n+1}(x)&amp;=\sum c_{j,2n+1,l}u_{j,2n+1,l}(x)
+\end{aligned}
+\]</span></p>
+<p>同之前有结论</p>
+<p>分解算法： <span class="math display">\[
+c_{j,2n,l}=2^{-1/2}\sum c_{j+1,n,k}\overline{h_{k-2l}}
+\]</span></p>
+<p><span class="math display">\[
+c_{j,2n+1,l}=2^{-1/2}\sum c_{j+1,n,k}\overline{g_{k-2l}}
+\]</span> 重构算法： <span class="math display">\[
+c_{j+1,n,l}=2^{-1/2}\sum c_{j,2n,k}h_{l-2k}+2^{-1/2}\sum c_{j,2n+1,k}g_{l-2k}
+\]</span></p>
+<h2 id="最优小波包">最优小波包</h2>
+<p>这样的分解可以沿二叉树一直进行下去，究竟在哪里停下会比较好呢。一个自然的想法是如果能缩减信息量，则作分解，否则就停在这个结点了。</p>
+<p>因此要找代价函数满足对长度有限向量具有可加性，以及可以将零向量映射到0。</p>
+<p>参考熵的定义，定义代价函数 <span class="math display">\[
+M(a)=-\sum_n p_n\log p_n,~p_n=\frac{|a_n|^2}{\sum_k |a_k|^2}
+\]</span> 然而它不满足可加性，事实上直接定义为 <span class="math display">\[
+\lambda(a)=-\sum_k |a_k|^2\log |a_k|^2
+\]</span> 可以证明它与<span class="math inline">\(M\)</span>有正线性关系且满足可加性。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/Math/Wavelet-Analysis/20210607/DaubechiesWavelet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Math/Wavelet-Analysis/20210607/DaubechiesWavelet/" class="post-title-link" itemprop="url">Daubechies小波</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-07 18:57:27" itemprop="dateCreated datePublished" datetime="2021-06-07T18:57:27+08:00">2021-06-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/" itemprop="url" rel="index"><span itemprop="name">Math</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/Wavelet-Analysis/" itemprop="url" rel="index"><span itemprop="name">Wavelet Analysis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言">前言</h1>
+<p>目前我们提到过的小波大致有Haar小波，Shannon小波与线性样条小波。它们都有其各自的缺陷，在之前也有提到过Haar小波不连续，Shannon小波与线性样条小波没有紧支撑。Daubechies发明了一系列以她的名字命名的小波系，成为了后来人们的更好选择。我们就将构造任意光滑的正交小波基函数。</p>
+<h1 id="小波的正则性和消失矩">小波的正则性和消失矩</h1>
+<p>正则性就是一种对函数连续性的度量。常见的刻划方式有例如</p>
+<ol type="1">
+<li><p>函数的可导次数</p></li>
+<li><p>函数的局部/全局Lipschitz系数</p></li>
+<li><p>频域中刻划：</p>
+<p><span class="math display">\[
+\int_{\mathbb{R}} \frac{|\hat{f}(\lambda)|}{1+|\lambda|^\alpha}    &lt;\infty
+\]</span></p></li>
+</ol>
+<p>等等。正则性高，则小波的稳定性好，不会出现大量近似计算的不稳定情况。</p>
+<h2 id="消失矩">消失矩</h2>
+<p>如果 <span class="math display">\[
+\int_\mathbb{R}x^n\psi(x)dx=0,n=0,1,\cdots,m-1,\int_\mathbb{R}x^m\psi(x)dx\ne 0
+\]</span> 则称<span class="math inline">\(\psi\)</span>具有m阶消失矩。</p>
+<p>可见若小波函数具有高消失矩，则会突出显示信号中的高频部分。</p>
+<p><span class="math inline">\(Thm\)</span> 设<span class="math inline">\(\psi\)</span>为一小波，如果<span class="math inline">\(H(\lambda)=\frac{1}{2}\sum_{k\in\mathbb{Z}}h_ke^{-ik\lambda}\)</span>在<span class="math inline">\(\lambda=0\)</span>具有<span class="math inline">\(m-1\)</span>阶连续导数，则下面性质等价：</p>
+<ol type="1">
+<li><span class="math inline">\(|\psi|\)</span>具有m阶消失矩</li>
+<li><span class="math inline">\((\hat{\psi})^{(n)}(0)=0,n=0,1,\cdots,m-1\)</span></li>
+<li><span class="math inline">\(H^{(n)}(\pi)=0,n=0,1,\cdots,m-1\)</span></li>
+<li><span class="math inline">\(\sum_{k\in\mathbb{Z}}(-1)^kk^nh_k=0,n=0,1,\cdots,m-1\)</span></li>
+</ol>
+<p>注意到 <span class="math display">\[
+\hat{\psi}(\lambda)=G(\frac{\lambda}{2})\hat{\phi}(\frac{\lambda}{2})=-e^{-i\lambda/2}\overline{H(\frac{\lambda+2\pi}{2})}\hat{\phi}(\frac{\lambda}{2})
+\]</span> 结论都是一些简单的数学变形。</p>
+<h3 id="一些关于消失矩的结论">一些关于消失矩的结论</h3>
+<p><span class="math inline">\(Thm\)</span> 设小波具有m阶消失矩，其尺度函数为<span class="math inline">\(\phi\)</span>，<span class="math inline">\(f\in L^2(\mathbb{R})\)</span>具有任意阶导数，则对于任意的正整数<span class="math inline">\(j\)</span>有 <span class="math display">\[
+\Vert f-\sum_{k\in Z}\langle f,\phi_{j,k}\rangle \phi_{j,k}\Vert\le 2^{-jm}\Vert f^{(m)}\Vert
+\]</span> 这个结论告诉我们当小波具有较高的消失矩的时候，用小波函数生成的级数逼近光滑函数能够取得良好的效果。</p>
+<p>消失矩与正则性是如何联系的呢，这我们有如下定理</p>
+<p><span class="math inline">\(Thm\)</span> 如果<span class="math inline">\(\psi_{j,k}(x)=2^{\frac{j}{2}}\psi(2^jx-k)\)</span>是<span class="math inline">\(L^2(\mathbb{R})\)</span>上的标准正交基，且<span class="math inline">\(|\psi(x)|\le C(1+|x|)^{-\alpha}\)</span>,<span class="math inline">\(\alpha &gt;m+1,\psi \in C^m\)</span>且当<span class="math inline">\(l\le m,\psi^l\)</span>有界，则： <span class="math display">\[
+\int_{R}x^l\psi(x)dx=0,l=0,1,\cdots,m
+\]</span></p>
+<h1 id="daubechies小波的构造">Daubechies小波的构造</h1>
+<p>上一章说到，若要双尺度系数生成正交小波，其生成多项式需要满足条件</p>
+<ol type="1">
+<li><span class="math inline">\(P(1)=1\)</span></li>
+<li><span class="math inline">\(|P(z)|^2+|P(-z)|^2=1,|z|=1\)</span></li>
+<li><span class="math inline">\(|P(e^{it})|&gt;0,|t|&lt;\pi/2\)</span></li>
+</ol>
+<p>这第二个条件最难处理，恰恰对应的就是小波函数的正交性。正交性的一个必要条件是 <span class="math display">\[
+\sum h_k\overline{h_{k+2n}}=2\delta_{0,n}
+\]</span> （从这个式子可以看出，若h紧支，如<span class="math inline">\(h_0,\cdots,h_N\ne 0\)</span>，则必有N为奇数）</p>
+<p>然而，可惜的是这个条件并不能作为正交性的一个充分条件，否则我们就可以之间用此条件联立条件1，再验证条件3得到一个解了。我们希望的就是添加一些补充的条件，使得这样的方程解出来必然满足正交性。Daubechies引入消失矩的条件，构造了一大类具有不同消失矩和紧支集的正交小波。</p>
+<p>例：<span class="math inline">\(N=3\)</span></p>
+<p>有正交性必要条件 <span class="math display">\[
+\begin{cases}
+h_0^2+h_1^2+h_2^2+h_3^2=2\\
+h_0h_2+h_1h_3=0
+\end{cases}
+\]</span> 条件1 <span class="math display">\[
+h_0+h_1+h_2+h_3=2
+\]</span> 消失矩 <span class="math display">\[
+\begin{cases}
+h_0-h_1+h_2-h_3=0\\
+h_1-2h_2+3h_3=0\\
+h_1-4h_2+9h_3\ne 0
+\end{cases}
+\]</span> 求解可得 <span class="math display">\[
+\{\frac{1+\sqrt{3}}{4},\frac{3+\sqrt{3}}{4},\frac{3-\sqrt{3}}{4},\frac{1-\sqrt{3}}{4}\}
+\]</span></p>
+<p><span class="math display">\[
+\{\frac{1-\sqrt{3}}{4},\frac{3-\sqrt{3}}{4},\frac{3+\sqrt{3}}{4},\frac{1+\sqrt{3}}{4}\}
+\]</span></p>
+<p>若去掉消失矩条件则另有解 <span class="math display">\[
+\{1,0,0,1\}
+\]</span> 不满足正交小波条件。</p>
+<h2 id="构造方法">构造方法</h2>
+<p>设<span class="math inline">\(h=\{h_0,\cdots,h_L\}\)</span>满足</p>
+<ol type="1">
+<li><p><span class="math inline">\(\sum h_k\overline{h_{k+2n}}=2\delta_{0,n}\)</span></p></li>
+<li><p><span class="math inline">\(\sum h_k=2\)</span></p></li>
+<li><p>存在正整数N使得 <span class="math display">\[
+H(\lambda)=(\frac{1+e^{-i\lambda}}{2})^N Q_N(e^{-i\lambda})
+\]</span> 其中<span class="math inline">\(Q_N(z)\)</span>为<span class="math inline">\(L-N\)</span>次实系数多项式且满足 <span class="math display">\[
+Q_N(-1)\ne 0,\sup_{|z|\le 1}|Q_N(e^{-i\lambda})|&lt;2^{N-1}
+\]</span> 则双尺度方程迭代可解。在条件<span class="math inline">\(\hat{\phi}(0)=\frac{1}{\sqrt{2\pi}}\)</span>下，其解连续唯一且是具有紧支集的正交尺度函数。</p></li>
+</ol>
+<p><span class="math inline">\(Lemma\)</span> （Riesz引理）</p>
+<p>设A是一个实系数余弦多项式 <span class="math display">\[
+A(\lambda)=\sum_{k=0}^N a_k\cos k\lambda
+\]</span> 其中，<span class="math inline">\(a_N\ne 0\)</span>，满足对任意的<span class="math inline">\(\lambda\in \mathbb{R}\)</span>有<span class="math inline">\(A(\lambda)\ge0\)</span>。则存在<span class="math inline">\(N\)</span>次实系数代数多项式 <span class="math display">\[
+B(z)=\sum_{k=0}^N b_k z^k
+\]</span> 满足<span class="math inline">\(|B(e^{i\lambda})|^2=A(\lambda)\)</span>，且<span class="math inline">\(B(1)&gt;0\)</span>。</p>
+<p><span class="math inline">\(Lemma\)</span> 形如<span class="math inline">\(H(\lambda)=(\frac{1+e^{-i\lambda}}{2})^N Q_N(e^{-i\lambda})\)</span>的实系数三角多项式满足 <span class="math display">\[
+|H(\lambda)|^2+|H(\lambda+\pi)|^2=1
+\]</span> 的充要条件是 <span class="math display">\[
+|Q_N(e^{i\lambda})|^2=P\left(\sin^2\frac{\lambda}{2}\right)
+\]</span> 其中多项式P满足 <span class="math display">\[
+\begin{aligned}
+P(y)=P_N(y)+y^NR\left(\frac{1}{2}-y\right)\\
+P_N(y)=\sum_{k=0}^{N-1}\frac{(N+k-1)!}{(N-1)!k!}y^k
+\end{aligned}
+\]</span> <span class="math inline">\(R(y)\)</span>是一个可选的奇多项式，使得<span class="math inline">\(P(y)\ge0,\forall y\in [0,1]\)</span>。</p>
+<h2 id="主要步骤">主要步骤</h2>
+<ol type="1">
+<li><p>确定多项式 <span class="math display">\[
+P_N(y)=\sum_{k=0}^{N-1}\frac{(N+k-1)!}{(N-1)!k!}y^k
+\]</span></p></li>
+<li><p>利用 <span class="math display">\[
+|Q_N(e^{i\lambda})|^2=P\left(\sin^2\frac{\lambda}{2}\right)
+\]</span> 解出<span class="math inline">\(Q_N(z)\)</span>。</p></li>
+<li><p>利用 <span class="math display">\[
+H(\lambda)=(\frac{1+e^{-i\lambda}}{2})^N Q_N(e^{-i\lambda})
+\]</span> 求出<span class="math inline">\(\{h_k\}_{k=0}^{2N-1}\)</span></p></li>
+<li><p>求出双尺度方程的迭代解<span class="math inline">\(\phi\)</span>和正交小波<span class="math inline">\(\psi\)</span></p></li>
+</ol>
+<h2 id="例子">例子</h2>
+<p><span class="math inline">\(D_4\)</span>小波：取<span class="math inline">\(N=2\)</span>则 <span class="math display">\[
+P_2(y)=1+2y
+\]</span> 假设 <span class="math display">\[
+Q_2(e^{i\lambda})=q_0+q_1e^{i\lambda}
+\]</span> 则 <span class="math display">\[
+|Q_2(e^{i\lambda})|^2=(q_0+q_1)^2-4q_0q_1\sin^2\frac{\lambda}{2}=P\left(\sin^2\frac{\lambda}{2}\right)
+\]</span> 于是 <span class="math display">\[
+q_0=\frac{1+\sqrt{3}}{2},q_1=\frac{1-\sqrt{3}}{2}~or~q_0=\frac{1-\sqrt{3}}{2},q_1=\frac{1+\sqrt{3}}{2}
+\]</span> 对于前者 <span class="math display">\[
+\begin{aligned}
+H(\lambda)&amp;=\left(\frac{1+e^{-i\lambda}}{2}\right)^2\left(\frac{1+\sqrt{3}}{2}+\frac{1-\sqrt{3}}{2}e^{-i\lambda}\right)\\
+&amp;=\frac{1+\sqrt{3}}{8}+\frac{3+\sqrt{3}}{8}e^{-i\lambda}+\frac{3-\sqrt{3}}{8}e^{-2i\lambda}+\frac{1-\sqrt{3}}{8}e^{-3i\lambda}
+\end{aligned}
+\]</span> 对应解 <span class="math display">\[
+\left\{\frac{1+\sqrt{3}}{4},\frac{3+\sqrt{3}}{4},\frac{3-\sqrt{3}}{4},\frac{1-\sqrt{3}}{4}\right\}
+\]</span> 类似地有后者对应解<span class="math inline">\(\{\frac{1-\sqrt{3}}{4},\frac{3-\sqrt{3}}{4},\frac{3+\sqrt{3}}{4},\frac{1+\sqrt{3}}{4}\}\)</span></p>
+<h1 id="daubechies小波的性质">Daubechies小波的性质</h1>
+<h2 id="紧支性">紧支性</h2>
+<p>由迭代构造 <span class="math display">\[
+\phi_n(x)=\sum h_k\phi_{n-1}(2x-k)
+\]</span> <span class="math inline">\(h_0,\cdots,h_{2N-1}\)</span>外均为零，有尺度函数支集<span class="math inline">\([0,2N-1]\)</span>，小波函数支集<span class="math inline">\([1-N,N]\)</span></p>
+<h2 id="消失矩-1">消失矩</h2>
+<p>容易验证 <span class="math display">\[
+\int_{\mathbb{R}} x^k\psi_N(t)dt=
+\begin{cases}
+0,&amp;k=0,\cdots,N-1\\
+-\frac{N!}{4^N}Q_N(-1),&amp;k=N
+\end{cases}
+\]</span></p>
+<h1 id="daubechies小波的计算">Daubechies小波的计算</h1>
+<p>除了Haar小波，我们不能给出其它Daubechies小波函数的初等函数表示形式，但有算法可以求出小波函数和尺度函数在每一个有理点的值。</p>
+<ol type="1">
+<li><p>计算尺度函数和小波函数在整数节点的值：</p>
+<p>注意到只有<span class="math inline">\(\phi(k)=0,k\le 0,k\ge 2N-1\)</span>，则只要计算<span class="math inline">\(\phi(j),j=1,\cdots,2N-2\)</span>则 <span class="math display">\[
+\psi(j)=\sum_{k=0}^{2N-1} h_k\psi(2j-k)=\sum_{k=2j-2N+1}^{2j} h_{2j-k}\psi(k)
+\]</span> 可得一个奇异的线性方程组</p>
+<p>结合条件 <span class="math display">\[
+\int \phi(x)dx=\sum_j\phi(j)
+\]</span> 从而使用尺度函数的标准化条件联立可得。</p></li>
+<li><p>计算<span class="math inline">\(\phi(\frac{n}{2^j})\)</span>与<span class="math inline">\(\psi(\frac{n}{2^j})\)</span>的值</p>
+<p>这由MRA尺度函数构造是显然的。</p></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/Math/Wavelet-Analysis/20210601/MultiResolutionAnalysis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Math/Wavelet-Analysis/20210601/MultiResolutionAnalysis/" class="post-title-link" itemprop="url">多分辨率分析</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-01 13:57:27" itemprop="dateCreated datePublished" datetime="2021-06-01T13:57:27+08:00">2021-06-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/" itemprop="url" rel="index"><span itemprop="name">Math</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/Wavelet-Analysis/" itemprop="url" rel="index"><span itemprop="name">Wavelet Analysis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言浅谈内积与正交性">前言——浅谈内积与正交性</h1>
+<p>还记得本学期开始上课的时候，老师就在不断强调“内积”这个概念的重要性，说是学会了内积，剩下的都是细节。当差不多学到了尾声，回头看看可能这句话也没有那么言过其实。从引入正题的傅里叶级数起，每一次信号处理实质上都是求内积的过程。老师特别喜欢挂在嘴边的的一句话是“内积表示相似性”，不管是前面的傅里叶变换、窗口傅里叶变换，还是后面将要讲的小波变换、小波包、提升小波，实质上都是在空间上找一组标准正交基，再用我们的信号去和每一个基函数去做内积，去得到它们之间的相似性。<span class="math inline">\(f=\sum\langle f,e_i\rangle e_i\)</span>。重新观察这个式子，信号与基函数越接近，就在构造其时在该基函数上乘上越大的系数再组合起来。我们整学期课程学习的信号处理在某种程度上就可以理解为将信号变为一串系数列，通过某种阈值筛选之后再重新组合起来。</p>
+<p>上次最后说要找正交小波，其实正交性的作用在上面的叙述之后也逐渐变得明朗起来，正是正交性保证了上面的重构公式的存在性。如果只有基性质没有正交性，虽然理论上求出系数也是可行的，但是需要通过求解大型线性方程组，这就意味着大量开销与不可避免的误差。有了正交性，系数就可以通过内积计算，本质上就是加法和乘法，计算的开销会小得多，误差也更容易控制。</p>
+<h1 id="多分辨率分析mra">多分辨率分析(MRA)</h1>
+<p>1988年，Mallat创造性地将多分辨率分析的概念与构造正交小波基结合起来，从空间的概念上形象地给出了一个构造正交小波基函数的通用框架。</p>
+<h2 id="定义">定义</h2>
+<p>设<span class="math inline">\(\{V_j\}\)</span>是<span class="math inline">\(L^2(\mathbb{R})\)</span>的一个闭子空间系列，<span class="math inline">\(\{V_j\}\)</span>称为<span class="math inline">\(L^2(\mathbb{R})\)</span>的一个多分辨率分析，如果满足 <span class="math display">\[
+V_j\subset V_{j+1}
+\tag{1}
+\]</span></p>
+<p><span class="math display">\[
+\overline{\bigcup V_j}=L^2(\mathbb{R})
+\tag{2}
+\]</span></p>
+<p><span class="math display">\[
+\bigcap V_j=\{0\}
+\tag{3}
+\]</span></p>
+<p><span class="math display">\[
+f(t)\in V_j \iff f(2t)\in V_{j+1}
+\tag{4}
+\]</span></p>
+<p><span class="math display">\[
+f(t)\in V_0\iff f(t-k)\in V_0
+\tag{5}
+\]</span></p>
+<p><span class="math display">\[
+\exists \phi \in V_0,\{\phi(t-k)\}构成V_0标准正交基
+\tag{6}
+\]</span></p>
+<p>前三条实质上只是指出了一个嵌套的关系，第四条指出函数伸缩性，第五条指出其平移不变性，第六条是一个核心的性质，<span class="math inline">\(\phi\)</span>为尺度函数真正刻画了空间的模样。</p>
+<p>容易看出有结论 <span class="math display">\[
+\{\phi_{j,k}(t)=2^{j/2}\phi(2^j t-k)\}
+\]</span> 为<span class="math inline">\(V_j\)</span>的标准正交基。</p>
+<h2 id="一个例子">一个例子</h2>
+<p>上课时候通过这些性质直接进行理论推导确实没什么感觉，所以先举个例子来直观感受一下。</p>
+<p>之前提到过一个最简单的小波例子——haar小波</p>
+<p>它所对应的尺度函数<span class="math inline">\(\phi(x)=I_{[0,1)}\)</span>，生成的多分辨率分析为 <span class="math display">\[
+V_j=\{f(x)\in L^2(\mathbb{R})|f(x)=c_k\in[\frac{n}{2^j},\frac{n+1}{2^j})\}
+\]</span> 这就是用一串不断加细节的趋向于<span class="math inline">\(L^2\)</span>的空间。</p>
+<p>haar小波为 <span class="math display">\[
+\psi (t)=
+\begin{cases}
+1,&amp;0\le t&lt;1/2\\
+-1,&amp;1/2\le t&lt;1\\
+0,&amp;else
+\end{cases}
+\]</span> 做内积直观上就是算两部分函数的差。如果将信号看成一张图片，那么一块像素点的平均值，或者说它们的和性质是刻画了它们的整体特征；而像素点之间的差性质则是刻画了局部的细节轮廓。使用小波函数其实就是不断将信号分成整体与细节两部分，尺度函数就对应整体的部分，而小波函数对应细节的部分，两者结合则给出了信号的全部信息。</p>
+<h2 id="双尺度方程">双尺度方程</h2>
+<h3 id="时域描述">时域描述</h3>
+<p>由空间的嵌套性，我们有<span class="math inline">\(\phi(t)\in V_1\)</span>则存在系数使得 <span class="math display">\[
+\phi(t)=\sum_k h_k\phi(2t-k)
+\]</span> 这里的系数<span class="math inline">\(\{h_k\}\)</span>就称为双尺度系数</p>
+<p>由<span class="math inline">\(\{\phi(2t-k)\}\)</span>的标准正交性可以得到<span class="math inline">\(h_k\)</span>的计算公式 <span class="math display">\[
+h_k=2\int_\mathbb{R}\phi(t)\overline{\phi(2t-k)}dt
+\]</span></p>
+<p>容易验证双尺度系数满足以下性质 <span class="math display">\[
+\begin{aligned}
+&amp;\sum h_{k-2n}\overline{h_{k-2m}}=2\delta_{m,n}\\
+&amp;\sum |h_k|^2=2\\
+&amp;\sum h_k = 2\\
+&amp;\sum h_{2k}=\sum h_{2k+1}=1
+\end{aligned}
+\]</span></p>
+<h3 id="频域描述">频域描述</h3>
+<p>对双尺度方程<span class="math inline">\(\phi(t)=\sum_k h_k\phi(2t-k)\)</span>两边做傅里叶变换可得 <span class="math display">\[
+\hat{\phi}(\lambda)=\frac{1}{2}\sum_k h_k e^{-\frac{ik\lambda}{2}}\hat{\phi}(\frac{\lambda}{2})
+\]</span> 令<span class="math inline">\(H(\lambda)=\frac{1}{2}\sum_k h_k e^{-ik\lambda}\)</span>，则<span class="math inline">\(\hat{\phi}(\lambda)=H(\frac{\lambda}{2})\hat{\phi}(\frac{\lambda}{2})\)</span></p>
+<p>这即为双尺度方程的频域表示。</p>
+<h4 id="一个重要的定理">一个重要的定理</h4>
+<p>假设<span class="math inline">\(\phi\in L^2(\mathbb{R})\)</span>，则<span class="math inline">\(\{\phi(t-k)\}\)</span>是标准正交集的充要条件是 <span class="math display">\[
+\sum|\hat{\phi}(\lambda+2k\pi)|^2=\frac{1}{2\pi}
+\]</span> 此定理证明就是把标准正交条件写出来，两边作傅里叶变换即可，技术上很容易想到。它的重要性在于它不仅给出了一种验证标准正交性的方式，更是给出了一种构造的方式。</p>
+<p>事实上只要令 <span class="math display">\[
+\hat{\phi}^*(\lambda)=\frac{\hat{\phi}(\lambda)}{(2\pi \sum |\hat{\phi}(\lambda+2k\pi)|^2)^{1/2}}
+\]</span> 则可以通过频域上的伸缩变换给出一个满足标准正交性的尺度函数。</p>
+<p>此外有性质 <span class="math display">\[
+|H(\lambda)|^2+|H(\lambda + \pi)|^2=1
+\]</span></p>
+<h2 id="小波滤波器">小波滤波器</h2>
+<p>引入<span class="math inline">\(g_k=(-1)^k\bar{h}_{1-k}\)</span>，并类似地记<span class="math inline">\(G(\lambda)=\frac{1}{2}\sum g_ke^{-ik\lambda}\)</span>，则其有以下性质： <span class="math display">\[
+\begin{aligned}
+&amp;\sum g_{k-2n}\overline{g_{k-2m}}=2\delta_{m,n}\\
+&amp;\sum h_{k-2n}\overline{g_{k-2m}}=0\\
+&amp;\sum h_{n-2k}\overline{h_{m-2k}}+g_{n-2k}\overline{g_{m-2k}}=2\delta_{m,n}\\
+&amp;G(\lambda)=-e^{-i\lambda}\overline{H(\lambda+\pi)}\\
+&amp;|G(\lambda)|^2+|G(\lambda + \pi)|^2=1\\
+&amp;H(\lambda)\overline{G(\lambda)}+H(\lambda + \pi)\overline{G(\lambda + \pi)}=1
+\end{aligned}
+\]</span></p>
+<h2 id="小波子空间和l2空间的正交分解">小波子空间和<span class="math inline">\(L^2\)</span>空间的正交分解</h2>
+<p>令<span class="math inline">\(\psi(x)=\sum g_k\phi(2x-k)\)</span></p>
+<p><span class="math inline">\(Thm\)</span> 记<span class="math inline">\(W_j\)</span>是函数系列<span class="math inline">\(\{\psi_{j,k}(x)=\psi(2^j-k)\}\)</span>张成的空间，则<span class="math inline">\(W_j\)</span>是<span class="math inline">\(V_{j+1}\)</span>中<span class="math inline">\(V_j\)</span>的正交补空间，并且<span class="math inline">\(\psi_{j,k}(x)\)</span>为<span class="math inline">\(W_j\)</span>的一个标准正交基。</p>
+<p>这是一个非常优美的结论。此定理从理论上证明了前面说的所谓整体性质与细节的分解的可行性，大空间包含的信息恰好是较小的空间与一个“细节空间”所能包含信息的和！至此，有空间的分解 <span class="math display">\[
+V_j=V_{j-1}\oplus W_j=V_{j-2}\oplus W_{j-1}\oplus W_{j}=\cdots
+\]</span></p>
+<h2 id="构造正交小波通用方法">构造正交小波通用方法</h2>
+<p>整理一下上面的步骤。首先找到多分辨率序列<span class="math inline">\(\{V_j\}\)</span>以及其尺度函数<span class="math inline">\(\phi(x)\)</span>，求出对应的双尺度函数<span class="math inline">\(h_k\)</span>，接着就可以得到正交小波基函数<span class="math inline">\(\psi(x)=\sum (-1)^k\overline{h_{1-k}}\phi(2x-k)\)</span></p>
+<h2 id="常见小波">常见小波</h2>
+<p>Haar小波： <span class="math display">\[
+V_j=\{f(x)\in L^2(\mathbb{R})|f(x)=c_k\in[\frac{n}{2^j},\frac{n+1}{2^j})\}
+\]</span></p>
+<p><span class="math display">\[
+\psi (t)=
+\begin{cases}
+1,&amp;0\le t&lt;1/2\\
+-1,&amp;1/2\le t&lt;1\\
+0,&amp;else
+\end{cases}
+\]</span></p>
+<p>Shannon小波： <span class="math display">\[
+V_j=\{f(x)\in L^2(\mathbb{R})|supp(\hat{f}(\lambda))\in[-2^j\pi,2^j\pi] \}
+\]</span></p>
+<p><span class="math display">\[
+\psi(t)=
+\begin{cases}
+1,&amp;t=0\\
+\frac{\sin(\pi x)}{\pi x},&amp;else
+\end{cases}
+\]</span></p>
+<p>Haar小波光滑性太差，Shannon小波虽然光滑性好，但是支集太大，处理时也会差生较大误差。于是希望构造一个连续又紧支的小波函数。</p>
+<p>线性样条小波（Battle-Lemarie小波）： <span class="math display">\[
+V_j=\{f(x)\in L^2(\mathbb{R})\cap C^1(\mathbb{R})|f(x)=c_k x+d_k,x\in[\frac{n}{2^j},\frac{n+1}{2^j})\}
+\]</span></p>
+<p><span class="math display">\[
+\psi (t)=
+\begin{cases}
+t+1,&amp;-1\le t\le 0\\
+1-t,&amp;0&lt; t\le 1\\
+0,&amp;else
+\end{cases}
+\]</span> 这样的函数满足刚才提出的希望条件，但是不满足正交性，可以用之前介绍的方式通过频域上的变换使之正交化即可。这样产生的小波函数和尺度函数都很快趋于零。</p>
+<h2 id="分解重构算法">分解重构算法</h2>
+<p>正如前言所说，我们对于信号的处理本质上就是分解重构。下面介绍在多分辨率分析下的小波的分解与重构算法。</p>
+<ol type="1">
+<li><p>初始化</p>
+<p>由原始信号投影到某个<span class="math inline">\(V_j\)</span>空间上。由于我们不能处理直接无限的信号信息，首先应当选取一个合适的空间，将信号转化为若干基函数的线性组合，再对系数作操作。</p></li>
+<li><p>分解</p>
+<p>这是多分辨率分析的核心，将空间<span class="math inline">\(V_j\)</span>上的信号分解到<span class="math inline">\(V_{j-1}\)</span>与<span class="math inline">\(W_{j-1}\)</span>上。每一步都从当前主要信息中提取整体信息和细节信息。 <span class="math display">\[
+\begin{aligned}
+f_j(x)&amp;=\sum c_{j,k}\phi_{j,k}(x)\\
+f_{j-1}(x)&amp;=\sum c_{j-1,k}\phi_{j-1,k}(x)\\
+w_{j-1}(x)&amp;=\sum d_{j-1,k}\phi_{j-1,k}(x)
+\end{aligned}
+\]</span></p>
+<p>要做的就是根据系数<span class="math inline">\(\{c_{j,k}\}\)</span>计算<span class="math inline">\(\{c_{j-1,k}\}\)</span>与<span class="math inline">\(\{d_{j-1,k}\}\)</span>。 <span class="math display">\[
+f_j(x)=f_{j-1}(x)+w_{j-1}(x)
+\]</span> 则 <span class="math display">\[
+c_{j-1,l}=\sum c_{j,k}\langle \phi_{j,k},\phi_{j-1,l}\rangle
+\]</span> 又双尺度方程 <span class="math display">\[
+\phi(t)=\sum h_k\phi(2t-k)
+\]</span> 可推出 <span class="math display">\[
+\phi_{j-1,l}(t)=2^{-1/2}\sum h_{k-2l}\phi_{j,k}(t)
+\]</span> 于是</p>
+<p><span class="math display">\[
+c_{j-1,l}=2^{-1/2}\sum c_{j,k}\overline{h_{k-2l}}
+\]</span> 同理由小波方程可得 <span class="math display">\[
+d_{j-1,l}=2^{-1/2}\sum c_{j,k}\overline{g_{k-2l}}
+\]</span></p></li>
+<li><p>重构</p>
+<p>分解完即可对这些系数信息进行一定的调整以达到去噪增强等效果，之后按原样组合起来。重构算法即根据系数<span class="math inline">\(\{c_{j-1,k}\}\)</span>与<span class="math inline">\(\{d_{j-1,k}\}\)</span>计算<span class="math inline">\(\{c_{j,k}\}\)</span>。</p>
+<p>由于 <span class="math display">\[
+\begin{aligned}
+\phi_{j-1,l}(t)=2^{-1/2}\sum h_{k-2l}\phi_{j,k}(t)\\
+\psi_{j-1,l}(t)=2^{-1/2}\sum g_{k-2l}\phi_{j,k}(t)
+\end{aligned}
+\]</span> 可得 <span class="math display">\[
+c_{j,l}=2^{-1/2}\sum c_{j-1,k}h_{l-2k}+2^{-1/2}\sum d_{j-1,k}g_{l-2k}
+\]</span> 即可</p></li>
+</ol>
+<h2 id="小波滤波器-1">小波滤波器</h2>
+<p>上面这样的操作过程可以有更简洁的离散滤波器的形式来表现。</p>
+<p>定义下采样算子 <span class="math display">\[
+D:(\cdots,x_{-1},x_0,x_1,\cdots)\to (\cdots,x_{-2},x_0,x_2,\cdots)
+\]</span> 则分解算法即 <span class="math display">\[
+\begin{cases}
+c^{j-1}=D(c^j*\bar{h}^*)\\
+d^{j-1}=D(c^j*\bar{g}^*)
+\end{cases}
+\]</span> 其中 <span class="math display">\[
+\begin{aligned}
+\bar{h}^*=\{\frac{1}{\sqrt2}\bar{h}_{-k} \}\\
+\bar{g}^*=\{\frac{1}{\sqrt2}\bar{g}_{-k} \}
+\end{aligned}
+\]</span> 重构算法类似，引入上采样算子 <span class="math display">\[
+U:(\cdots,x_{-1},x_0,x_1,\cdots)\to (\cdots,x_{-1},0,x_0,0,x_1,\cdots)
+\]</span> 则 <span class="math display">\[
+c^j=Uc^{j-1}*h+Ud^{j-1}*g
+\]</span> 其中 <span class="math display">\[
+\begin{aligned}
+h=\{\frac{1}{\sqrt2}h_k \}\\
+g=\{\frac{1}{\sqrt2}g_k \}
+\end{aligned}
+\]</span> <img src="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210603221932.png" /></p>
+<p>大致流程图如上。</p>
+<h1 id="尺度函数的迭代构造">尺度函数的迭代构造</h1>
+<p>上面根据尺度空间张成的多分辨率分析嵌套空间，我们构造出了一组正交小波，那么尺度函数本身应该如何构造呢。</p>
+<p><span class="math inline">\(Thm\)</span> 假设<span class="math inline">\(\phi\)</span>是一个具有紧支集的连续函数，并且满足标准正交化条件、标准化条件（积分为1）、双尺度方程（只有有限个<span class="math inline">\(h_k\)</span>非零）。则<span class="math inline">\(V_j\)</span>构成一个多分辨率分析。</p>
+<p><span class="math inline">\(Thm\)</span> 假设<span class="math inline">\(P(z)=\frac{1}{2}\sum h_k z^k\)</span>是一个多项式满足<span class="math inline">\(P(1)=1\)</span>，<span class="math inline">\(|P(z)|^2+|P(-z)|^2=1,|z|=1\)</span>，<span class="math inline">\(|P(e^{it})|&gt;0,|t|&lt;\pi/2\)</span>。<span class="math inline">\(\phi_0\)</span>为Haar尺度函数，<span class="math inline">\(\phi_n(x)=\sum h_k\phi_{n-1}(2x-k)\)</span>，则<span class="math inline">\(\phi_n\)</span>依范数收敛到<span class="math inline">\(\phi\)</span>且<span class="math inline">\(\phi\)</span>满足上述定理三个条件。</p>
+<p>例如<span class="math inline">\(P(z)=\frac{1+z}{2}\)</span>可以得到Haar小波。</p>
+<p>在Daubechies小波的构造中将要用到这个定理。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/Math/Wavelet-Analysis/20210528/Wavelet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Math/Wavelet-Analysis/20210528/Wavelet/" class="post-title-link" itemprop="url">小波函数简介</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-28 16:39:27" itemprop="dateCreated datePublished" datetime="2021-05-28T16:39:27+08:00">2021-05-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/" itemprop="url" rel="index"><span itemprop="name">Math</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/Wavelet-Analysis/" itemprop="url" rel="index"><span itemprop="name">Wavelet Analysis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言">前言</h1>
+<p>指出了傅里叶变换和窗口傅里叶变换的问题，我们还是希望找到一种方式能解决上述问题，由此便引出了小波的概念。傅里叶变换之所以失败的原因是因为其基函数<span class="math inline">\(\{e^{i\omega t}\}\)</span>铺满了整个时域，而使用小波函数最基本的想法就是采用另外的一组基函数<span class="math inline">\(\{\psi(\frac{t-\tau}{a})\}\)</span>，其本身就具有可伸缩平移及局部的特性。小波变换也有和窗口傅里叶变换类似的时间-频率特性，根据小波变换的伸缩平移性，只要不同时检测高频与低频信息，例如先找到最高频信息将其抽离，再找次高频信息，以此类推，即可得到不同频率下的小波系数；恢复信号时也只需反向操作即可。这里的首要的重点是选好小波函数。</p>
+<h1 id="定义">定义</h1>
+<h2 id="基小波">基小波</h2>
+<p>如果一个函数<span class="math inline">\(\psi\in L^2(\mathbb{R})\)</span>满足容许性条件 <span class="math display">\[
+C_\psi=2\pi \int_{\mathbb{R}}\frac{|\hat{\psi}(\lambda)|^2}{|\lambda|}d\lambda&lt;\infty
+\]</span> 则称<span class="math inline">\(\psi\)</span>为基小波。</p>
+<p>注：容易从定义中看出若<span class="math inline">\(\hat{\psi}\)</span>连续则<span class="math inline">\(\hat{\psi}(0)=0\)</span>必然成立，即<span class="math inline">\(\int\psi=0\)</span>，而一般<span class="math inline">\(L^2\)</span>函数都具有衰减性，故一般基小波有波动性且在有限区间外等于零或很快趋于零。</p>
+<h3 id="haar小波">Haar小波</h3>
+<p>这是最简单的小波例子，以后也经常用它直观体现一些性质。 <span class="math display">\[
+\psi (t)=
+\begin{cases}
+1,&amp;0\le t&lt;1/2\\
+-1,&amp;1/2\le t&lt;1\\
+0,&amp;else
+\end{cases}
+\]</span> 不难验证它满足基小波性质。</p>
+<h2 id="连续小波变换">连续小波变换</h2>
+<p>假设<span class="math inline">\(\psi\)</span>是一个基小波，基小波的伸缩和平移得到的小波序列 <span class="math display">\[
+\psi_{a,b}(t)=|a|^{-\frac{1}{2}}\psi(\frac{t-b}{a})
+\]</span> 小波变换定义为 <span class="math display">\[
+(W_{\psi}f)(a,b)=\langle f,\psi_{a,b}\rangle=|a|^{-\frac{1}{2}}\int_{\mathbb{R}}f(t)\overline{\psi(\frac{t-b}{a})}dt
+\]</span> 其伸缩平移等性质与Fourier变换类似容易验证</p>
+<h3 id="能量守恒">能量守恒</h3>
+<p>假设<span class="math inline">\(f,g\in L^2(\mathbb{R})\)</span>，<span class="math inline">\(\psi\)</span>是一基小波，则 <span class="math display">\[
+\frac{1}{C_\psi}\iint(W_\psi(f))(a,b)\overline{(W_\psi(g))(a,b)}\frac{1}{a^2}dadb=\langle f,g\rangle
+\]</span> 特别地 <span class="math display">\[
+\frac{1}{C_\psi}\iint|(W_\psi(f))(a,b)|^2\frac{1}{a^2}dadb=\Vert f\Vert^2
+\]</span></p>
+<h3 id="反演定理">反演定理</h3>
+<p>条件相同 <span class="math display">\[
+f(t)=\frac{1}{C_\psi}\iint|a|^{-1/2}\psi(\frac{t-b}{a})(W_\psi(f))(a,b)\frac{1}{a^2}dadb
+\]</span></p>
+<h1 id="二进小波变换">二进小波变换</h1>
+<p>连续小波变换的时频窗为 <span class="math display">\[
+[b+at^*-a\Delta_\psi,b+at^*+a\Delta_\psi]*[\frac{\lambda^*}{a}-\frac{\Delta_{\hat{\psi}}}{a},\frac{\lambda^*}{a}+\frac{\Delta_{\hat{\psi}}}{a}]
+\]</span> 在频率窗中取<span class="math inline">\(a_j=\frac{1}{2^j}\)</span>，并且假设<span class="math inline">\(\lambda^*=3\Delta_{\hat{\psi}}\)</span>，则频率窗变成 <span class="math display">\[
+[2^{j+1}\Delta_{\hat{\psi}},2^{j+2}\Delta_{\hat{\psi}}]
+\]</span> 于是小波变换<span class="math inline">\((W_\psi f)(\frac{1}{2^j},b)\)</span>给出了信号在上述频率带中的局部信息，这些频率带给出了所有正频率域的一个二进剖分。因此，经过离散后，小波变换<span class="math inline">\((W_\psi f)(\frac{1}{2^j},b)\)</span>可以得到信号在所有频率域上的信息。</p>
+<p>注： <span class="math display">\[
+\lambda^*=3\Delta_{\hat{\psi}}
+\]</span> 是很容易满足的。事实上假设<span class="math inline">\(\psi\)</span>是一个基小波，令<span class="math inline">\(\tilde{\psi}=e^{i\alpha t}\psi(t)\)</span>，则<span class="math inline">\(\hat{\tilde{\psi}}(\lambda)=\hat{\psi}(\lambda-\alpha)\)</span>。于是<span class="math inline">\(\hat{\tilde{\psi}}\)</span>的中心和半径分别为 <span class="math display">\[
+\tilde{\lambda^*}=\lambda^*+\alpha,\Delta_{\hat{\tilde{\psi}}}=\Delta_{\hat{\psi}}
+\]</span> 从而，只要选择 <span class="math display">\[
+\alpha=3\Delta_{\hat{\psi}}-\lambda^*
+\]</span> 即可。</p>
+<h2 id="定义-1">定义</h2>
+<p>一个函数<span class="math inline">\(\psi\in L^2(\mathbb{R})\)</span>称为二进小波，如果存在两个正常数<span class="math inline">\(A\)</span>和<span class="math inline">\(B\)</span>满足<span class="math inline">\(0&lt;A\le B&lt;\infty\)</span>，使得稳定性条件 <span class="math display">\[
+A\le \sum_{j=-\infty}^{+\infty}|\hat{\psi}(2^{-j}\lambda)|^2\le B
+\]</span> 成立。对于<span class="math inline">\(f\in L^2(\mathbb{R})\)</span>，其二进小波变换定义为 <span class="math display">\[
+(W_\psi^jf)(b)=2^{\frac{j}{2}}(W_\psi f)(2^{-j},b)
+\]</span> 其中稳定性条件中有定理 <span class="math display">\[
+A\ln (2)\le\int_0^\infty \frac{|\hat{\psi}(\lambda)|^2}{\lambda} d\lambda \le B\ln(2)
+\]</span> （分段放缩即可）</p>
+<h2 id="二进对偶">二进对偶</h2>
+<p>假设<span class="math inline">\(\psi\)</span>是一个二进小波，称 <span class="math display">\[
+\hat{\psi^*}(\lambda)=\frac{\hat{\psi}(\lambda)}{\sum_{k=-\infty}^{\infty}|\hat{\psi}(2^{-k}\lambda)|^2}
+\]</span> 的逆傅里叶变换<span class="math inline">\(\psi^*\in L^2(\mathbb{R})\)</span>为<span class="math inline">\(\psi\)</span>的二进对偶。</p>
+<h1 id="小波框架和正交小波">小波框架和正交小波</h1>
+<p>为了计算的有效性，将时间离散化 <span class="math display">\[
+b_{j,k}=\frac{k}{2^j}b_0
+\]</span> 引入 <span class="math display">\[
+\psi_{b_0;j,k}=2^{\frac{j}{2}}\psi(2^jt-kb_0)
+\]</span> 我们希望考虑的问题是利用连续小波变换的离散形式来重构<span class="math inline">\(f\)</span>。</p>
+<h2 id="框架理论">框架理论</h2>
+<p>假设<span class="math inline">\(\phi_j\)</span>是Hilbert空间<span class="math inline">\(H\)</span>中的序列，如果存在常数<span class="math inline">\(A,B\)</span>满足<span class="math inline">\(0&lt;A\le B&lt;\infty\)</span>，使得对任意的<span class="math inline">\(f\in H\)</span>有 <span class="math display">\[
+A\Vert f\Vert^2\le \sum_{j=-\infty}^{\infty}|\langle f,\phi_j\rangle|^2\le B\Vert f\Vert^2
+\]</span> 则称<span class="math inline">\(\{\phi_j\}\)</span>是<span class="math inline">\(H\)</span>中的一个框架。<span class="math inline">\(A,B\)</span>称为框架的上下界。如果<span class="math inline">\(A=B\)</span>，则称<span class="math inline">\(\{\phi_j\}\)</span>是<span class="math inline">\(H\)</span>中的紧框架。</p>
+<p>（注意框架与基的关联与不同）</p>
+<h3 id="一些关于框架的算子">一些关于框架的算子</h3>
+<p>设序列<span class="math inline">\(\{\phi_j\}\)</span>是Hilbert空间<span class="math inline">\(H\)</span>的一个框架，称线性算子 <span class="math display">\[
+F:H\to l^2,F(f)=\{\langle f,\phi_j\rangle\},\forall f\in H
+\]</span> 为框架的分析算子。称<span class="math inline">\(F\)</span>的伴随算子 <span class="math display">\[
+F^*:l^2\to H,F^*(c)=\sum c_j\phi_j,\forall c=\{c_j\}\in l^2
+\]</span> 为框架的综合算子。令<span class="math inline">\(T=F^*F\)</span>，则 <span class="math display">\[
+T:H\to H,T(f)=\sum\langle f,\phi_j\rangle\phi_j,\forall f\in H
+\]</span> 为框架的框架算子。</p>
+<p>易知， <span class="math display">\[
+\langle T(f),f\rangle=\sum|\langle f,\phi_j\rangle|^2=\Vert F(f)\Vert^2
+\]</span></p>
+<h3 id="对偶框架">对偶框架</h3>
+<p>记号定义如上，令<span class="math inline">\(\tilde{\phi_j}=T^{-1}\phi_j\)</span>，则<span class="math inline">\(\{\tilde{\phi_j}\}\)</span>是一个以<span class="math inline">\(B^{-1},A^{-1}\)</span>为界的框架，称为原框架的对偶框架。</p>
+<p>注意到<span class="math inline">\(T^*=T\)</span>有 <span class="math display">\[
+\langle f,\tilde{\phi_j}\rangle=\langle f,T^{-1}\phi_j\rangle=\langle T^{-1}f,\phi_j\rangle
+\]</span> 从而 <span class="math display">\[
+\begin{aligned}
+\sum|\langle f,\tilde{\phi_j}\rangle|^2&amp;=\sum|\langle T^{-1}f,\phi_j\rangle|^2\\
+&amp;=\Vert F(T^{-1}f)\Vert^2\\
+&amp;=\langle T^{-1}f,f\rangle
+\end{aligned}
+\]</span> 于是上面的结论是自然的。</p>
+<h3 id="性质">性质</h3>
+<p><span class="math display">\[
+f=\sum\langle f,\phi_j\rangle\tilde{\phi_j}
+\]</span></p>
+<p><span class="math display">\[
+f=\sum\langle f,\tilde{\phi_j}\rangle\phi_j
+\]</span></p>
+<p>这种展开方式的“最优性”</p>
+<ol type="1">
+<li>如果</li>
+</ol>
+<p><span class="math display">\[
+f=\sum c_j\phi_j,\{c_j\}\ne\{\langle f,\tilde{\phi_j}\rangle\}
+\]</span></p>
+<p>则 <span class="math display">\[
+\sum|c_j|^2&gt;\sum|\langle f,\tilde{\phi_j}\rangle|^2
+\]</span></p>
+<ol start="2" type="1">
+<li>如果</li>
+</ol>
+<p><span class="math display">\[
+f=\sum\langle f,\phi_j\rangle u_j，\{u_j\}\ne\{\tilde{\phi_j}\}
+\]</span></p>
+<p>则 <span class="math display">\[
+\sum|\langle f,u_j\rangle|^2\ge\sum|\langle f,\tilde{\phi_j}\rangle|^2
+\]</span></p>
+<h2 id="正交小波">正交小波</h2>
+<p>对于函数<span class="math inline">\(\psi\in L^2(\mathbb{R})\)</span>，如果序列 <span class="math display">\[
+\psi_{b_0;j,k}=2^{j/2}\psi(2^j t-kb_0)
+\]</span> 构成<span class="math inline">\(L^2\)</span>一个框架，则称其生成一个具有抽样速率<span class="math inline">\(b_0\)</span>的小波框架。</p>
+<p>对于函数<span class="math inline">\(\psi\in L^2(\mathbb{R})\)</span>，如果 <span class="math display">\[
+\psi_{j,k}(t)=2^{j/2}\psi(2^jt-k)
+\]</span> 构成<span class="math inline">\(L^2\)</span>的标准正交基，则<span class="math inline">\(\psi\)</span>称为正交小波。如何寻找正交小波成为接下来的主要课题。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/Math/Wavelet-Analysis/20210526/DiscreteFourierTransform/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Math/Wavelet-Analysis/20210526/DiscreteFourierTransform/" class="post-title-link" itemprop="url">离散傅里叶变换</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-26 20:40:47" itemprop="dateCreated datePublished" datetime="2021-05-26T20:40:47+08:00">2021-05-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/" itemprop="url" rel="index"><span itemprop="name">Math</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/Wavelet-Analysis/" itemprop="url" rel="index"><span itemprop="name">Wavelet Analysis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言">前言</h1>
+<p>由于实际中接触的信号是离散的，研究离散傅里叶变换是非常必要的。与连续傅里叶变换不同，这时我们只能预测信号，没有理论上的保证。一般的采样方法自然是等间隔采样 <span class="math display">\[
+x_j=f(jT)
+\]</span> 即使这样，我们也只能选取其中有限信息周期性延拓之后处理。</p>
+<h1 id="周期系列的dft">周期系列的DFT</h1>
+<p>对于<span class="math inline">\(y=\{y_j\},y_j=y_{j+n}\)</span></p>
+<p>DFT (Discrete Fourier Transform) 即离散傅里叶变换定义为 <span class="math display">\[
+F_n(y)=\bar{y}=\{\bar{y_j}\}
+\]</span> 其中 <span class="math display">\[
+y_j=\sum_{k=0}^{n-1}y_k\bar{\omega}^{jk},\omega=e^{\frac{2\pi i}{n}}
+\]</span> 逆变换IDFT为 <span class="math display">\[
+y_j=\frac{1}{n}\sum_{k=0}^{n-1}\bar{y_k}\omega^{jk}
+\]</span> 性质都与连续傅里叶变换类似。</p>
+<h1 id="快速傅里叶变换fft">快速傅里叶变换(FFT)</h1>
+<p>事实上，DFT在很长一段时间内并没有受到人们的重视，直到FFT算法的出现使得DFT的运算大大简化，这才在实际中得到广泛运用。</p>
+<p>DFT：<span class="math inline">\(O(n^2)\)</span> FFT：<span class="math inline">\(O(n\log n)\)</span></p>
+<p>思想：将序列<span class="math inline">\(x(j)\)</span>分为两组 <span class="math display">\[
+\begin{cases}
+x(2r)=x_1(r)\\
+x(2r+1)=x_2(r)
+\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+\bar{x}(k)=\sum_{j=0}^{n-1}x(j)\omega_n^{-jk}&amp;=\sum_{j=0}^{n/2-1}x(2r)\omega_n^{-2rk}+\sum_{j=0}^{n/2-1}x(2r+1)\omega_n^{-(2r+1)k}\\
+&amp;=\sum_{j=0}^{n/2-1}x(2r)\omega_n^{-2rk}+\omega_n^{-k}\sum_{j=0}^{n/2-1}x(2r+1)\omega_n^{-2rk}\\
+&amp;=G(k)+\omega_n^{-k} H(k)
+\end{aligned}
+\]</span></p>
+<p>同时 <span class="math display">\[
+\bar{x}(k+\frac{n}{2})=G(k)-\omega_n^{-k}H(k)
+\]</span> 可以看出一个规模为n的离散傅里叶变换问题被划为了两个规模为n/2的子问题，合并需<span class="math inline">\(O(n)\)</span>时间，故总时间复杂度<span class="math inline">\(O(n\log n)\)</span>。</p>
+<p><img src="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210526231007.jpg" /></p>
+<p>如图显示了一次FFT大致的过程。</p>
+<blockquote>
+<p>如果规模不是n的幂可以考虑补零操作</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">自然顺序</th>
+<th style="text-align: center;">二进制表示</th>
+<th style="text-align: center;">码位倒置</th>
+<th style="text-align: center;">码位倒置顺序</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">000</td>
+<td style="text-align: center;">000</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">001</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">010</td>
+<td style="text-align: center;">010</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">011</td>
+<td style="text-align: center;">110</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;">001</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">101</td>
+<td style="text-align: center;">101</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">110</td>
+<td style="text-align: center;">011</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">111</td>
+<td style="text-align: center;">111</td>
+<td style="text-align: center;">7</td>
+</tr>
+</tbody>
+</table>
+<p>实际操作中，一般先按自然顺序输入存储单元，然后再通过变址运算将自然顺序的存储转换成码位倒置顺序的存储，然后进行FFT的原位计算。</p>
+<h1 id="一个小应用切比雪夫插值">一个小应用——切比雪夫插值</h1>
+<h2 id="chebyshev多项式">Chebyshev多项式</h2>
+<p><span class="math display">\[
+\begin{aligned}
+T_n(\cos\theta)&amp;=\cos(n\theta)\\
+T_0(1&amp;)=1\\
+T_1(1&amp;)=x\\
+T_2(1)=&amp;2x^2-1\\
+T_3(1)=&amp;4x^3-3x\\
+\cdots
+\end{aligned}
+\]</span></p>
+<p>插值节点选在<span class="math inline">\(\cos k\pi/n\)</span>上，这样可以尽量使误差变小，一定程度上规避龙格现象的产生。（数值分析内容就不展开了）</p>
+<p>对一个函数计算插值系数 <span class="math display">\[
+P(x)=\sum_{j=0}^{n}a_jT_j(x)
+\]</span> 令<span class="math inline">\(x_k=\cos(k\pi/n)\)</span></p>
+<p>即 <span class="math display">\[
+y_k=P(x_k)=\sum_{j=0}^{n}a_jT_j(x_k)=\sum_{j=0}^{n}a_j\cos(jk\pi/n)
+\]</span> 则可以改写为 <span class="math display">\[
+y_k=\frac{1}{2}\sum_{j=0}^na_j\omega^{jk}+\frac{1}{2}\sum_{j=-n}^{0}a_{-j} \omega^{jk}=\sum_{j=-n}^nc_j\omega^{jk}
+\]</span> 将<span class="math inline">\((y_k)\)</span>延拓成<span class="math inline">\(2n\)</span>周期的偶序列则有 <span class="math display">\[
+y_k=\sum_{j=-n}^nc_j\omega^{jk},0\le j\le 2n-1
+\]</span> 用DFT公式套上去即可得到 <span class="math display">\[
+a_j=\frac{1}{n\epsilon_j}\sum_{k=0}^{2n-1}y_k\bar{\omega}^{jk},j=0,1,\cdots,n
+\]</span> 其中 <span class="math display">\[
+\epsilon_0=\epsilon_n=2,\epsilon_1=\cdots=\epsilon_{n-1}=1
+\]</span> 即可利用快速离散傅里叶变换得到系数。</p>
+<h1 id="离散滤波器">离散滤波器</h1>
+<p>假设<span class="math inline">\(X,Y\)</span>为离散信号空间，称算子<span class="math inline">\(F:X\rightarrow Y\)</span>是线性时不变的，如果满足 <span class="math display">\[
+\begin{aligned}
+&amp;F(\alpha x+\beta y)=\alpha F(x)+\beta F(y)\\
+&amp;F(T_p(x))=T_p(F(x))
+\end{aligned}
+\]</span> 其中 <span class="math display">\[
+(T_p(x))_k=x_{k-p}
+\]</span> 。离散傅里叶变换与连续傅里叶变换也有非常类似的结论：</p>
+<p>$ Thm $ 如果<span class="math inline">\(F\)</span>是离散信号空间上的线性时不变算子，则存在序列<span class="math inline">\(f\)</span>，使得 <span class="math display">\[
+F(x)=f*x
+\]</span></p>
+<h1 id="z变换">Z变换</h1>
+<p>序列<span class="math inline">\(x\)</span>的Z变换定义为函数<span class="math inline">\(\hat{x}:[-\pi,\pi]\rightarrow \mathbb{C}\)</span>： <span class="math display">\[
+\hat{x}(\phi)=\sum_{j\in \mathbb{Z}}x_je^{-ij\phi}
+\]</span> 注：<span class="math inline">\(z=e^{i\phi}\)</span>有 <span class="math display">\[
+\hat{x}(\phi)=\sum_{j\in \mathbb{Z}}x_jz^{-j}
+\]</span></p>
+<h2 id="z变换与fourier级数">Z变换与Fourier级数</h2>
+<p>假设<span class="math inline">\(f\in L^2[-\pi,\pi]\)</span>，其Fourier级数展开为 <span class="math display">\[
+f(\phi)=\sum_{n\in \mathbb{Z}}x_ne^{in\phi}
+\]</span> 即傅里叶级数是一种<span class="math inline">\(L^2[-\pi,\pi]\rightarrow l^2\)</span>的变换。</p>
+<p>Z变换把序列转化为函数<span class="math inline">\(f(-\cdot)\in L^2[-\pi,\pi]\)</span></p>
+<h2 id="卷积算子与z变换">卷积算子与Z变换</h2>
+<p><span class="math inline">\(Thm\)</span> 假设<span class="math inline">\(f=(f_n),x=(x_n)\in l^2\)</span>，则 <span class="math display">\[
+(\widehat{f*x})(\phi)=\hat{f}(\phi)\hat{x}(\phi)
+\]</span> 验证是容易的。</p>
+<h1 id="窗口傅里叶变换wft">窗口傅里叶变换（WFT）</h1>
+<p>使用傅里叶变换确实是信号处理一个非常常用的手法，但是它只能适合平稳信号的分析，给出一个信号总体上包含哪些频率的成分，并不能给出各成分出现的时刻。但是实际上自然中大部分信号是非平稳的，任何一个频谱都是和所有的时间相关。为了更好地分析信号，我们需要考虑将信号分成若干份，每一段分别做傅里叶变换，这就引出了窗口傅里叶变换。</p>
+<h2 id="窗函数">窗函数</h2>
+<p>非平凡函数<span class="math inline">\(\omega\in L^2(\mathbb{R})\)</span>称为窗函数如果满足<span class="math inline">\(t\omega\in L^2(\mathbb{R})\)</span>。</p>
+<p>中心 <span class="math display">\[
+t^*=\frac{1}{\Vert \omega\Vert_{L^2}^2}\int_{\mathbb{R}}t|\omega(t)|^2dt
+\]</span> 半径 <span class="math display">\[
+\Delta_\omega=\frac{1}{\Vert \omega\Vert_{L^2}}(\int_{\mathbb{R}}(t-t^*)^2|\omega(t)|^2dt)^{1/2}
+\]</span></p>
+<h2 id="时间窗频率窗">时间窗、频率窗</h2>
+<p>设<span class="math inline">\(g\)</span>是实的窗函数，且<span class="math inline">\(g(t)=g(-t),\Vert g\Vert=1\)</span>则<span class="math inline">\(f\)</span>的窗口傅里叶变换定义为 <span class="math display">\[
+S[f](\lambda,b)=\frac{1}{\sqrt{2\pi}}\int_{\mathbb{R}}f(t)\overline{g(t-b)}e^{-i\lambda t}dt
+\]</span></p>
+<blockquote>
+<p>一般<span class="math inline">\(g\)</span>是一个在某区间上取值，区间之外快速趋于零的函数，例如Guass型函数。表达式中<span class="math inline">\(f,g\)</span>相乘一项就是选取<span class="math inline">\(f\)</span>在<span class="math inline">\(b\)</span>周围一块，再做傅里叶变换。随着<span class="math inline">\(b\)</span>变化，选取区间（窗口）也在变化。</p>
+</blockquote>
+<p>令<span class="math inline">\(W_{\lambda,b}(t)=g(t-b)e^{i\lambda t}\)</span></p>
+<p>则由窗口傅里叶变换定义可得 <span class="math display">\[
+S[f](\lambda,b)=\frac{1}{\sqrt{2\pi}}\int_{\mathbb{R}}f(t)\overline{W_{\lambda,b}(t)}dt
+\]</span> <span class="math inline">\(W_{\lambda, b}\)</span>的中心和半径分别是<span class="math inline">\(t^*+b\)</span>和<span class="math inline">\(\Delta_g\)</span>，则窗口傅里叶变换主要给出了<span class="math inline">\(f(t)\)</span>在时间窗 <span class="math display">\[
+[t^*+b-\Delta_g,t^*+b+\Delta_g]
+\]</span> 里面的局部信息。</p>
+<p>另一方面，令 <span class="math display">\[
+V_{\lambda,b}(\omega)=\mathfrak{F}[W_{\lambda,b}](\omega)=e^{i\lambda b}e^{-i\omega b}\hat{g}(\omega-\lambda)
+\]</span> <span class="math inline">\(V_{\lambda, b}\)</span>的中心和半径分别是<span class="math inline">\(\lambda^*+\lambda\)</span>和<span class="math inline">\(\Delta_\hat{g}\)</span> <span class="math display">\[
+S[f](\lambda,b)=\frac{1}{\sqrt{2\pi}}\langle f,W_{\lambda,b}(t)\rangle=\frac{1}{\sqrt{2\pi}}\langle \hat{f},V_{\lambda,b}(t)\rangle
+\]</span> 即窗口傅里叶变换还给出了频率窗 <span class="math display">\[
+[\lambda^*+\lambda-\Delta_{\hat{g}},\lambda^*+\lambda+\Delta_{\hat{g}}]
+\]</span> 里面的局部化信息。</p>
+<p>可以观察到时频指标移动时，窗函数的时频窗覆盖了整个时频平面。可以证明，一个信号可以用它的窗口傅里叶变换来恢复。</p>
+<p>但是时频窗的总面积是固定的，对于窗口宽度的确定就成了一个非常令人头疼的课题。窗太窄，窗内的信号太短，会导致频率分析不够精准，频率分辨率差。窗太宽，时域上又不够精细，时间分辨率低。对于该问题的解决方案就引出了小波变换。</p>
+<p>（傅里叶变换到此结束，进入分类主题——小波分析）</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/Math/Wavelet-Analysis/20210524/FourierTransform/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Math/Wavelet-Analysis/20210524/FourierTransform/" class="post-title-link" itemprop="url">傅里叶变换</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-24 19:19:22" itemprop="dateCreated datePublished" datetime="2021-05-24T19:19:22+08:00">2021-05-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/" itemprop="url" rel="index"><span itemprop="name">Math</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/Wavelet-Analysis/" itemprop="url" rel="index"><span itemprop="name">Wavelet Analysis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="l1上的傅里叶变换"><span class="math inline">\(L^1\)</span>上的傅里叶变换</h1>
+<h2 id="定义">定义</h2>
+<p>在傅里叶级数中，我们有 <span class="math display">\[
+f_T(x)=\sum_{k=-\infty}^{\infty}\alpha_k e^{i\frac{k\pi x}{T}}
+\]</span> 其中 <span class="math display">\[
+\alpha_k=\frac{1}{2T}\int_{-T}^Tf(t)e^{-i\frac{k\pi t}{T}}dt
+\]</span> 这实际上就是使用了一个可数的序列<span class="math inline">\({\alpha_k}\)</span>来表征了一个周期为<span class="math inline">\(2T\)</span>的函数的全部特征。对于一个一般的非周期的函数，一个自然的想法就是令<span class="math inline">\(T\rightarrow\infty\)</span>，这就可以推导出傅里叶变换的形式。 <span class="math display">\[
+\begin{aligned}
+f(x)&amp;=\lim_{T\rightarrow\infty}[\sum_{k=-\infty}^{\infty}\frac{1}{2T}\int_{-T}^T\left(f(t)e^{-i\frac{k\pi t}{T}}dt\right) e^{i\frac{k\pi x}{T}}]\\
+&amp;=\lim_{T\rightarrow\infty}[\sum_{k=-\infty}^{\infty}\frac{1}{2T}\int_{-T}^Tf(t)e^{i\frac{k\pi (x-t)}{T}}dt]\\
+&amp;=\lim_{T\rightarrow\infty}[\sum_{k=-\infty}^{\infty}\frac{1}{2\pi}\int_{-T}^Tf(t)e^{i\frac{k\pi (x-t)}{T}}dt]\Delta\lambda\\
+\end{aligned}
+\]</span> 其中<span class="math inline">\(\lambda_k=\frac{k\pi}{T},\Delta\lambda=\lambda_{k+1}-\lambda_k=\frac{\pi}{T}\)</span></p>
+<p>记 <span class="math display">\[
+F_T(\lambda_k)=\frac{1}{2\pi}\int_{-T}^Tf(t)e^{i\frac{k\pi (x-t)}{T}}dt
+\]</span> 则 <span class="math display">\[
+\begin{aligned}
+f(x)&amp;=\lim_{T\rightarrow\infty}\sum_{k=-\infty}^{\infty}F_T(\lambda_k)\Delta\lambda\\
+&amp;=\lim_{T\rightarrow\infty}\int_{-\infty}^{\infty}F_T(\lambda)d\lambda
+\end{aligned}
+\]</span> 故 <span class="math display">\[
+f(x)=\frac{1}{2\pi}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(t)e^{i\lambda(x-t)}dtd\lambda
+\tag{1}
+\]</span> 记 <span class="math display">\[
+\hat{f}(\lambda)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}f(t)e^{-i\lambda t}dt
+\tag{2}
+\]</span> 称为<span class="math inline">\(f\)</span>的傅里叶变换，也可用记号<span class="math inline">\(\mathfrak{F}[f](\lambda)=\hat{f}(\lambda)\)</span>。</p>
+<h2 id="简单例子列举">简单例子列举</h2>
+<p>代入公式简单计算有</p>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(f(x)\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\hat{f}(\lambda)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(I_{[-\pi,\pi]}(x)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{\sqrt{2}\sin\lambda\pi}{\sqrt{\pi}\lambda}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(\cos{2x}\cdot I_{[-\pi,\pi]}(x)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{\sqrt{2}\sin\lambda\pi}{\sqrt{\pi}(4-\lambda^2)}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(\sin{2x}\cdot I_{[-\pi,\pi]}(x)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{-2\sqrt{2}i\sin\lambda\pi}{\sqrt{\pi}(4-\lambda^2)}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\((x+\pi)I_{[-\pi,0]}+(\pi-x)I_{[0,\pi]}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{2}{\sqrt{2\pi}} \frac{1-\cos(\lambda \pi)}{\lambda^2}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(e^{-ax^2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{1}{\sqrt{2a}}e^{-\frac{\lambda^2}{4a}}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>事实上可以观察到<span class="math inline">\(f\)</span>的光滑性越好似乎其傅里叶变换就更容易趋于零。</p>
+<h2 id="逆变换">逆变换</h2>
+<p>由推导过程中<span class="math inline">\((1)\)</span>有 <span class="math display">\[
+f(t)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\hat{f}(\lambda)e^{i\lambda t}d\lambda
+\tag{3}
+\]</span> 即为傅里叶变换逆变换。</p>
+<p>严格来说有定理若<span class="math inline">\(f(t)\in L^1(\mathbb{R}),\hat{f}(\lambda)\in L^1(\mathbb{R})\)</span>则有上述<span class="math inline">\((3)\)</span>式成立。（证明略去）</p>
+<h2 id="性质">性质</h2>
+<p>假设<span class="math inline">\(f\in L^1(\mathbb{R})\)</span>，则其Fourier变换满足</p>
+<p><span class="math inline">\((1) \lim_{|\lambda|\rightarrow\infty}\mathfrak{F}[f](\lambda)=0\)</span>（Riemann-Lebesgue引理）</p>
+<p><span class="math inline">\((2)\mathfrak{F}[f](\lambda)\)</span>在<span class="math inline">\(\mathbb{R}\)</span>上连续</p>
+<p><span class="math inline">\((3)|\mathfrak{F}[f](\lambda)|\le\frac{1}{\sqrt{2\pi}}\Vert f\Vert_1\)</span>，进一步<span class="math inline">\(\mathfrak{F}\)</span>是<span class="math inline">\(L^1(\mathbb{R})\)</span>到<span class="math inline">\(L^\infty(\mathbb{R})\)</span>上的有界线性算子</p>
+<h3 id="卷积">卷积</h3>
+<p><span class="math display">\[
+(f*g)(x):=\int_{-\infty}^{\infty}f(x-t)g(t)dt=\int_{-\infty}^{\infty}f(t)g(x-t)dt
+\]</span></p>
+<p>将卷积函数<span class="math inline">\(g\)</span>看成一种作用，实质上就是以某种加权方式将<span class="math inline">\(f\)</span>某点周围的信息组合起来。当想要局部编辑一个函数<span class="math inline">\(f\)</span>时，就可以考虑使用一个局部的函数<span class="math inline">\(g\)</span>通过卷积作用在<span class="math inline">\(f\)</span>上，实质上许多去噪之类的操作都可以通过这种方式实现。而傅里叶变换很重要的一个特性就是它可以使卷积的操作变得简单。</p>
+<p><span class="math inline">\((4)\mathfrak{F}[f*g](\lambda)=\sqrt{2\pi}\hat{f}(\lambda)\hat{g}(\lambda)\)</span></p>
+<p>由这个特性可以将时域上的卷积操作变成频域上的乘积操作。要算卷积可以先做傅里叶变换，乘积之后再做逆傅里叶变换，结合快速傅里叶变换算法可以大大提高效率。</p>
+<p>以下列出更多性质，性质的验证都是容易的。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">函数<span class="math inline">\(f(t)\)</span></th>
+<th style="text-align: center;">变换<span class="math inline">\(\hat{f}(\lambda)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(\hat{f}(t)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(f(-\lambda)\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(f_1*f_2(t)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\sqrt{2\pi}\hat{f_1}(\lambda)\hat{f_2}(\lambda)\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(f_1f_2(t)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{1}{\sqrt{2\pi}}\hat{f_1}*\hat{f_2}(\lambda)\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(f(x-a)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(e^{-ia\lambda}\hat{f}(\lambda)\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(e^{i\lambda_0t}f(t)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\hat{f}(\lambda-\lambda_0)\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(f(bt)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{1}{|b|}\mathfrak{F}[f](\frac{\lambda}{b})\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(f^{(k)}(t)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\((i\lambda)^k\hat{f}(\lambda)\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\((-it)^kf(t)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\hat{f}^{(k)}(\lambda)\)</span></td>
+</tr>
+</tbody>
+</table>
+<h1 id="l2上的傅里叶变换"><span class="math inline">\(L^2\)</span>上的傅里叶变换</h1>
+<p>由于连续函数空间在<span class="math inline">\(L^1(\mathbb{R})\)</span>和<span class="math inline">\(L^2(\mathbb{R})\)</span>中都稠密，故对于任意<span class="math inline">\(L^2(\mathbb{R})\)</span>中的函数<span class="math inline">\(f\)</span>，存在收敛到<span class="math inline">\(f\)</span>的函数类 <span class="math display">\[
+\Vert f_n-f\Vert_{L^2}\rightarrow0,f_n\in L^1(\mathbb{R})\bigcap L^2(\mathbb{R})
+\]</span> <span class="math inline">\(f_n\)</span>有傅里叶变换又由Plancherel等式 <span class="math display">\[
+\Vert\hat{f_n}(\lambda)-\hat{f_m}(\lambda)\Vert=\Vert f_n-f_m\Vert\rightarrow0
+\]</span> 以及Hilbert空间的完备性，有<span class="math inline">\(\hat{f}\in L^2(\mathbb{R})\)</span>为其极限，定义为<span class="math inline">\(f\)</span>的傅里叶变换。依然可以验证之间的性质，这是我们主要运用到的函数空间。</p>
+<h1 id="实用性">实用性</h1>
+<h2 id="线性时不变算子">线性时不变算子</h2>
+<p>称 <span class="math display">\[
+L:X\rightarrow Y
+\]</span> 是线性时不变的是指 <span class="math display">\[
+\begin{aligned}
+(1)&amp;~L[\alpha f+\beta g]=\alpha L[f]+\beta L[g]\\
+(2)&amp;~L[f(t-a)]=L[f](t-a)
+\end{aligned}
+\]</span></p>
+<blockquote>
+<p>事实上在现实操作中这两者对于信号处理是非常平凡的性质。前者即是信号处理的可叠加性，后者则保证了不同时间处理信号会得到相同的结果。后面我们可以看到，这样平凡的算子总是可以用一个卷积算子来表征，这就体现了卷积在实际操作中的实用性。</p>
+</blockquote>
+<p><span class="math inline">\(Thm\)</span> 设<span class="math inline">\(L\)</span>是分片连续函数信号空间的线性时不变算子，则存在可积函数<span class="math inline">\(h\)</span>使得对任意的信号<span class="math inline">\(f\)</span>有 <span class="math display">\[
+L[f]=f*h
+\]</span> <span class="math inline">\(proof\)</span></p>
+<p>Step1: 找<span class="math inline">\(h\)</span>满足 <span class="math display">\[
+L[e^{i\lambda x}](t)=\sqrt{2\pi}\hat{h}(\lambda)e^{i\lambda t}
+\]</span> 定义<span class="math inline">\(h^\lambda(t)=L[e^{i\lambda x}](t)\)</span></p>
+<p>由时不变性有 <span class="math display">\[
+L[e^{i\lambda (x-a)}](t)=h^\lambda(t-a)
+\]</span> 又由线性性 <span class="math display">\[
+L[e^{i\lambda (x-a)}](t)=e^{-i\lambda a}h^\lambda(t)
+\]</span> 对任意实数<span class="math inline">\(a\)</span>成立</p>
+<p>从而 <span class="math display">\[
+L[e^{i\lambda x}](t)=h^\lambda(t)=h^\lambda(0)e^{i\lambda t}
+\]</span> 令<span class="math inline">\(\hat{h}(\lambda)=h^\lambda(0)/\sqrt{2\pi}\)</span> 即得</p>
+<p>Step2: 函数<span class="math inline">\(\hat{h}(\lambda)\)</span>确定算子<span class="math inline">\(L\)</span></p>
+<p>将<span class="math inline">\(L\)</span>作用于Fourier逆变换公式 <span class="math display">\[
+\begin{aligned}
+L[f](t)&amp;=L[\frac{1}{\sqrt{2\pi}}\int_{\mathbb{R}}\hat{f}(\lambda)e^{i\lambda x}d\lambda](t)\\
+&amp;=\frac{1}{\sqrt{2\pi}}\int_{\mathbb{R}}\hat{f}(\lambda)L[e^{i\lambda x}](t)d\lambda\\
+&amp;=\frac{1}{\sqrt{2\pi}}\int_{\mathbb{R}}\hat{f}(\lambda)(\sqrt{2\pi}\hat{h}(\lambda)e^{i\lambda t})(t)d\lambda\\
+&amp;=(f*g)(t)
+\end{aligned}
+\]</span> 得证</p>
+<h2 id="采样定理">采样定理</h2>
+<p>傅里叶变换从某种程度上来说就是更加“密集”的傅里叶级数。在实际应用中，采样点总是有限的，我们希望可以用至多可数点的信息包含整段信号的信息。</p>
+<p><span class="math inline">\(Thm\)</span> (Shannon-Whittaker采样定理)</p>
+<p>假设<span class="math inline">\(\hat{f}(\lambda)\)</span>分段光滑且频率带限，即存在常数<span class="math inline">\(\Omega&gt;0\)</span>，使得<span class="math inline">\(supp \hat{f}\subset [-\Omega,\Omega]\)</span>。则<span class="math inline">\(f\)</span>可由其在<span class="math inline">\(t_j=\frac{j\pi}{\Omega},j=0,\pm1\pm2\cdots\)</span>上的采样值完全决定，并可通过下列级数展开得到 <span class="math display">\[
+f(t)=\sum_{-\infty}^{\infty}f(j\pi/\Omega)\frac{\sin(\Omega t-j\pi)}{\Omega t-j\pi}
+\]</span> 思路：在<span class="math inline">\([-\Omega,\Omega]\)</span>上找<span class="math inline">\(\hat{f}\)</span>的Fourier级数，比较与Fourier变换的形式，再做逆Fourier变换即可。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
 <script src="/js/comments.js"></script>
 </div>
   </main>
@@ -285,7 +2943,7 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">59k</span>
+    <span title="站点总字数">60k</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -313,7 +2971,7 @@
 
   
 
-  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;cdn&quot;:&quot;&#x2F;&#x2F;cdn.bootcss.com&#x2F;mathjax&#x2F;2.7.1&#x2F;latest.js?config&#x3D;TeX-AMS-MML_HTMLorMML&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;cdn&quot;:&quot;&#x2F;&#x2F;cdn.bootcss.com&#x2F;mathjax&#x2F;2.7.1&#x2F;latest.js?config&#x3D;TeX-AMS-MML_HTMLorMML&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
 <script src="/js/third-party/math/mathjax.js"></script>
 
 

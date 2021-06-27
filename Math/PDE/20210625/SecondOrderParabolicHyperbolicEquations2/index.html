@@ -27,7 +27,7 @@
 <meta property="og:description" content="主要内容来自于Evans PDE书Chapter5.9与Chapter7。 二阶抛物方程（续） 我们已经通过Galerkin逼近的方式给出了弱解的存在唯一性，接下来仿照二阶椭圆算子继续探讨能否提高解的正则性，以及类似讨论重要的最大值定理。 正则性 \(Thm\)  若 \[ g\in H_0^1(U),f\in L^2(0,T;L^2(U)) \] 对于弱解 \[ u\in L^">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-06-25T02:19:12.000Z">
-<meta property="article:modified_time" content="2021-06-25T10:51:09.841Z">
+<meta property="article:modified_time" content="2021-06-27T02:27:17.047Z">
 <meta property="article:author" content="xqy">
 <meta name="twitter:card" content="summary">
 
@@ -121,7 +121,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E9%98%B6%E6%8A%9B%E7%89%A9%E6%96%B9%E7%A8%8B%E7%BB%AD"><span class="nav-number">1.</span> <span class="nav-text">二阶抛物方程（续）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">正则性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%80%BC%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">最大值原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%B1%E6%9E%81%E5%80%BC%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.1.</span> <span class="nav-text">弱极值原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#harnack%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="nav-number">1.2.2.</span> <span class="nav-text">Harnack不等式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E6%9E%81%E5%80%BC%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.3.</span> <span class="nav-text">强极值原理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E9%98%B6%E5%8F%8C%E6%9B%B2%E6%96%B9%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">二阶双曲方程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E9%99%90%E4%BC%A0%E6%92%AD%E9%80%9F%E5%BA%A6"><span class="nav-number">2.1.</span> <span class="nav-text">有限传播速度</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E9%98%B6%E6%8A%9B%E7%89%A9%E6%96%B9%E7%A8%8B%E7%BB%AD"><span class="nav-number">1.</span> <span class="nav-text">二阶抛物方程（续）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E6%80%A7"><span class="nav-number">1.1.</span> <span class="nav-text">正则性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%80%BC%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">最大值原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%B1%E6%9E%81%E5%80%BC%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.1.</span> <span class="nav-text">弱极值原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#harnack%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="nav-number">1.2.2.</span> <span class="nav-text">Harnack不等式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E6%9E%81%E5%80%BC%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.3.</span> <span class="nav-text">强极值原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%85%B3%E4%BA%8E%E6%9C%80%E5%A4%A7%E5%80%BC%E5%8E%9F%E7%90%86%E7%9A%84%E7%AE%80%E5%8D%95%E6%8E%A8%E8%AE%BA"><span class="nav-number">1.3.</span> <span class="nav-text">一些关于最大值原理的简单推论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%BB%E6%8E%89c%E7%9A%84%E7%AC%A6%E5%8F%B7%E9%99%90%E5%88%B6"><span class="nav-number">1.3.1.</span> <span class="nav-text">去掉c的符号限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E5%8E%9F%E7%90%86"><span class="nav-number">1.3.2.</span> <span class="nav-text">比较原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E6%A8%A1%E4%BC%B0%E8%AE%A1"><span class="nav-number">1.3.3.</span> <span class="nav-text">最大模估计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c%E6%9C%89%E7%95%8C%E6%9C%80%E5%A4%A7%E6%A8%A1%E4%BC%B0%E8%AE%A1"><span class="nav-number">1.3.4.</span> <span class="nav-text">c有界最大模估计</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E9%98%B6%E5%8F%8C%E6%9B%B2%E6%96%B9%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">二阶双曲方程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E9%99%90%E4%BC%A0%E6%92%AD%E9%80%9F%E5%BA%A6"><span class="nav-number">2.1.</span> <span class="nav-text">有限传播速度</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -408,6 +408,48 @@ v=u,&amp;on~\Delta_T
 \max_V \tilde{v}(\cdot,t)\le C\inf_V \tilde{v}(\cdot,t_0)\le 0
 \]</span> 于是<span class="math inline">\(\tilde{v}\equiv 0,in~W_{t_0}\)</span>，则<span class="math inline">\(v\equiv M,in~W_{t_0}\)</span>，进一步<span class="math inline">\(u\equiv M,on~U_{t_0}\)</span>。</p>
 <p><span class="math inline">\(Thm\)</span> <span class="math inline">\(c\ge 0\)</span>对非负最大值，非正最小值有类似结论。</p>
+<h2 id="一些关于最大值原理的简单推论">一些关于最大值原理的简单推论</h2>
+<h3 id="去掉c的符号限制">去掉c的符号限制</h3>
+<p>假设<span class="math inline">\(u\in C_1^2(U_T)\cap C(\bar{U}_T)\)</span>，c有界，U有界，<span class="math inline">\(Lu\le 0\)</span>，则 <span class="math display">\[
+\sup_{\Gamma_T}u\le 0\to \sup_{U_T}u\le 0
+\]</span> （取<span class="math inline">\(v=e^{c_0t}u,c_0\le \inf_{U_T}c\)</span>即可）</p>
+<h3 id="比较原理">比较原理</h3>
+<p><span class="math inline">\(u,v\in C_1^2(U_T)\cap C(\bar{U}_T)\)</span>，c有界 <span class="math display">\[
+\begin{cases}
+Lu\le Lv,&amp;in~U_T\\
+u\le v,&amp;on~\Gamma_T
+\end{cases}
+\]</span> 则<span class="math inline">\(u\le v,in~U_T\)</span>。</p>
+<p>由上面结论显然。</p>
+<p>可推出最多一个光滑解。</p>
+<h3 id="最大模估计">最大模估计</h3>
+<p><span class="math inline">\(u\in C_1^2(U_T)\cap C(\bar{U}_T),Lu=f\)</span>，c非负有界，则 <span class="math display">\[
+\begin{aligned}
+\sup_{U_T}|u|&amp;\le \sup_{\Gamma_T}|u|+T\sup_{U_T}|f|\\
+\sup_{U_T}|u|&amp;\le \sup_{\Gamma_T}|u|+M\sup_{U_T}|f|,M\sim U
+\end{aligned}
+\]</span></p>
+<ol type="1">
+<li><p><span class="math inline">\(w=-\sup_{\Gamma_T}|u|-t\sup_{U_T}|f|,v=\sup_{\Gamma_T}|u|+t\sup_{U_T}|f|\)</span>，可通过比较原理推出<span class="math inline">\(w\le u\le v\)</span></p></li>
+<li><p><span class="math inline">\(v=\sup_{\Gamma_T}|u|+h(x)\sup_{U_T}|f|\)</span>，待定<span class="math inline">\(h\)</span>满足 <span class="math display">\[
+\begin{cases}
+h\ge 0, on~\Gamma_T\\
+Lh\ge 1,in~U_T
+\end{cases}
+\]</span> 取<span class="math inline">\(h=e^d-e^{x_1-x_1^0},x_1^0=\inf\{x_1|x\in U\},d\)</span>为区域直径，满足条件，然后同1即得结论</p></li>
+</ol>
+<h3 id="c有界最大模估计">c有界最大模估计</h3>
+<p>上面条件中删去c非负，则： <span class="math display">\[
+\begin{aligned}
+\sup_{U_T}|u|&amp;\le e^{-c_0T}(\sup_{\Gamma_T}|u|+T\sup_{U_T}|f|)\\
+\sup_{U_T}|u|&amp;\le e^{-c_0T}(\sup_{\Gamma_T}|u|+M\sup_{U_T}|f|),M\sim U
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+c_0=\min\{\inf_{U_T} c(x),0\}
+\]</span></p>
+<p>取<span class="math inline">\(v=e^{c_0t}u\)</span>即可</p>
+<p>可推出光滑解稳定性。</p>
 <h1 id="二阶双曲方程">二阶双曲方程</h1>
 <p>问题 <span class="math display">\[
 \begin{cases}
@@ -526,7 +568,7 @@ a^{ij}\nu^i\nu^j=\frac{a^{ij}q_iq_j}{|Dq|^2}=\frac{1}{|Dq|^2}
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">59k</span>
+    <span title="站点总字数">60k</span>
   </span>
 </div>
 <div class="busuanzi-count">
