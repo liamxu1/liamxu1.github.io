@@ -27,7 +27,7 @@
 <meta property="og:description" content="主要内容来自于Evans PDE书Chapter5.9与Chapter7。 二阶抛物方程（续） 我们已经通过Galerkin逼近的方式给出了弱解的存在唯一性，接下来仿照二阶椭圆算子继续探讨能否提高解的正则性，以及类似讨论重要的最大值定理。 正则性 \(Thm\)  若 \[ g\in H_0^1(U),f\in L^2(0,T;L^2(U)) \] 对于弱解 \[ u\in L^">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-06-25T02:19:12.000Z">
-<meta property="article:modified_time" content="2021-06-27T02:27:17.047Z">
+<meta property="article:modified_time" content="2021-07-02T00:30:49.008Z">
 <meta property="article:author" content="xqy">
 <meta name="twitter:card" content="summary">
 
@@ -392,10 +392,10 @@ v_t=a^{ij}v_{ij}+a^{ij}v_iv_j:=w+\tilde{w}
 <ol type="1">
 <li><p>若 <span class="math display">\[
 u_t+Lu\le 0
-\]</span> 且在<span class="math inline">\(U_T\)</span>取到最大值，则u为常数</p></li>
+\]</span> 且在<span class="math inline">\(U_T\)</span>内<span class="math inline">\((x_0,t_0)\)</span>取到最大值，则<span class="math inline">\(u|_{U_{t_0}}\)</span>为常数</p></li>
 <li><p>若 <span class="math display">\[
 u_t+Lu\ge 0
-\]</span> 且在<span class="math inline">\(U_T\)</span>取到最小值，则u为常数</p></li>
+\]</span> 且在<span class="math inline">\(U_T\)</span>内<span class="math inline">\((x_0,t_0)\)</span>取到最小值，则<span class="math inline">\(u|_{U_{t_0}}\)</span>为常数</p></li>
 </ol>
 <p><span class="math inline">\(Proof\)</span> 只证1</p>
 <p>设点为<span class="math inline">\((x_0,t_0)\)</span>，取<span class="math inline">\(W\subset\subset U,x_0\in W\)</span>，v为下方程的解 <span class="math display">\[
