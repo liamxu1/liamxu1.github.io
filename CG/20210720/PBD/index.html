@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;liamxu1.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="前言 最近一直在研究关于仿真模拟的PBD[2006]方法，整了一堆论文看。下一步的目标是找一个框架把这些方法实现出来看看效果，甚至进一步试试有没有改进的空间，在此之前，先对之前的工作做一个小小的总结吧。 PBD基本方法简述 作为一种仿真模拟的一种新兴方法，PBD的目标与其他方法一致，即通过某个时刻每个粒子的位置，结合其他一些速度或者相互作用的信息，计算推断出下一个时刻每个粒子的位置，如此即可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Position Based Dynamics简介">
+<meta property="og:url" content="http://liamxu1.github.io/CG/20210720/PBD/index.html">
+<meta property="og:site_name" content="Xqy的秘密小空间">
+<meta property="og:description" content="前言 最近一直在研究关于仿真模拟的PBD[2006]方法，整了一堆论文看。下一步的目标是找一个框架把这些方法实现出来看看效果，甚至进一步试试有没有改进的空间，在此之前，先对之前的工作做一个小小的总结吧。 PBD基本方法简述 作为一种仿真模拟的一种新兴方法，PBD的目标与其他方法一致，即通过某个时刻每个粒子的位置，结合其他一些速度或者相互作用的信息，计算推断出下一个时刻每个粒子的位置，如此即可">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210720100608.png">
+<meta property="og:image" content="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210720100855.png">
+<meta property="og:image" content="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210720101246.png">
+<meta property="og:image" content="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210721221025.png">
+<meta property="og:image" content="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210721225223.png">
+<meta property="article:published_time" content="2021-07-20T00:19:12.000Z">
+<meta property="article:modified_time" content="2021-07-22T02:27:43.131Z">
+<meta property="article:author" content="xqy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210720100608.png">
+
+
+<link rel="canonical" href="http://liamxu1.github.io/CG/20210720/PBD/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;liamxu1.github.io&#x2F;CG&#x2F;20210720&#x2F;PBD&#x2F;&quot;,&quot;path&quot;:&quot;CG&#x2F;20210720&#x2F;PBD&#x2F;&quot;,&quot;title&quot;:&quot;Position Based Dynamics简介&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>Position Based Dynamics简介 | Xqy的秘密小空间</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Xqy的秘密小空间</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎来到我的Blog！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pbd%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95%E7%AE%80%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">PBD基本方法简述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pbd%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.1.</span> <span class="nav-text">PBD步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E6%8A%95%E5%BD%B1"><span class="nav-number">2.2.</span> <span class="nav-text">约束投影</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8B%A5%E5%B9%B2%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">若干优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E8%80%A6%E7%B3%BB%E6%95%B0%E5%85%B3%E7%B3%BB"><span class="nav-number">3.1.</span> <span class="nav-text">解耦系数关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hpbd"><span class="nav-number">3.1.1.</span> <span class="nav-text">HPBD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xpbd"><span class="nav-number">3.1.2.</span> <span class="nav-text">XPBD</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E4%BC%98%E5%8C%96%E6%80%9D%E8%B7%AF%E6%94%B9%E5%96%84%E7%BB%93%E6%9E%9C%E5%8A%A0%E9%80%9F"><span class="nav-number">3.2.</span> <span class="nav-text">最优化思路改善结果+加速</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gpu%E5%B9%B6%E8%A1%8C"><span class="nav-number">3.3.</span> <span class="nav-text">GPU并行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A2%9E%E5%BC%BA%E7%89%A9%E7%90%86%E6%80%A7"><span class="nav-number">3.4.</span> <span class="nav-text">增强物理性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E5%B0%BE"><span class="nav-number">4.</span> <span class="nav-text">结尾</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xqy"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">xqy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liamxu1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liamxu1" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/CG/20210720/PBD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Position Based Dynamics简介
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-07-20 08:19:12" itemprop="dateCreated datePublished" datetime="2021-07-20T08:19:12+08:00">2021-07-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CG/" itemprop="url" rel="index"><span itemprop="name">CG</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言">前言</h1>
+<p>最近一直在研究关于仿真模拟的PBD[2006]方法，整了一堆论文看。下一步的目标是找一个框架把这些方法实现出来看看效果，甚至进一步试试有没有改进的空间，在此之前，先对之前的工作做一个小小的总结吧。</p>
+<h1 id="pbd基本方法简述">PBD基本方法简述</h1>
+<p>作为一种仿真模拟的一种新兴方法，PBD的目标与其他方法一致，即通过某个时刻每个粒子的位置，结合其他一些速度或者相互作用的信息，计算推断出下一个时刻每个粒子的位置，如此即可形成物体完整的运动轨迹。一般最容易想到的方式就是利用牛顿第二定律通过每个粒子受到的合力求出加速度，然后依次更新速度与位置信息。这样的方法虽然快捷，但是非常容易产生发散的情况。</p>
+<p>一种最为常见的处理办法是将这种显式格式变成隐式的以提高稳定性，即隐式欧拉方法： <span class="math display">\[
+\begin{cases}
+x_{n+1}=x_n+hv_{n+1}\\
+v_{n+1}=v_n+hM^{-1}(f_{int}(x_{n+1})+f_{ext})
+\end{cases}
+\]</span> 其中<span class="math inline">\(h,M\)</span>分别为时间步长与质量矩阵。可以看到，它与显式方法的不同就是更新速度时要用新的位置信息来计算内力，这也就意味着我们无法和之前一样简单地直接递推得到新的位置，而要每一步求解一个维数为粒子数的一个超大型非线性方程组，时间成本会比较高。</p>
+<p>PBD方法(Position based dynamics)顾名思义，是一种基于位置的动力学模拟方式。它放弃了一部分的物理准确性，来追求处理的效率性。事实上如今，在一些对于模拟精度要求不是那么高的场景下，PBD已然成为了一种非常常用的模拟框架。</p>
+<h2 id="pbd步骤">PBD步骤</h2>
+<p>PBD方法的基本思路就是首先通过当前的速度与外力信息直接推算出每个粒子大致落在的位置，再对满足约束的空间进行投影，如此便得到了新的位置。举个例子：</p>
+<p>当前有两个不受外力的质点，它们之间的作用力看成一根弹簧，已知质点的位置与速度如图，假设开始时弹簧处于原长状态。</p>
+<p><img src="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210720100608.png" /></p>
+<p>那么首先直接通过单位时间步长的速度估算出新的位置，但是我们发现弹簧被拉长了，实际作用中由于弹簧拉力的存在，这样的运动是不会发生的，此时我们要对质点的位置做一些调整。</p>
+<p><img src="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210720100855.png" /></p>
+<p>在弹簧的例子中，我们就是尽量把质子位置往它们距离恰为弹簧原长的空间上投影，如下图，接着再更新速度。这样，在时间步长小的时候，产生的效果就有些像是真实的运动了。</p>
+<p><img src="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210720101246.png" /></p>
+<p>接下来要处理的问题就是如何将顶点位置投影到符合约束的空间中去。</p>
+<h2 id="约束投影">约束投影</h2>
+<p>约束可以用关于位置信息的一个等式或不等式来表示，即 <span class="math display">\[
+C(p_1,\cdots,p_n)=0~or~\ge 0
+\]</span> 例如弹簧的约束就可以用 <span class="math display">\[
+C(p_1,p_2)=|p_1-p_2|-d=0
+\]</span> 来表示。而碰撞约束这种，保持一个点始终在某一个面一侧的约束就是典型的不等式约束。</p>
+<p>先考虑最简单的等式约束以及质量均相等的情形。约束如何满足呢？由于<span class="math inline">\(C\)</span>关于刚体变换是不变的，则<span class="math inline">\(\nabla_p C\)</span>就与刚体变换组成的空间垂直，从而沿此方向变化可以保证动量守恒。具体变化多少？令<span class="math inline">\(C(p+\Delta p)\approx C(p)+\nabla_p C\cdot \Delta p=0,\Delta p=\lambda \nabla_p C\)</span>，于是可求得<span class="math inline">\(\lambda=-\frac{C(p)}{|\nabla_p C(p)|^2}\)</span>即可。</p>
+<p>考虑质量，只需关于逆质量加权即可 <span class="math display">\[
+\Delta p_i=-s\omega_i \Delta_{p_i}C(p_1,\cdots,p_n)
+\]</span></p>
+<p><span class="math display">\[
+s=\frac{C(p_1,\cdots.p_n)}{\sum_j\omega_j |\nabla_{p_j}C(p_1,\cdots,p_n)|^2}
+\]</span></p>
+<p>为了表示约束的强弱（类似于弹簧的弹性系数的概念），简单的处理办法只需要在投影时<span class="math inline">\(\Delta p\)</span>前额外再乘一个系数即可。</p>
+<p>但是，约束总是很多的。如果整体求解这样的约化后的线性系统，又将遇到许多难题。论文中提出的就是最简单易行的Gauss-Seidel式的迭代求解，即每个约束依次投影，重复总过程若干遍即可得到近似解。</p>
+<h1 id="若干优化">若干优化</h1>
+<p>这样的原始算法显然是有许多优化空间的。下面简述几种：</p>
+<h2 id="解耦系数关系">解耦系数关系</h2>
+<p>其实在当前算法下，物理性质的表现与约束顺序、约束投影迭代次数、时间步长等基本参数都有很强的关联性，这与我们的期望显然是不符的。有一些算法在一定程度上缓解了这些问题：</p>
+<h3 id="hpbd">HPBD</h3>
+<p>Hierarchical Position Based Dynamics[2008]采用了一种类似于多分辨率分析的思路，将原始网格变为分层级的网络结构。首先移动框架再逐步调整细节，就可以缓解约束求解顺序造成的收敛慢的问题。</p>
+<p><img src="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210721221025.png" /></p>
+<h3 id="xpbd">XPBD</h3>
+<p>Extended Position Based Dynamics[2016]从牛顿定律出发，结合力与势能的关系，通过对于Lagrange乘子的同时优化，采用拟牛顿法求解可得新的投影公式 <span class="math display">\[
+\Delta \lambda_j =\frac{-C_j(x_i)-\tilde{\alpha_j}\lambda_{ij}}{\nabla C_jM^{-1}\nabla C_j^T+\tilde{\alpha_j}}
+\]</span></p>
+<p><span class="math display">\[
+\Delta x=M^{-1}\nabla C(x_i)^T\Delta\lambda
+\]</span></p>
+<p>据称，可以避免时间步长严重影响物理性质，等实现出来可以尝试一下。</p>
+<h2 id="最优化思路改善结果加速">最优化思路改善结果+加速</h2>
+<p>上面提到Lagrange乘子，我当时就在想这个PBD方法是不是可以用优化的思路进行改善，然后就看到了这些论文<del>，失去了发论文的机会啊（不是）</del>。</p>
+<p>总之就是PBD的更一般的方法Projective Dynamics与Implicit Euler方法的结合[2014]，通过Local/Global求解器可以得到更整体优化的方法。 于此之外类似的思路进一步有Chebyshev迭代[2015]与拟牛顿迭代[2016]的方法，可以使之收敛得更快。</p>
+<h2 id="gpu并行">GPU并行</h2>
+<p>GS迭代需要同时读写一些顶点位置信息，对于并行是不安全的。一种方法是采用Jacobi式的迭代代替，最终对位移取均值，或者使用超松弛等方式加速。</p>
+<p><img src="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210721225223.png" /></p>
+<p>另一种方式是尝试让不同的约束处理不同时读写相同顶点的坐标。对此只要先将约束分为没有重叠顶点的小组，每个组内并行即可。</p>
+<h2 id="增强物理性">增强物理性</h2>
+<p>目前为止，我们处理弹性体的方式都是将其视为弹簧，通过调整弹簧弹性系数来模拟物体实际属性，但是这种方法显然有很强的局限性。比如，我们很难去表现各向异性的物体性质。而且我们实际上对于弹性力学已经有了越来越深的研究，一种非常自然的想法就是用能量来表示约束（例如之前的约束为弹性势能为零）。这就又有基于四面体网格[2014]与基于SPH[2021]两种想法，通过位置表示变形梯度，再进一步表示能量密度即可。</p>
+<h1 id="结尾">结尾</h1>
+<p>纸上谈兵先写这么多吧，如果后面实现出了效果再更。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Entertainment/Go/20210710/weiqi/" rel="prev" title="2021-7-7 柯洁时越棋圣战第二局">
+                  <i class="fa fa-chevron-left"></i> 2021-7-7 柯洁时越棋圣战第二局
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div><script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xqy</span>
+</div>
+
+<script>
+  function toEnglish(){
+    window.location.pathname = '/en'+window.location.pathname;
+  }
+</script>
+
+<div class="copyright">
+  <!-- <a href="javascript:toEnglish()">English</a> -->
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">70k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;cdn&quot;:&quot;&#x2F;&#x2F;cdn.bootcss.com&#x2F;mathjax&#x2F;2.7.1&#x2F;latest.js?config&#x3D;TeX-AMS-MML_HTMLorMML&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{&quot;enable&quot;:true,&quot;github_id&quot;:&quot;liamxu1&quot;,&quot;repo&quot;:&quot;blog-comment&quot;,&quot;client_id&quot;:&quot;71fc74d167082de3ed9c&quot;,&quot;client_secret&quot;:&quot;f3a01dce4304be5f57bb6f3e0521dd1ee4434e3e&quot;,&quot;admin_user&quot;:&quot;liamxu1&quot;,&quot;distraction_free_mode&quot;:true,&quot;proxy&quot;:&quot;https:&#x2F;&#x2F;cors-anywhere.azm.workers.dev&#x2F;https:&#x2F;&#x2F;github.com&#x2F;login&#x2F;oauth&#x2F;access_token&quot;,&quot;language&quot;:null,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;gitalk@1.7.2&#x2F;dist&#x2F;gitalk.min.js&quot;,&quot;integrity&quot;:&quot;sha256-Pmj85ojLaPOWwRtlMJwmezB&#x2F;Qg8BzvJp5eTzvXaYAfA&#x3D;&quot;},&quot;path_md5&quot;:&quot;d7e713fe8ea1ce26faef9c79c6a22d39&quot;}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
