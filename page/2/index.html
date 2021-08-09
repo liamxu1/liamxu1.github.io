@@ -132,7 +132,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -173,6 +173,268 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/Math/Wavelet-Analysis/20210526/DiscreteFourierTransform/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Math/Wavelet-Analysis/20210526/DiscreteFourierTransform/" class="post-title-link" itemprop="url">离散傅里叶变换</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-26 20:40:47" itemprop="dateCreated datePublished" datetime="2021-05-26T20:40:47+08:00">2021-05-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/" itemprop="url" rel="index"><span itemprop="name">Math</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/Wavelet-Analysis/" itemprop="url" rel="index"><span itemprop="name">Wavelet Analysis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言">前言</h1>
+<p>由于实际中接触的信号是离散的，研究离散傅里叶变换是非常必要的。与连续傅里叶变换不同，这时我们只能预测信号，没有理论上的保证。一般的采样方法自然是等间隔采样 <span class="math display">\[
+x_j=f(jT)
+\]</span> 即使这样，我们也只能选取其中有限信息周期性延拓之后处理。</p>
+<h1 id="周期系列的dft">周期系列的DFT</h1>
+<p>对于<span class="math inline">\(y=\{y_j\},y_j=y_{j+n}\)</span></p>
+<p>DFT (Discrete Fourier Transform) 即离散傅里叶变换定义为 <span class="math display">\[
+F_n(y)=\bar{y}=\{\bar{y_j}\}
+\]</span> 其中 <span class="math display">\[
+y_j=\sum_{k=0}^{n-1}y_k\bar{\omega}^{jk},\omega=e^{\frac{2\pi i}{n}}
+\]</span> 逆变换IDFT为 <span class="math display">\[
+y_j=\frac{1}{n}\sum_{k=0}^{n-1}\bar{y_k}\omega^{jk}
+\]</span> 性质都与连续傅里叶变换类似。</p>
+<h1 id="快速傅里叶变换fft">快速傅里叶变换(FFT)</h1>
+<p>事实上，DFT在很长一段时间内并没有受到人们的重视，直到FFT算法的出现使得DFT的运算大大简化，这才在实际中得到广泛运用。</p>
+<p>DFT：<span class="math inline">\(O(n^2)\)</span> FFT：<span class="math inline">\(O(n\log n)\)</span></p>
+<p>思想：将序列<span class="math inline">\(x(j)\)</span>分为两组 <span class="math display">\[
+\begin{cases}
+x(2r)=x_1(r)\\
+x(2r+1)=x_2(r)
+\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+\bar{x}(k)=\sum_{j=0}^{n-1}x(j)\omega_n^{-jk}&amp;=\sum_{j=0}^{n/2-1}x(2r)\omega_n^{-2rk}+\sum_{j=0}^{n/2-1}x(2r+1)\omega_n^{-(2r+1)k}\\
+&amp;=\sum_{j=0}^{n/2-1}x(2r)\omega_n^{-2rk}+\omega_n^{-k}\sum_{j=0}^{n/2-1}x(2r+1)\omega_n^{-2rk}\\
+&amp;=G(k)+\omega_n^{-k} H(k)
+\end{aligned}
+\]</span></p>
+<p>同时 <span class="math display">\[
+\bar{x}(k+\frac{n}{2})=G(k)-\omega_n^{-k}H(k)
+\]</span> 可以看出一个规模为n的离散傅里叶变换问题被划为了两个规模为n/2的子问题，合并需<span class="math inline">\(O(n)\)</span>时间，故总时间复杂度<span class="math inline">\(O(n\log n)\)</span>。</p>
+<p><img src="https://gitee.com/liamxqy/blog-pic/raw/master/img/20210526231007.jpg" /></p>
+<p>如图显示了一次FFT大致的过程。</p>
+<blockquote>
+<p>如果规模不是n的幂可以考虑补零操作</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">自然顺序</th>
+<th style="text-align: center;">二进制表示</th>
+<th style="text-align: center;">码位倒置</th>
+<th style="text-align: center;">码位倒置顺序</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">000</td>
+<td style="text-align: center;">000</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">001</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">010</td>
+<td style="text-align: center;">010</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">011</td>
+<td style="text-align: center;">110</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;">001</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">101</td>
+<td style="text-align: center;">101</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">110</td>
+<td style="text-align: center;">011</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">111</td>
+<td style="text-align: center;">111</td>
+<td style="text-align: center;">7</td>
+</tr>
+</tbody>
+</table>
+<p>实际操作中，一般先按自然顺序输入存储单元，然后再通过变址运算将自然顺序的存储转换成码位倒置顺序的存储，然后进行FFT的原位计算。</p>
+<h1 id="一个小应用切比雪夫插值">一个小应用——切比雪夫插值</h1>
+<h2 id="chebyshev多项式">Chebyshev多项式</h2>
+<p><span class="math display">\[
+\begin{aligned}
+T_n(\cos\theta)&amp;=\cos(n\theta)\\
+T_0(1&amp;)=1\\
+T_1(1&amp;)=x\\
+T_2(1)=&amp;2x^2-1\\
+T_3(1)=&amp;4x^3-3x\\
+\cdots
+\end{aligned}
+\]</span></p>
+<p>插值节点选在<span class="math inline">\(\cos k\pi/n\)</span>上，这样可以尽量使误差变小，一定程度上规避龙格现象的产生。（数值分析内容就不展开了）</p>
+<p>对一个函数计算插值系数 <span class="math display">\[
+P(x)=\sum_{j=0}^{n}a_jT_j(x)
+\]</span> 令<span class="math inline">\(x_k=\cos(k\pi/n)\)</span></p>
+<p>即 <span class="math display">\[
+y_k=P(x_k)=\sum_{j=0}^{n}a_jT_j(x_k)=\sum_{j=0}^{n}a_j\cos(jk\pi/n)
+\]</span> 则可以改写为 <span class="math display">\[
+y_k=\frac{1}{2}\sum_{j=0}^na_j\omega^{jk}+\frac{1}{2}\sum_{j=-n}^{0}a_{-j} \omega^{jk}=\sum_{j=-n}^nc_j\omega^{jk}
+\]</span> 将<span class="math inline">\((y_k)\)</span>延拓成<span class="math inline">\(2n\)</span>周期的偶序列则有 <span class="math display">\[
+y_k=\sum_{j=-n}^nc_j\omega^{jk},0\le j\le 2n-1
+\]</span> 用DFT公式套上去即可得到 <span class="math display">\[
+a_j=\frac{1}{n\epsilon_j}\sum_{k=0}^{2n-1}y_k\bar{\omega}^{jk},j=0,1,\cdots,n
+\]</span> 其中 <span class="math display">\[
+\epsilon_0=\epsilon_n=2,\epsilon_1=\cdots=\epsilon_{n-1}=1
+\]</span> 即可利用快速离散傅里叶变换得到系数。</p>
+<h1 id="离散滤波器">离散滤波器</h1>
+<p>假设<span class="math inline">\(X,Y\)</span>为离散信号空间，称算子<span class="math inline">\(F:X\rightarrow Y\)</span>是线性时不变的，如果满足 <span class="math display">\[
+\begin{aligned}
+&amp;F(\alpha x+\beta y)=\alpha F(x)+\beta F(y)\\
+&amp;F(T_p(x))=T_p(F(x))
+\end{aligned}
+\]</span> 其中 <span class="math display">\[
+(T_p(x))_k=x_{k-p}
+\]</span> 。离散傅里叶变换与连续傅里叶变换也有非常类似的结论：</p>
+<p>$ Thm $ 如果<span class="math inline">\(F\)</span>是离散信号空间上的线性时不变算子，则存在序列<span class="math inline">\(f\)</span>，使得 <span class="math display">\[
+F(x)=f*x
+\]</span></p>
+<h1 id="z变换">Z变换</h1>
+<p>序列<span class="math inline">\(x\)</span>的Z变换定义为函数<span class="math inline">\(\hat{x}:[-\pi,\pi]\rightarrow \mathbb{C}\)</span>： <span class="math display">\[
+\hat{x}(\phi)=\sum_{j\in \mathbb{Z}}x_je^{-ij\phi}
+\]</span> 注：<span class="math inline">\(z=e^{i\phi}\)</span>有 <span class="math display">\[
+\hat{x}(\phi)=\sum_{j\in \mathbb{Z}}x_jz^{-j}
+\]</span></p>
+<h2 id="z变换与fourier级数">Z变换与Fourier级数</h2>
+<p>假设<span class="math inline">\(f\in L^2[-\pi,\pi]\)</span>，其Fourier级数展开为 <span class="math display">\[
+f(\phi)=\sum_{n\in \mathbb{Z}}x_ne^{in\phi}
+\]</span> 即傅里叶级数是一种<span class="math inline">\(L^2[-\pi,\pi]\rightarrow l^2\)</span>的变换。</p>
+<p>Z变换把序列转化为函数<span class="math inline">\(f(-\cdot)\in L^2[-\pi,\pi]\)</span></p>
+<h2 id="卷积算子与z变换">卷积算子与Z变换</h2>
+<p><span class="math inline">\(Thm\)</span> 假设<span class="math inline">\(f=(f_n),x=(x_n)\in l^2\)</span>，则 <span class="math display">\[
+(\widehat{f*x})(\phi)=\hat{f}(\phi)\hat{x}(\phi)
+\]</span> 验证是容易的。</p>
+<h1 id="窗口傅里叶变换wft">窗口傅里叶变换（WFT）</h1>
+<p>使用傅里叶变换确实是信号处理一个非常常用的手法，但是它只能适合平稳信号的分析，给出一个信号总体上包含哪些频率的成分，并不能给出各成分出现的时刻。但是实际上自然中大部分信号是非平稳的，任何一个频谱都是和所有的时间相关。为了更好地分析信号，我们需要考虑将信号分成若干份，每一段分别做傅里叶变换，这就引出了窗口傅里叶变换。</p>
+<h2 id="窗函数">窗函数</h2>
+<p>非平凡函数<span class="math inline">\(\omega\in L^2(\mathbb{R})\)</span>称为窗函数如果满足<span class="math inline">\(t\omega\in L^2(\mathbb{R})\)</span>。</p>
+<p>中心 <span class="math display">\[
+t^*=\frac{1}{\Vert \omega\Vert_{L^2}^2}\int_{\mathbb{R}}t|\omega(t)|^2dt
+\]</span> 半径 <span class="math display">\[
+\Delta_\omega=\frac{1}{\Vert \omega\Vert_{L^2}}(\int_{\mathbb{R}}(t-t^*)^2|\omega(t)|^2dt)^{1/2}
+\]</span></p>
+<h2 id="时间窗频率窗">时间窗、频率窗</h2>
+<p>设<span class="math inline">\(g\)</span>是实的窗函数，且<span class="math inline">\(g(t)=g(-t),\Vert g\Vert=1\)</span>则<span class="math inline">\(f\)</span>的窗口傅里叶变换定义为 <span class="math display">\[
+S[f](\lambda,b)=\frac{1}{\sqrt{2\pi}}\int_{\mathbb{R}}f(t)\overline{g(t-b)}e^{-i\lambda t}dt
+\]</span></p>
+<blockquote>
+<p>一般<span class="math inline">\(g\)</span>是一个在某区间上取值，区间之外快速趋于零的函数，例如Guass型函数。表达式中<span class="math inline">\(f,g\)</span>相乘一项就是选取<span class="math inline">\(f\)</span>在<span class="math inline">\(b\)</span>周围一块，再做傅里叶变换。随着<span class="math inline">\(b\)</span>变化，选取区间（窗口）也在变化。</p>
+</blockquote>
+<p>令<span class="math inline">\(W_{\lambda,b}(t)=g(t-b)e^{i\lambda t}\)</span></p>
+<p>则由窗口傅里叶变换定义可得 <span class="math display">\[
+S[f](\lambda,b)=\frac{1}{\sqrt{2\pi}}\int_{\mathbb{R}}f(t)\overline{W_{\lambda,b}(t)}dt
+\]</span> <span class="math inline">\(W_{\lambda, b}\)</span>的中心和半径分别是<span class="math inline">\(t^*+b\)</span>和<span class="math inline">\(\Delta_g\)</span>，则窗口傅里叶变换主要给出了<span class="math inline">\(f(t)\)</span>在时间窗 <span class="math display">\[
+[t^*+b-\Delta_g,t^*+b+\Delta_g]
+\]</span> 里面的局部信息。</p>
+<p>另一方面，令 <span class="math display">\[
+V_{\lambda,b}(\omega)=\mathfrak{F}[W_{\lambda,b}](\omega)=e^{i\lambda b}e^{-i\omega b}\hat{g}(\omega-\lambda)
+\]</span> <span class="math inline">\(V_{\lambda, b}\)</span>的中心和半径分别是<span class="math inline">\(\lambda^*+\lambda\)</span>和<span class="math inline">\(\Delta_\hat{g}\)</span> <span class="math display">\[
+S[f](\lambda,b)=\frac{1}{\sqrt{2\pi}}\langle f,W_{\lambda,b}(t)\rangle=\frac{1}{\sqrt{2\pi}}\langle \hat{f},V_{\lambda,b}(t)\rangle
+\]</span> 即窗口傅里叶变换还给出了频率窗 <span class="math display">\[
+[\lambda^*+\lambda-\Delta_{\hat{g}},\lambda^*+\lambda+\Delta_{\hat{g}}]
+\]</span> 里面的局部化信息。</p>
+<p>可以观察到时频指标移动时，窗函数的时频窗覆盖了整个时频平面。可以证明，一个信号可以用它的窗口傅里叶变换来恢复。</p>
+<p>但是时频窗的总面积是固定的，对于窗口宽度的确定就成了一个非常令人头疼的课题。窗太窄，窗内的信号太短，会导致频率分析不够精准，频率分辨率差。窗太宽，时域上又不够精细，时间分辨率低。对于该问题的解决方案就引出了小波变换。</p>
+<p>（傅里叶变换到此结束，进入分类主题——小波分析）</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1356,7 +1618,7 @@ f=f^0-\sum_{i=0}^nf^i_{x_i}
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">70k</span>
+    <span title="站点总字数">71k</span>
   </span>
 </div>
 <div class="busuanzi-count">
