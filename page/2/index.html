@@ -132,14 +132,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
@@ -173,6 +173,208 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/Math/Wavelet-Analysis/20210528/Wavelet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Math/Wavelet-Analysis/20210528/Wavelet/" class="post-title-link" itemprop="url">小波函数简介</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-28 16:39:27" itemprop="dateCreated datePublished" datetime="2021-05-28T16:39:27+08:00">2021-05-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/" itemprop="url" rel="index"><span itemprop="name">Math</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/Wavelet-Analysis/" itemprop="url" rel="index"><span itemprop="name">Wavelet Analysis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言">前言</h1>
+<p>指出了傅里叶变换和窗口傅里叶变换的问题，我们还是希望找到一种方式能解决上述问题，由此便引出了小波的概念。傅里叶变换之所以失败的原因是因为其基函数<span class="math inline">\(\{e^{i\omega t}\}\)</span>铺满了整个时域，而使用小波函数最基本的想法就是采用另外的一组基函数<span class="math inline">\(\{\psi(\frac{t-\tau}{a})\}\)</span>，其本身就具有可伸缩平移及局部的特性。小波变换也有和窗口傅里叶变换类似的时间-频率特性，根据小波变换的伸缩平移性，只要不同时检测高频与低频信息，例如先找到最高频信息将其抽离，再找次高频信息，以此类推，即可得到不同频率下的小波系数；恢复信号时也只需反向操作即可。这里的首要的重点是选好小波函数。</p>
+<h1 id="定义">定义</h1>
+<h2 id="基小波">基小波</h2>
+<p>如果一个函数<span class="math inline">\(\psi\in L^2(\mathbb{R})\)</span>满足容许性条件 <span class="math display">\[
+C_\psi=2\pi \int_{\mathbb{R}}\frac{|\hat{\psi}(\lambda)|^2}{|\lambda|}d\lambda&lt;\infty
+\]</span> 则称<span class="math inline">\(\psi\)</span>为基小波。</p>
+<p>注：容易从定义中看出若<span class="math inline">\(\hat{\psi}\)</span>连续则<span class="math inline">\(\hat{\psi}(0)=0\)</span>必然成立，即<span class="math inline">\(\int\psi=0\)</span>，而一般<span class="math inline">\(L^2\)</span>函数都具有衰减性，故一般基小波有波动性且在有限区间外等于零或很快趋于零。</p>
+<h3 id="haar小波">Haar小波</h3>
+<p>这是最简单的小波例子，以后也经常用它直观体现一些性质。 <span class="math display">\[
+\psi (t)=
+\begin{cases}
+1,&amp;0\le t&lt;1/2\\
+-1,&amp;1/2\le t&lt;1\\
+0,&amp;else
+\end{cases}
+\]</span> 不难验证它满足基小波性质。</p>
+<h2 id="连续小波变换">连续小波变换</h2>
+<p>假设<span class="math inline">\(\psi\)</span>是一个基小波，基小波的伸缩和平移得到的小波序列 <span class="math display">\[
+\psi_{a,b}(t)=|a|^{-\frac{1}{2}}\psi(\frac{t-b}{a})
+\]</span> 小波变换定义为 <span class="math display">\[
+(W_{\psi}f)(a,b)=\langle f,\psi_{a,b}\rangle=|a|^{-\frac{1}{2}}\int_{\mathbb{R}}f(t)\overline{\psi(\frac{t-b}{a})}dt
+\]</span> 其伸缩平移等性质与Fourier变换类似容易验证</p>
+<h3 id="能量守恒">能量守恒</h3>
+<p>假设<span class="math inline">\(f,g\in L^2(\mathbb{R})\)</span>，<span class="math inline">\(\psi\)</span>是一基小波，则 <span class="math display">\[
+\frac{1}{C_\psi}\iint(W_\psi(f))(a,b)\overline{(W_\psi(g))(a,b)}\frac{1}{a^2}dadb=\langle f,g\rangle
+\]</span> 特别地 <span class="math display">\[
+\frac{1}{C_\psi}\iint|(W_\psi(f))(a,b)|^2\frac{1}{a^2}dadb=\Vert f\Vert^2
+\]</span></p>
+<h3 id="反演定理">反演定理</h3>
+<p>条件相同 <span class="math display">\[
+f(t)=\frac{1}{C_\psi}\iint|a|^{-1/2}\psi(\frac{t-b}{a})(W_\psi(f))(a,b)\frac{1}{a^2}dadb
+\]</span></p>
+<h1 id="二进小波变换">二进小波变换</h1>
+<p>连续小波变换的时频窗为 <span class="math display">\[
+[b+at^*-a\Delta_\psi,b+at^*+a\Delta_\psi]*[\frac{\lambda^*}{a}-\frac{\Delta_{\hat{\psi}}}{a},\frac{\lambda^*}{a}+\frac{\Delta_{\hat{\psi}}}{a}]
+\]</span> 在频率窗中取<span class="math inline">\(a_j=\frac{1}{2^j}\)</span>，并且假设<span class="math inline">\(\lambda^*=3\Delta_{\hat{\psi}}\)</span>，则频率窗变成 <span class="math display">\[
+[2^{j+1}\Delta_{\hat{\psi}},2^{j+2}\Delta_{\hat{\psi}}]
+\]</span> 于是小波变换<span class="math inline">\((W_\psi f)(\frac{1}{2^j},b)\)</span>给出了信号在上述频率带中的局部信息，这些频率带给出了所有正频率域的一个二进剖分。因此，经过离散后，小波变换<span class="math inline">\((W_\psi f)(\frac{1}{2^j},b)\)</span>可以得到信号在所有频率域上的信息。</p>
+<p>注： <span class="math display">\[
+\lambda^*=3\Delta_{\hat{\psi}}
+\]</span> 是很容易满足的。事实上假设<span class="math inline">\(\psi\)</span>是一个基小波，令<span class="math inline">\(\tilde{\psi}=e^{i\alpha t}\psi(t)\)</span>，则<span class="math inline">\(\hat{\tilde{\psi}}(\lambda)=\hat{\psi}(\lambda-\alpha)\)</span>。于是<span class="math inline">\(\hat{\tilde{\psi}}\)</span>的中心和半径分别为 <span class="math display">\[
+\tilde{\lambda^*}=\lambda^*+\alpha,\Delta_{\hat{\tilde{\psi}}}=\Delta_{\hat{\psi}}
+\]</span> 从而，只要选择 <span class="math display">\[
+\alpha=3\Delta_{\hat{\psi}}-\lambda^*
+\]</span> 即可。</p>
+<h2 id="定义-1">定义</h2>
+<p>一个函数<span class="math inline">\(\psi\in L^2(\mathbb{R})\)</span>称为二进小波，如果存在两个正常数<span class="math inline">\(A\)</span>和<span class="math inline">\(B\)</span>满足<span class="math inline">\(0&lt;A\le B&lt;\infty\)</span>，使得稳定性条件 <span class="math display">\[
+A\le \sum_{j=-\infty}^{+\infty}|\hat{\psi}(2^{-j}\lambda)|^2\le B
+\]</span> 成立。对于<span class="math inline">\(f\in L^2(\mathbb{R})\)</span>，其二进小波变换定义为 <span class="math display">\[
+(W_\psi^jf)(b)=2^{\frac{j}{2}}(W_\psi f)(2^{-j},b)
+\]</span> 其中稳定性条件中有定理 <span class="math display">\[
+A\ln (2)\le\int_0^\infty \frac{|\hat{\psi}(\lambda)|^2}{\lambda} d\lambda \le B\ln(2)
+\]</span> （分段放缩即可）</p>
+<h2 id="二进对偶">二进对偶</h2>
+<p>假设<span class="math inline">\(\psi\)</span>是一个二进小波，称 <span class="math display">\[
+\hat{\psi^*}(\lambda)=\frac{\hat{\psi}(\lambda)}{\sum_{k=-\infty}^{\infty}|\hat{\psi}(2^{-k}\lambda)|^2}
+\]</span> 的逆傅里叶变换<span class="math inline">\(\psi^*\in L^2(\mathbb{R})\)</span>为<span class="math inline">\(\psi\)</span>的二进对偶。</p>
+<h1 id="小波框架和正交小波">小波框架和正交小波</h1>
+<p>为了计算的有效性，将时间离散化 <span class="math display">\[
+b_{j,k}=\frac{k}{2^j}b_0
+\]</span> 引入 <span class="math display">\[
+\psi_{b_0;j,k}=2^{\frac{j}{2}}\psi(2^jt-kb_0)
+\]</span> 我们希望考虑的问题是利用连续小波变换的离散形式来重构<span class="math inline">\(f\)</span>。</p>
+<h2 id="框架理论">框架理论</h2>
+<p>假设<span class="math inline">\(\phi_j\)</span>是Hilbert空间<span class="math inline">\(H\)</span>中的序列，如果存在常数<span class="math inline">\(A,B\)</span>满足<span class="math inline">\(0&lt;A\le B&lt;\infty\)</span>，使得对任意的<span class="math inline">\(f\in H\)</span>有 <span class="math display">\[
+A\Vert f\Vert^2\le \sum_{j=-\infty}^{\infty}|\langle f,\phi_j\rangle|^2\le B\Vert f\Vert^2
+\]</span> 则称<span class="math inline">\(\{\phi_j\}\)</span>是<span class="math inline">\(H\)</span>中的一个框架。<span class="math inline">\(A,B\)</span>称为框架的上下界。如果<span class="math inline">\(A=B\)</span>，则称<span class="math inline">\(\{\phi_j\}\)</span>是<span class="math inline">\(H\)</span>中的紧框架。</p>
+<p>（注意框架与基的关联与不同）</p>
+<h3 id="一些关于框架的算子">一些关于框架的算子</h3>
+<p>设序列<span class="math inline">\(\{\phi_j\}\)</span>是Hilbert空间<span class="math inline">\(H\)</span>的一个框架，称线性算子 <span class="math display">\[
+F:H\to l^2,F(f)=\{\langle f,\phi_j\rangle\},\forall f\in H
+\]</span> 为框架的分析算子。称<span class="math inline">\(F\)</span>的伴随算子 <span class="math display">\[
+F^*:l^2\to H,F^*(c)=\sum c_j\phi_j,\forall c=\{c_j\}\in l^2
+\]</span> 为框架的综合算子。令<span class="math inline">\(T=F^*F\)</span>，则 <span class="math display">\[
+T:H\to H,T(f)=\sum\langle f,\phi_j\rangle\phi_j,\forall f\in H
+\]</span> 为框架的框架算子。</p>
+<p>易知， <span class="math display">\[
+\langle T(f),f\rangle=\sum|\langle f,\phi_j\rangle|^2=\Vert F(f)\Vert^2
+\]</span></p>
+<h3 id="对偶框架">对偶框架</h3>
+<p>记号定义如上，令<span class="math inline">\(\tilde{\phi_j}=T^{-1}\phi_j\)</span>，则<span class="math inline">\(\{\tilde{\phi_j}\}\)</span>是一个以<span class="math inline">\(B^{-1},A^{-1}\)</span>为界的框架，称为原框架的对偶框架。</p>
+<p>注意到<span class="math inline">\(T^*=T\)</span>有 <span class="math display">\[
+\langle f,\tilde{\phi_j}\rangle=\langle f,T^{-1}\phi_j\rangle=\langle T^{-1}f,\phi_j\rangle
+\]</span> 从而 <span class="math display">\[
+\begin{aligned}
+\sum|\langle f,\tilde{\phi_j}\rangle|^2&amp;=\sum|\langle T^{-1}f,\phi_j\rangle|^2\\
+&amp;=\Vert F(T^{-1}f)\Vert^2\\
+&amp;=\langle T^{-1}f,f\rangle
+\end{aligned}
+\]</span> 于是上面的结论是自然的。</p>
+<h3 id="性质">性质</h3>
+<p><span class="math display">\[
+f=\sum\langle f,\phi_j\rangle\tilde{\phi_j}
+\]</span></p>
+<p><span class="math display">\[
+f=\sum\langle f,\tilde{\phi_j}\rangle\phi_j
+\]</span></p>
+<p>这种展开方式的“最优性”</p>
+<ol type="1">
+<li>如果</li>
+</ol>
+<p><span class="math display">\[
+f=\sum c_j\phi_j,\{c_j\}\ne\{\langle f,\tilde{\phi_j}\rangle\}
+\]</span></p>
+<p>则 <span class="math display">\[
+\sum|c_j|^2&gt;\sum|\langle f,\tilde{\phi_j}\rangle|^2
+\]</span></p>
+<ol start="2" type="1">
+<li>如果</li>
+</ol>
+<p><span class="math display">\[
+f=\sum\langle f,\phi_j\rangle u_j，\{u_j\}\ne\{\tilde{\phi_j}\}
+\]</span></p>
+<p>则 <span class="math display">\[
+\sum|\langle f,u_j\rangle|^2\ge\sum|\langle f,\tilde{\phi_j}\rangle|^2
+\]</span></p>
+<h2 id="正交小波">正交小波</h2>
+<p>对于函数<span class="math inline">\(\psi\in L^2(\mathbb{R})\)</span>，如果序列 <span class="math display">\[
+\psi_{b_0;j,k}=2^{j/2}\psi(2^j t-kb_0)
+\]</span> 构成<span class="math inline">\(L^2\)</span>一个框架，则称其生成一个具有抽样速率<span class="math inline">\(b_0\)</span>的小波框架。</p>
+<p>对于函数<span class="math inline">\(\psi\in L^2(\mathbb{R})\)</span>，如果 <span class="math display">\[
+\psi_{j,k}(t)=2^{j/2}\psi(2^jt-k)
+\]</span> 构成<span class="math inline">\(L^2\)</span>的标准正交基，则<span class="math inline">\(\psi\)</span>称为正交小波。如何寻找正交小波成为接下来的主要课题。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1618,7 +1820,7 @@ f=f^0-\sum_{i=0}^nf^i_{x_i}
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">71k</span>
+    <span title="站点总字数">75k</span>
   </span>
 </div>
 <div class="busuanzi-count">

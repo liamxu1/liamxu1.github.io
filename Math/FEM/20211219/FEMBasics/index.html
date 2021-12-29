@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;liamxu1.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script>
+<meta name="description" content="又到了期末考试的时候，大概整理一下有限元的知识吧。 基础理论 有限元总的来说就是一种求偏微分方程数值解的方法。与简单地将时空微分算子变成差分算子不同，我们希望把解限定在一个较为一般的有限维空间中。这样解法就不必对时空区域有很高的要求了，而我们可以通过有限维空间基的线性组合算出比较合适的解。 弱解空间 对于经典解，其实我们很难将解限定在某一个特定的解空间内，而上学期学过的PDE课程恰好提供了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="有限元方法">
+<meta property="og:url" content="http://liamxu1.github.io/Math/FEM/20211219/FEMBasics/index.html">
+<meta property="og:site_name" content="Xqy的秘密小空间">
+<meta property="og:description" content="又到了期末考试的时候，大概整理一下有限元的知识吧。 基础理论 有限元总的来说就是一种求偏微分方程数值解的方法。与简单地将时空微分算子变成差分算子不同，我们希望把解限定在一个较为一般的有限维空间中。这样解法就不必对时空区域有很高的要求了，而我们可以通过有限维空间基的线性组合算出比较合适的解。 弱解空间 对于经典解，其实我们很难将解限定在某一个特定的解空间内，而上学期学过的PDE课程恰好提供了">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-19T02:19:12.000Z">
+<meta property="article:modified_time" content="2021-12-29T04:35:53.232Z">
+<meta property="article:author" content="xqy">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://liamxu1.github.io/Math/FEM/20211219/FEMBasics/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;liamxu1.github.io&#x2F;Math&#x2F;FEM&#x2F;20211219&#x2F;FEMBasics&#x2F;&quot;,&quot;path&quot;:&quot;Math&#x2F;FEM&#x2F;20211219&#x2F;FEMBasics&#x2F;&quot;,&quot;title&quot;:&quot;有限元方法&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>有限元方法 | Xqy的秘密小空间</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Xqy的秘密小空间</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">欢迎来到我的Blog！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">基础理论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%B1%E8%A7%A3%E7%A9%BA%E9%97%B4"><span class="nav-number">1.1.</span> <span class="nav-text">弱解空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E9%99%90%E5%85%83%E7%A9%BA%E9%97%B4"><span class="nav-number">1.2.</span> <span class="nav-text">有限元空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AF%E5%B7%AE%E4%BC%B0%E8%AE%A1"><span class="nav-number">1.3.</span> <span class="nav-text">误差估计</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%BC%E8%BF%91%E7%90%86%E8%AE%BA"><span class="nav-number">2.</span> <span class="nav-text">逼近理论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%99%E9%A1%B9%E4%BC%B0%E8%AE%A1"><span class="nav-number">2.1.</span> <span class="nav-text">余项估计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sobelev%E4%B8%8D%E7%AD%89%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">Sobelev不等式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bramble-hilbert%E5%BC%95%E7%90%86"><span class="nav-number">2.3.</span> <span class="nav-text">Bramble-Hilbert引理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E5%B0%BE"><span class="nav-number">3.</span> <span class="nav-text">结尾</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="xqy"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">xqy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/liamxu1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;liamxu1" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/Math/FEM/20211219/FEMBasics/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          有限元方法
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-19 10:19:12" itemprop="dateCreated datePublished" datetime="2021-12-19T10:19:12+08:00">2021-12-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/" itemprop="url" rel="index"><span itemprop="name">Math</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/FEM/" itemprop="url" rel="index"><span itemprop="name">FEM</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>又到了期末考试的时候，大概整理一下有限元的知识吧。</p>
+<h1 id="基础理论">基础理论</h1>
+<p>有限元总的来说就是一种求偏微分方程数值解的方法。与简单地将时空微分算子变成差分算子不同，我们希望把解限定在一个较为一般的有限维空间中。这样解法就不必对时空区域有很高的要求了，而我们可以通过有限维空间基的线性组合算出比较合适的解。</p>
+<h2 id="弱解空间">弱解空间</h2>
+<p>对于经典解，其实我们很难将解限定在某一个特定的解空间内，而上学期学过的PDE课程恰好提供了适合的工具：弱解。 例如对于微分方程 <span class="math display">\[
+\begin{cases}
+-u&#39;&#39;=f&amp;,x\in \Omega = (0,1)\\
+u(0)=u(1)=0&amp;
+\end{cases}
+\]</span> 我们只需要看它的变分形式，找它的弱解 <span class="math display">\[
+\begin{cases}
+Find&amp;u\in H_0^1(\Omega),~s.t.\\
+&amp;(u&#39;,v&#39;) = (f,v),\forall v\in H_0^1(\Omega)
+\end{cases}
+\]</span> 这样就自然找到了一个比较合适的解空间<span class="math inline">\(V=H_0^1(\Omega)\)</span>。</p>
+<h2 id="有限元空间">有限元空间</h2>
+<p>正如上面所说，我们希望把解限定在某个有限维空间中。一般情况下，我们希望找的有限元空间正是弱解空间的一个有限维子空间<span class="math inline">\(V_h\subset V\)</span>。</p>
+<p>一旦有了这样的一个有限元空间，我们可以将问题转化为 <span class="math display">\[
+\begin{cases}
+Find&amp;u_h\in V_h,~s.t.\\
+&amp;(u_h&#39;,v&#39;) = (f,v),\forall v\in V_h
+\end{cases}
+\]</span> 既然是一个有限维的问题，通过找一组基函数，并且将所有函数表示为基函数线性组合的方式我们就能将问题转化为一个线性方程组。例如这里，假如有一组基<span class="math inline">\(V_h=span\{\phi_1,\cdots,\phi_n\}\)</span> <span class="math display">\[
+u_h=\sum_{i=1}^n u_i\phi_i
+\]</span> 则要条件对所有<span class="math inline">\(V_h\)</span>中的<span class="math inline">\(v\)</span>都成立等价于对每个基函数成立，即问题等价于 <span class="math display">\[
+\begin{cases}
+Find&amp;U\in \mathbb{R}^n,~s.t.\\
+&amp;\sum_{j=1}^n u_j(\phi_j&#39;,\phi_i&#39;)=(f,\phi_i),~\forall i=1,2,\cdots,n
+\end{cases}
+\]</span> 由于<span class="math inline">\(f,\phi_i\)</span>都是已知的，这就转化为了一个线性方程组的问题<span class="math inline">\(KU=F\)</span>，再通过求出的<span class="math inline">\(U\)</span>以及取的基函数容易得到有限元空间中的解<span class="math inline">\(u_h\)</span>。</p>
+<p>本例中，一个基础且可行的有限元空间是连续分片线性空间。 <span class="math display">\[
+V_h=\{v|v\in C^0,~v|_{[x_{j-1},x_j]}\in P^1([x_{j-1},x_j]),~v(0)=v(1)=0\}
+\]</span> 基取节点基函数即可。</p>
+<p>至此，有限元方法的基本理论就结束了。只要找到弱解空间和有限元空间，对于更复杂情形的推广是比较平凡的。接下来的任务包括如何确定算法精度，以及如何对于各种特殊的空间找到合适的有限维子空间。</p>
+<h2 id="误差估计">误差估计</h2>
+<p>FEM基本框架： <span class="math display">\[
+\begin{cases}
+Find&amp;u_h\in V_h,~s.t.\\
+&amp;a(u_h,v) = F(v),\forall v\in V_h
+\end{cases}
+\]</span> 其中<span class="math inline">\(a(\cdot,\cdot)\)</span>是一个双线性形式，满足有界性和强制性 <span class="math display">\[a(u,v)\le C\Vert u\Vert_V\Vert v\Vert_V\]</span> <span class="math display">\[a(v,v)\ge \alpha\Vert v\Vert_V^2\]</span> 其中，记 <span class="math display">\[\Vert\cdot\Vert_V^2=a(\cdot,\cdot)\]</span> 这两个性质就是用来保证解的适定性。 我们想要知道有限元解和弱解究竟差了多少，那么也观察一下极其类似弱解形式： <span class="math display">\[
+\begin{cases}
+Find&amp;u\in V,~s.t.\\
+&amp;a(u,v) = F(v),\forall v\in V
+\end{cases}
+\]</span></p>
+<p>如果说这里我们假定有限元空间可以取在弱解空间之中，即<span class="math inline">\(V_h\subset V\)</span>，则 <span class="math display">\[a(u-u_h,v)=0,\forall v\in V_h\]</span> 从而容易得到估计 <span class="math display">\[\alpha \Vert u-u_h\Vert_V^2\le a(u-u_h,u-u_h)=a(u-u_h,u-v)\le C\Vert u-u_h\Vert_V\Vert u-v\Vert_V,\forall v\in V_h\]</span> 即 (Cea Lemma) <span class="math display">\[\Vert u-u_h\Vert_V\le\frac{C}{\alpha}\min_{v\in V_h}\Vert u-v\Vert_V\]</span> 这意味着在这种范数意义下，<span class="math inline">\(u_h\)</span>的估计离该空间中最佳估计也就最多差一个常数倍了，所以已经是一个比较好的逼近解了。</p>
+<p>当然这个范数本身可能并不是我们想要的，如果想要估计误差的<span class="math inline">\(L^2\)</span>范数，可能就要动用一种对偶的小技巧(duality)</p>
+<p><span class="math display">\[\Vert u-u_h\Vert_{L^2}=(u-u_h,u-u_h):=a(u-u_h,w)\]</span> 通过变分形式<span class="math inline">\(a(v,w)=(v,u-u_h),\forall v\)</span>来待定<span class="math inline">\(w\)</span>。</p>
+<p>例如在之前的问题中<span class="math inline">\(a(u,v)=(u&#39;,v&#39;)\)</span>则取对偶问题 <span class="math display">\[
+\begin{cases}
+-\Delta w=u-u_h\\
+w|_{\partial \Omega}=0
+\end{cases}
+\]</span> 如此有 <span class="math display">\[
+\begin{aligned}
+\Vert u-u_h\Vert_{L^2}=a(u-u_h,w)=a(u-u_h,w-w_I)&amp;\le C\Vert u-u_h\Vert_V\Vert w-w_I\Vert_V\\
+&amp;\le Ch\Vert u-u_h\Vert_V|w|_{H^2}\\
+&amp;\le Ch\Vert u-u_h\Vert_V\Vert u-u_h\Vert_{L^2}
+\end{aligned}
+\]</span> 不等式分别由逼近性质和对偶问题解的正则性估计得到。 <span class="math display">\[
+\Vert u-u_h\Vert_{L^2}\le Ch\Vert u-u_h\Vert_V
+\]</span> 具有比<span class="math inline">\(\Vert\cdot\Vert_V\)</span>更优一阶的逼近。</p>
+<h1 id="逼近理论">逼近理论</h1>
+<p>在误差估计中，最基础的估计就是Cea Lemma <span class="math display">\[\Vert u-u_h\Vert_V\le\frac{C}{\alpha}\min_{v\in V_h}\Vert u-v\Vert_V\]</span> 它将我们有限元解的误差直接缩小到了空间内最佳逼近的常数倍范围内，但是想要知晓具体的误差量级，还是得要考察一下空间内的最佳逼近误差是在什么量级的。</p>
+<blockquote>
+<p>基本出发点：一般函数可以用多项式函数有效逼近</p>
+</blockquote>
+<p>一般来说为了更轻易地控制收敛阶数，我们都会选取有限元空间为分片多项式空间，那么最佳逼近误差就是希望在每个块内找最佳逼近的多项式。最好的已有理论自然是Taylor多项式逼近 <span class="math display">\[
+T_y^mu(x)=\sum_{|\alpha|&lt;m}\frac1{\alpha}D^{\alpha}u(y)(x-y)^\alpha
+\]</span> 然而这里我们讨论的<span class="math inline">\(u\)</span>一般是在一个Sobelev空间中的，<span class="math inline">\(D^\alpha u\)</span>可能并不能在逐点情况下有意义。这里我们对其做一个卷积光滑化</p>
+<p>令 <span class="math display">\[
+\psi(x)=
+\begin{cases}
+e^{-(1-(|x-x_0|/\rho)^2)^{-1}}&amp;,|x-x_0|&lt;\rho\\
+0,&amp;,|x-x_0|\ge \rho
+\end{cases}
+\]</span> <span class="math display">\[
+c=\int_{\mathbb{R}^n}\psi(x)dx
+\]</span> 则<span class="math inline">\(\phi(x)=(1/c)\psi(x)\)</span>满足</p>
+<ol type="1">
+<li><span class="math inline">\(\phi\in C_0^\infty(\mathbb{R}^n)\)</span></li>
+<li><span class="math inline">\(supp~\phi=\overline{B_\rho(x_0)}\)</span></li>
+<li><span class="math inline">\(\int_{\mathbb{R}^n}\phi=1\)</span></li>
+<li><span class="math inline">\(\max |\phi|\le C\cdot \rho^{-n}\)</span></li>
+</ol>
+<p>这其实就是截断函数的一个简单构造。</p>
+<p>令<span class="math inline">\(B=B_\rho(x_0)\)</span>，光滑化的Taylor多项式为 <span class="math display">\[
+\begin{aligned}
+Q^mu(x)&amp;=\int_BT_y^mu(x)\phi(y)dy\\
+&amp;=\int_B\sum_{|\alpha|&lt;m}\frac1{\alpha}D^{\alpha}u(y)(x-y)^\alpha\phi(y)dy
+\end{aligned}
+\]</span></p>
+<p>这样对于<span class="math inline">\(u\in W_p^{m-1}\)</span>就是有意义的了。容易看出对于<span class="math inline">\(x\)</span>，这是一个至多<span class="math inline">\(m-1\)</span>次多项式。</p>
+<p>关于<span class="math inline">\(x\)</span>整理一下可得 <span class="math display">\[
+Q^mu(x)=\sum_{|\alpha|&lt;m}x^{\lambda}\int_B{\psi_\lambda}(y)u(y)dy
+\]</span> 其中 <span class="math display">\[
+supp(\psi_\lambda)\subset\overline{B}
+\]</span> <span class="math display">\[
+\psi_\lambda\in C_0^\infty(\mathbb{R}^n)
+\]</span> 于是自然有估计 <span class="math display">\[
+\Vert Q^mu\Vert_{W_{\infty}^k(\Omega)}\le C_{m,n,\rho,\Omega}\Vert u\Vert_{L^1(B)}
+\]</span></p>
+<p>经过一些比较复杂的理论推导，可以推出以下比较重要的结论</p>
+<p>（以下记<span class="math inline">\(d=diam(\Omega),\rho_{max}\)</span>为区域内包含的圆的最大半径，<span class="math inline">\(\gamma=\frac{d}{\rho_{max}}\)</span>）</p>
+<h2 id="余项估计">余项估计</h2>
+<p>对于 <span class="math inline">\(u\in W_p^m(\Omega)\)</span> <span class="math display">\[
+\Vert R^mu\Vert_{L^\infty(\Omega)}\le C_{m,n,\gamma,p}d^{m-n/p}|u|_{W_p^m(\Omega)}
+\]</span></p>
+<h2 id="sobelev不等式">Sobelev不等式</h2>
+<p>当区域<span class="math inline">\(\Omega\)</span>关于球<span class="math inline">\(B\)</span>为星形域时，若满足条件之一 1. <span class="math inline">\(1&lt;p&lt;\infty,m&gt;n/p\)</span> 2. <span class="math inline">\(p=1,m\ge n\)</span></p>
+<p>则<span class="math inline">\(u\)</span>连续且 <span class="math display">\[
+\Vert u\Vert_{L^\infty(\Omega)}\le C_{m,n,\gamma,d}\Vert u\Vert_{W_p^m(\Omega)}
+\]</span></p>
+<h2 id="bramble-hilbert引理">Bramble-Hilbert引理</h2>
+<p>当<span class="math inline">\(\Omega\)</span>是star-shaped区域，<span class="math inline">\(u\in W_p^m(\Omega),p\ge 1\)</span>时 <span class="math display">\[
+|u-Q^mu|_{W_p^k(\Omega)}\le C_{m,n,\gamma}d^{m-k}|u|_{W_p^m(\Omega)}
+\]</span></p>
+<h1 id="结尾">结尾</h1>
+<p>准备工作大致结束了，更具体的问题下次再写吧。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Entertainment/20210809/poet/" rel="prev" title="b站网友小诗集">
+                  <i class="fa fa-chevron-left"></i> b站网友小诗集
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div><script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xqy</span>
+</div>
+
+<script>
+  function toEnglish(){
+    window.location.pathname = '/en'+window.location.pathname;
+  }
+</script>
+
+<div class="copyright">
+  <!-- <a href="javascript:toEnglish()">English</a> -->
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">75k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;cdn&quot;:&quot;&#x2F;&#x2F;cdn.bootcss.com&#x2F;mathjax&#x2F;2.7.1&#x2F;latest.js?config&#x3D;TeX-AMS-MML_HTMLorMML&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{&quot;enable&quot;:true,&quot;github_id&quot;:&quot;liamxu1&quot;,&quot;repo&quot;:&quot;blog-comment&quot;,&quot;client_id&quot;:&quot;71fc74d167082de3ed9c&quot;,&quot;client_secret&quot;:&quot;f3a01dce4304be5f57bb6f3e0521dd1ee4434e3e&quot;,&quot;admin_user&quot;:&quot;liamxu1&quot;,&quot;distraction_free_mode&quot;:true,&quot;proxy&quot;:&quot;https:&#x2F;&#x2F;cors-anywhere.azm.workers.dev&#x2F;https:&#x2F;&#x2F;github.com&#x2F;login&#x2F;oauth&#x2F;access_token&quot;,&quot;language&quot;:null,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;gitalk@1.7.2&#x2F;dist&#x2F;gitalk.min.js&quot;,&quot;integrity&quot;:&quot;sha256-Pmj85ojLaPOWwRtlMJwmezB&#x2F;Qg8BzvJp5eTzvXaYAfA&#x3D;&quot;},&quot;path_md5&quot;:&quot;637f972789f5200553f56164e03f3410&quot;}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
