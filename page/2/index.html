@@ -132,7 +132,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -173,6 +173,237 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://liamxu1.github.io/Math/Wavelet-Analysis/20210607/DaubechiesWavelet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="xqy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Xqy的秘密小空间">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Math/Wavelet-Analysis/20210607/DaubechiesWavelet/" class="post-title-link" itemprop="url">Daubechies小波</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-07 18:57:27" itemprop="dateCreated datePublished" datetime="2021-06-07T18:57:27+08:00">2021-06-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/" itemprop="url" rel="index"><span itemprop="name">Math</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Math/Wavelet-Analysis/" itemprop="url" rel="index"><span itemprop="name">Wavelet Analysis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言">前言</h1>
+<p>目前我们提到过的小波大致有Haar小波，Shannon小波与线性样条小波。它们都有其各自的缺陷，在之前也有提到过Haar小波不连续，Shannon小波与线性样条小波没有紧支撑。Daubechies发明了一系列以她的名字命名的小波系，成为了后来人们的更好选择。我们就将构造任意光滑的正交小波基函数。</p>
+<h1 id="小波的正则性和消失矩">小波的正则性和消失矩</h1>
+<p>正则性就是一种对函数连续性的度量。常见的刻划方式有例如</p>
+<ol type="1">
+<li><p>函数的可导次数</p></li>
+<li><p>函数的局部/全局Lipschitz系数</p></li>
+<li><p>频域中刻划：</p>
+<p><span class="math display">\[
+\int_{\mathbb{R}} \frac{|\hat{f}(\lambda)|}{1+|\lambda|^\alpha}    &lt;\infty
+\]</span></p></li>
+</ol>
+<p>等等。正则性高，则小波的稳定性好，不会出现大量近似计算的不稳定情况。</p>
+<h2 id="消失矩">消失矩</h2>
+<p>如果 <span class="math display">\[
+\int_\mathbb{R}x^n\psi(x)dx=0,n=0,1,\cdots,m-1,\int_\mathbb{R}x^m\psi(x)dx\ne 0
+\]</span> 则称<span class="math inline">\(\psi\)</span>具有m阶消失矩。</p>
+<p>可见若小波函数具有高消失矩，则会突出显示信号中的高频部分。</p>
+<p><span class="math inline">\(Thm\)</span> 设<span class="math inline">\(\psi\)</span>为一小波，如果<span class="math inline">\(H(\lambda)=\frac{1}{2}\sum_{k\in\mathbb{Z}}h_ke^{-ik\lambda}\)</span>在<span class="math inline">\(\lambda=0\)</span>具有<span class="math inline">\(m-1\)</span>阶连续导数，则下面性质等价：</p>
+<ol type="1">
+<li><span class="math inline">\(|\psi|\)</span>具有m阶消失矩</li>
+<li><span class="math inline">\((\hat{\psi})^{(n)}(0)=0,n=0,1,\cdots,m-1\)</span></li>
+<li><span class="math inline">\(H^{(n)}(\pi)=0,n=0,1,\cdots,m-1\)</span></li>
+<li><span class="math inline">\(\sum_{k\in\mathbb{Z}}(-1)^kk^nh_k=0,n=0,1,\cdots,m-1\)</span></li>
+</ol>
+<p>注意到 <span class="math display">\[
+\hat{\psi}(\lambda)=G(\frac{\lambda}{2})\hat{\phi}(\frac{\lambda}{2})=-e^{-i\lambda/2}\overline{H(\frac{\lambda+2\pi}{2})}\hat{\phi}(\frac{\lambda}{2})
+\]</span> 结论都是一些简单的数学变形。</p>
+<h3 id="一些关于消失矩的结论">一些关于消失矩的结论</h3>
+<p><span class="math inline">\(Thm\)</span> 设小波具有m阶消失矩，其尺度函数为<span class="math inline">\(\phi\)</span>，<span class="math inline">\(f\in L^2(\mathbb{R})\)</span>具有任意阶导数，则对于任意的正整数<span class="math inline">\(j\)</span>有 <span class="math display">\[
+\Vert f-\sum_{k\in Z}\langle f,\phi_{j,k}\rangle \phi_{j,k}\Vert\le 2^{-jm}\Vert f^{(m)}\Vert
+\]</span> 这个结论告诉我们当小波具有较高的消失矩的时候，用小波函数生成的级数逼近光滑函数能够取得良好的效果。</p>
+<p>消失矩与正则性是如何联系的呢，这我们有如下定理</p>
+<p><span class="math inline">\(Thm\)</span> 如果<span class="math inline">\(\psi_{j,k}(x)=2^{\frac{j}{2}}\psi(2^jx-k)\)</span>是<span class="math inline">\(L^2(\mathbb{R})\)</span>上的标准正交基，且<span class="math inline">\(|\psi(x)|\le C(1+|x|)^{-\alpha}\)</span>,<span class="math inline">\(\alpha &gt;m+1,\psi \in C^m\)</span>且当<span class="math inline">\(l\le m,\psi^l\)</span>有界，则： <span class="math display">\[
+\int_{R}x^l\psi(x)dx=0,l=0,1,\cdots,m
+\]</span></p>
+<h1 id="daubechies小波的构造">Daubechies小波的构造</h1>
+<p>上一章说到，若要双尺度系数生成正交小波，其生成多项式需要满足条件</p>
+<ol type="1">
+<li><span class="math inline">\(P(1)=1\)</span></li>
+<li><span class="math inline">\(|P(z)|^2+|P(-z)|^2=1,|z|=1\)</span></li>
+<li><span class="math inline">\(|P(e^{it})|&gt;0,|t|&lt;\pi/2\)</span></li>
+</ol>
+<p>这第二个条件最难处理，恰恰对应的就是小波函数的正交性。正交性的一个必要条件是 <span class="math display">\[
+\sum h_k\overline{h_{k+2n}}=2\delta_{0,n}
+\]</span> （从这个式子可以看出，若h紧支，如<span class="math inline">\(h_0,\cdots,h_N\ne 0\)</span>，则必有N为奇数）</p>
+<p>然而，可惜的是这个条件并不能作为正交性的一个充分条件，否则我们就可以之间用此条件联立条件1，再验证条件3得到一个解了。我们希望的就是添加一些补充的条件，使得这样的方程解出来必然满足正交性。Daubechies引入消失矩的条件，构造了一大类具有不同消失矩和紧支集的正交小波。</p>
+<p>例：<span class="math inline">\(N=3\)</span></p>
+<p>有正交性必要条件 <span class="math display">\[
+\begin{cases}
+h_0^2+h_1^2+h_2^2+h_3^2=2\\
+h_0h_2+h_1h_3=0
+\end{cases}
+\]</span> 条件1 <span class="math display">\[
+h_0+h_1+h_2+h_3=2
+\]</span> 消失矩 <span class="math display">\[
+\begin{cases}
+h_0-h_1+h_2-h_3=0\\
+h_1-2h_2+3h_3=0\\
+h_1-4h_2+9h_3\ne 0
+\end{cases}
+\]</span> 求解可得 <span class="math display">\[
+\{\frac{1+\sqrt{3}}{4},\frac{3+\sqrt{3}}{4},\frac{3-\sqrt{3}}{4},\frac{1-\sqrt{3}}{4}\}
+\]</span></p>
+<p><span class="math display">\[
+\{\frac{1-\sqrt{3}}{4},\frac{3-\sqrt{3}}{4},\frac{3+\sqrt{3}}{4},\frac{1+\sqrt{3}}{4}\}
+\]</span></p>
+<p>若去掉消失矩条件则另有解 <span class="math display">\[
+\{1,0,0,1\}
+\]</span> 不满足正交小波条件。</p>
+<h2 id="构造方法">构造方法</h2>
+<p>设<span class="math inline">\(h=\{h_0,\cdots,h_L\}\)</span>满足</p>
+<ol type="1">
+<li><p><span class="math inline">\(\sum h_k\overline{h_{k+2n}}=2\delta_{0,n}\)</span></p></li>
+<li><p><span class="math inline">\(\sum h_k=2\)</span></p></li>
+<li><p>存在正整数N使得 <span class="math display">\[
+H(\lambda)=(\frac{1+e^{-i\lambda}}{2})^N Q_N(e^{-i\lambda})
+\]</span> 其中<span class="math inline">\(Q_N(z)\)</span>为<span class="math inline">\(L-N\)</span>次实系数多项式且满足 <span class="math display">\[
+Q_N(-1)\ne 0,\sup_{|z|\le 1}|Q_N(e^{-i\lambda})|&lt;2^{N-1}
+\]</span> 则双尺度方程迭代可解。在条件<span class="math inline">\(\hat{\phi}(0)=\frac{1}{\sqrt{2\pi}}\)</span>下，其解连续唯一且是具有紧支集的正交尺度函数。</p></li>
+</ol>
+<p><span class="math inline">\(Lemma\)</span> （Riesz引理）</p>
+<p>设A是一个实系数余弦多项式 <span class="math display">\[
+A(\lambda)=\sum_{k=0}^N a_k\cos k\lambda
+\]</span> 其中，<span class="math inline">\(a_N\ne 0\)</span>，满足对任意的<span class="math inline">\(\lambda\in \mathbb{R}\)</span>有<span class="math inline">\(A(\lambda)\ge0\)</span>。则存在<span class="math inline">\(N\)</span>次实系数代数多项式 <span class="math display">\[
+B(z)=\sum_{k=0}^N b_k z^k
+\]</span> 满足<span class="math inline">\(|B(e^{i\lambda})|^2=A(\lambda)\)</span>，且<span class="math inline">\(B(1)&gt;0\)</span>。</p>
+<p><span class="math inline">\(Lemma\)</span> 形如<span class="math inline">\(H(\lambda)=(\frac{1+e^{-i\lambda}}{2})^N Q_N(e^{-i\lambda})\)</span>的实系数三角多项式满足 <span class="math display">\[
+|H(\lambda)|^2+|H(\lambda+\pi)|^2=1
+\]</span> 的充要条件是 <span class="math display">\[
+|Q_N(e^{i\lambda})|^2=P\left(\sin^2\frac{\lambda}{2}\right)
+\]</span> 其中多项式P满足 <span class="math display">\[
+\begin{aligned}
+P(y)=P_N(y)+y^NR\left(\frac{1}{2}-y\right)\\
+P_N(y)=\sum_{k=0}^{N-1}\frac{(N+k-1)!}{(N-1)!k!}y^k
+\end{aligned}
+\]</span> <span class="math inline">\(R(y)\)</span>是一个可选的奇多项式，使得<span class="math inline">\(P(y)\ge0,\forall y\in [0,1]\)</span>。</p>
+<h2 id="主要步骤">主要步骤</h2>
+<ol type="1">
+<li><p>确定多项式 <span class="math display">\[
+P_N(y)=\sum_{k=0}^{N-1}\frac{(N+k-1)!}{(N-1)!k!}y^k
+\]</span></p></li>
+<li><p>利用 <span class="math display">\[
+|Q_N(e^{i\lambda})|^2=P\left(\sin^2\frac{\lambda}{2}\right)
+\]</span> 解出<span class="math inline">\(Q_N(z)\)</span>。</p></li>
+<li><p>利用 <span class="math display">\[
+H(\lambda)=(\frac{1+e^{-i\lambda}}{2})^N Q_N(e^{-i\lambda})
+\]</span> 求出<span class="math inline">\(\{h_k\}_{k=0}^{2N-1}\)</span></p></li>
+<li><p>求出双尺度方程的迭代解<span class="math inline">\(\phi\)</span>和正交小波<span class="math inline">\(\psi\)</span></p></li>
+</ol>
+<h2 id="例子">例子</h2>
+<p><span class="math inline">\(D_4\)</span>小波：取<span class="math inline">\(N=2\)</span>则 <span class="math display">\[
+P_2(y)=1+2y
+\]</span> 假设 <span class="math display">\[
+Q_2(e^{i\lambda})=q_0+q_1e^{i\lambda}
+\]</span> 则 <span class="math display">\[
+|Q_2(e^{i\lambda})|^2=(q_0+q_1)^2-4q_0q_1\sin^2\frac{\lambda}{2}=P\left(\sin^2\frac{\lambda}{2}\right)
+\]</span> 于是 <span class="math display">\[
+q_0=\frac{1+\sqrt{3}}{2},q_1=\frac{1-\sqrt{3}}{2}~or~q_0=\frac{1-\sqrt{3}}{2},q_1=\frac{1+\sqrt{3}}{2}
+\]</span> 对于前者 <span class="math display">\[
+\begin{aligned}
+H(\lambda)&amp;=\left(\frac{1+e^{-i\lambda}}{2}\right)^2\left(\frac{1+\sqrt{3}}{2}+\frac{1-\sqrt{3}}{2}e^{-i\lambda}\right)\\
+&amp;=\frac{1+\sqrt{3}}{8}+\frac{3+\sqrt{3}}{8}e^{-i\lambda}+\frac{3-\sqrt{3}}{8}e^{-2i\lambda}+\frac{1-\sqrt{3}}{8}e^{-3i\lambda}
+\end{aligned}
+\]</span> 对应解 <span class="math display">\[
+\left\{\frac{1+\sqrt{3}}{4},\frac{3+\sqrt{3}}{4},\frac{3-\sqrt{3}}{4},\frac{1-\sqrt{3}}{4}\right\}
+\]</span> 类似地有后者对应解<span class="math inline">\(\{\frac{1-\sqrt{3}}{4},\frac{3-\sqrt{3}}{4},\frac{3+\sqrt{3}}{4},\frac{1+\sqrt{3}}{4}\}\)</span></p>
+<h1 id="daubechies小波的性质">Daubechies小波的性质</h1>
+<h2 id="紧支性">紧支性</h2>
+<p>由迭代构造 <span class="math display">\[
+\phi_n(x)=\sum h_k\phi_{n-1}(2x-k)
+\]</span> <span class="math inline">\(h_0,\cdots,h_{2N-1}\)</span>外均为零，有尺度函数支集<span class="math inline">\([0,2N-1]\)</span>，小波函数支集<span class="math inline">\([1-N,N]\)</span></p>
+<h2 id="消失矩-1">消失矩</h2>
+<p>容易验证 <span class="math display">\[
+\int_{\mathbb{R}} x^k\psi_N(t)dt=
+\begin{cases}
+0,&amp;k=0,\cdots,N-1\\
+-\frac{N!}{4^N}Q_N(-1),&amp;k=N
+\end{cases}
+\]</span></p>
+<h1 id="daubechies小波的计算">Daubechies小波的计算</h1>
+<p>除了Haar小波，我们不能给出其它Daubechies小波函数的初等函数表示形式，但有算法可以求出小波函数和尺度函数在每一个有理点的值。</p>
+<ol type="1">
+<li><p>计算尺度函数和小波函数在整数节点的值：</p>
+<p>注意到只有<span class="math inline">\(\phi(k)=0,k\le 0,k\ge 2N-1\)</span>，则只要计算<span class="math inline">\(\phi(j),j=1,\cdots,2N-2\)</span>则 <span class="math display">\[
+\psi(j)=\sum_{k=0}^{2N-1} h_k\psi(2j-k)=\sum_{k=2j-2N+1}^{2j} h_{2j-k}\psi(k)
+\]</span> 可得一个奇异的线性方程组</p>
+<p>结合条件 <span class="math display">\[
+\int \phi(x)dx=\sum_j\phi(j)
+\]</span> 从而使用尺度函数的标准化条件联立可得。</p></li>
+<li><p>计算<span class="math inline">\(\phi(\frac{n}{2^j})\)</span>与<span class="math inline">\(\psi(\frac{n}{2^j})\)</span>的值</p>
+<p>这由MRA尺度函数构造是显然的。</p></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -2099,7 +2330,7 @@ f=f^0-\sum_{i=0}^nf^i_{x_i}
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">79k</span>
+    <span title="站点总字数">81k</span>
   </span>
 </div>
 <div class="busuanzi-count">
